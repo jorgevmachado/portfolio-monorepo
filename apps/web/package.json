@@ -23,7 +23,7 @@
     "@playwright/test": "^1.44.0",
     "@repo/api": "*",
     "@repo/eslint": "*",
-    "@repo/jest-config": "*",
+    "@repo/jest": "*",
     "@repo/typescript": "*",
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^15.0.7",

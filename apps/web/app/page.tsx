@@ -8,6 +8,8 @@ import { Code } from '@repo/ui/code';
 import { Button } from '@repo/ui/button';
 
 import styles from './page.module.css';
+import { ERole, EGender, EStatus } from '@repo/business/auth/index';
+import { User } from '@repo/business/auth/interface';
 
 const Gradient = ({
   conic,
@@ -65,6 +67,21 @@ const LinksSectionForTest = () => {
 };
 
 const RootPage = ({ params }: { params: { forTest?: boolean } }) => {
+  const user: User = {
+    id: 'eaca4c08-e62d-495a-ae1c-918199da8d52',
+    cpf: '49892120450',
+    role: ERole.USER,
+    name: 'John Doe',
+    email: 'john.doe@mail.com',
+    gender: EGender.MALE,
+    status: EStatus.INCOMPLETE,
+    whatsUp: '11998765432',
+    picture: undefined,
+    createdAt: new Date('2024-09-09'),
+    deletedAt: undefined,
+    updatedAt: undefined,
+    dateOfBirth: new Date('1990-01-01'),
+  }
   return (
     <main className={styles.main}>
       <div className={styles.description}>
@@ -91,7 +108,7 @@ const RootPage = ({ params }: { params: { forTest?: boolean } }) => {
       </div>
 
       <Button appName="web (with-nestjs)" className={styles.button}>
-        Click me!
+        Click me! {user.name}
       </Button>
 
       <div className={styles.hero}>

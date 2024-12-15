@@ -1,4 +1,10 @@
-import { EGender, ERole, EStatus } from './enum';
+import { EGender } from './enum';
+import { ERole, EStatus } from '../enum';
+
+export interface INestConfig {
+  baseUrl: string;
+  token?: string;
+}
 
 export interface IUser {
   id: string;

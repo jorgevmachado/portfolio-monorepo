@@ -12,5 +12,6 @@ export const links = {
     Link,
   },
 };
-
+export * from './api'
 export * from './auth';
+export * from './pokemon';

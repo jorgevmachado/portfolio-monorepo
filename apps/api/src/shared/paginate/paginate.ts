@@ -16,46 +16,21 @@ export class Paginate<T extends ObjectLiteral>
   constructor(page: number, limit: number, total: number, results: Array<T>) {
     this.insertCurrentPageNumberIntoPagination(page);
     limit = this.calculateLimit(limit);
-    this.insertTotalNumberOfPagesIntoPagination(total, limit);
-    this.insertSkipIntoPagination(limit);
-    this.insertNumberOfNextPageIntoPagination();
-    this.insertNumberOfPreviousPageIntoPagination();
     this.insertTotalNumberOfItemsIntoPagination(total);
     this.insertTotalNumberOfItemsPerPageIntoPagination(limit);
+    this.insertTotalNumberOfPagesIntoPagination(total, limit);
+    this.insertSkipIntoPagination();
+    this.insertNumberOfNextPageIntoPagination();
+    this.insertNumberOfPreviousPageIntoPagination();
     this.insertResultsIntoPagination(results);
   }
 
   private insertCurrentPageNumberIntoPagination(page: number) {
-    page = page < 1 ? 1 : page;
-    this.current_page = page === 0 ? 1 : Number(page);
+    this.current_page = page < 1 ? 1 : page;
   }
 
   private calculateLimit(limit: number) {
     return limit > 100 ? 100 : limit;
-  }
-
-  private insertTotalNumberOfPagesIntoPagination(total: number, limit: number) {
-    this.pages = Math.ceil(total / Number(limit));
-  }
-
-  private insertSkipIntoPagination(limit: number) {
-    if (this.current_page === 1) {
-      this.skip = 0;
-    }
-
-    if (this.current_page === 2) {
-      this.skip = limit;
-    }
-
-    this.skip = this.current_page * limit - limit;
-  }
-
-  private insertNumberOfNextPageIntoPagination() {
-    this.next = this.current_page === this.pages ? 0 : this.current_page + 1;
-  }
-
-  private insertNumberOfPreviousPageIntoPagination() {
-    this.prev = this.current_page === 1 ? 0 : this.current_page - 1;
   }
 
   private insertTotalNumberOfItemsIntoPagination(total: number) {
@@ -64,6 +39,41 @@ export class Paginate<T extends ObjectLiteral>
 
   private insertTotalNumberOfItemsPerPageIntoPagination(limit: number) {
     this.per_page = limit === 0 ? this.total : limit;
+  }
+
+  private insertTotalNumberOfPagesIntoPagination(total: number, limit: number) {
+    if(limit === 0) {
+      this.pages = Math.ceil(total / this.per_page);
+      return;
+    }
+    this.pages = Math.ceil(total / limit);
+  }
+
+  private insertSkipIntoPagination() {
+    if (this.current_page === 1) {
+      this.skip = 0;
+      return;
+    }
+
+    if (this.current_page === 2) {
+      this.skip = this.per_page;
+      return;
+    }
+
+    if(this.current_page === this.pages) {
+      this.skip = this.total;
+      return;
+    }
+
+    this.skip = this.current_page * this.per_page;
+  }
+
+  private insertNumberOfNextPageIntoPagination() {
+    this.next = this.current_page === this.pages ? 0 : this.current_page + 1;
+  }
+
+  private insertNumberOfPreviousPageIntoPagination() {
+    this.prev = this.current_page === 1 ? 0 : this.current_page - 1;
   }
 
   private insertResultsIntoPagination(results: Array<T>) {

@@ -7,14 +7,27 @@ import { Pokemon as PokemonBusiness } from '@repo/business/pokemon/pokemon';
 
 import {
   POKEMON_BULBASAUR_INCOMPLETE_FIXTURE,
-  POKEMON_IVYSAUR_INCOMPLETE_FIXTURE, POKEMON_VENUSAUR_INCOMPLETE_FIXTURE,
+  POKEMON_IVYSAUR_INCOMPLETE_FIXTURE,
+  POKEMON_VENUSAUR_INCOMPLETE_FIXTURE,
+} from '@repo/business/pokemon/fixture/entityPokemon';
+
+import {
   RESPONSE_PAGINATE_POKEMON_FIXTURE,
-  RESPONSE_POKEMON_LIST_FIXTURE
-} from "@repo/business/pokemon/fixture";
+  RESPONSE_POKEMON_LIST_FIXTURE,
+} from '@repo/business/pokemon/fixture/responsePokemon';
+
+import { RESPONSE_POKEMON_BY_NAME_BULBASAUR_FIXTURE } from '@repo/business/pokemon/fixture/responsePokemonByName';
+import { POKEMON_BULBASAUR_MERGE_RESPONSE_POKEMON_NAME_INCOMPLETE_FIXTURE } from '@repo/business/pokemon/fixture/entityPokemonByName';
+
+import { RESPONSE_POKEMON_BY_NAME_SPECIE_BULBASAUR_FIXTURE } from '@repo/business/pokemon/fixture/responsePokemonByNameSpecie';
+import { POKEMON_BULBASAUR_MERGE_RESPONSE_POKEMON_NAME_SPECIE_INCOMPLETE_FIXTURE } from '@repo/business/pokemon/fixture/entityPokemonByNameSpecie';
+
 
 import { GenerateService } from './generate.service';
 
 import { Pokemon } from '../entities/pokemon.entity';
+
+
 
 describe('GenerateService', () => {
   let service: GenerateService;
@@ -28,6 +41,8 @@ describe('GenerateService', () => {
           provide: PokemonBusiness,
           useValue: {
             getAll: jest.fn(),
+            getByName: jest.fn(),
+            getSpecieByName: jest.fn(),
           },
         },
       ],
@@ -61,31 +76,68 @@ describe('GenerateService', () => {
     });
   });
 
-  describe('returnsDifferenceBetweenDatabaseAndExternalApi', () => {
+  describe('returnsDifferenceBetweenDatabaseAndExternalApi()', () => {
     it('It should return a list with the difference between the database and the external api', () => {
-
       const database: Array<Pokemon> = [
         POKEMON_IVYSAUR_INCOMPLETE_FIXTURE,
-        POKEMON_VENUSAUR_INCOMPLETE_FIXTURE
+        POKEMON_VENUSAUR_INCOMPLETE_FIXTURE,
       ];
 
       const externalApi: Array<Pokemon> = [
         POKEMON_BULBASAUR_INCOMPLETE_FIXTURE,
         POKEMON_IVYSAUR_INCOMPLETE_FIXTURE,
-        POKEMON_VENUSAUR_INCOMPLETE_FIXTURE
+        POKEMON_VENUSAUR_INCOMPLETE_FIXTURE,
       ];
 
       const differenceBetweenDatabaseAndExternalApi: Array<Pokemon> = [
         POKEMON_BULBASAUR_INCOMPLETE_FIXTURE,
-      ]
-
+      ];
 
       expect(
         service.returnsDifferenceBetweenDatabaseAndExternalApi(
-          database
-          , externalApi
-        )
-      ).toEqual(differenceBetweenDatabaseAndExternalApi)
-    })
+          database,
+          externalApi,
+        ),
+      ).toEqual(differenceBetweenDatabaseAndExternalApi);
+    });
+  });
+
+  describe('generatingPokemonOfPokemonByResponsePokemonName(pokemon)', () => {
+    it('You must make a request to an external api and merge the information with the pokemon object', async () => {
+      jest
+        .spyOn(business, 'getByName')
+        .mockResolvedValueOnce(RESPONSE_POKEMON_BY_NAME_BULBASAUR_FIXTURE);
+
+      expect(
+        await service.generatingPokemonOfPokemonByResponsePokemonName(
+          POKEMON_BULBASAUR_INCOMPLETE_FIXTURE,
+        ),
+      ).toEqual({
+        types: RESPONSE_POKEMON_BY_NAME_BULBASAUR_FIXTURE.types,
+        stats: RESPONSE_POKEMON_BY_NAME_BULBASAUR_FIXTURE.stats,
+        moves: RESPONSE_POKEMON_BY_NAME_BULBASAUR_FIXTURE.moves,
+        pokemon:
+          POKEMON_BULBASAUR_MERGE_RESPONSE_POKEMON_NAME_INCOMPLETE_FIXTURE,
+        abilities: RESPONSE_POKEMON_BY_NAME_BULBASAUR_FIXTURE.abilities,
+      });
+    });
+  });
+
+  describe('generatingPokemonOfPokemonByResponsePokemonSpecie(pokemon)', () => {
+    it('You must make a request to an external api and merge the information with the pokemon object', async () => {
+      jest
+        .spyOn(business, 'getSpecieByName')
+        .mockResolvedValueOnce(
+          RESPONSE_POKEMON_BY_NAME_SPECIE_BULBASAUR_FIXTURE,
+        );
+
+      expect(
+        await service.generatingPokemonOfPokemonByResponsePokemonSpecie(
+          POKEMON_BULBASAUR_INCOMPLETE_FIXTURE,
+        ),
+      ).toEqual(
+        POKEMON_BULBASAUR_MERGE_RESPONSE_POKEMON_NAME_SPECIE_INCOMPLETE_FIXTURE,
+      );
+    });
   });
 });

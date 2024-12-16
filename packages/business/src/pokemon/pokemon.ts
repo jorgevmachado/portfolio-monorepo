@@ -1,4 +1,4 @@
-import { PokemonApi } from '../api/pokemon';
+import { type IResponsePokemonName, PokemonApi } from '../api/pokemon';
 import { Nest, ResponsePaginate } from '../api';
 
 import {
@@ -6,8 +6,9 @@ import {
   ResponsePokemonEvolution,
   ResponsePokemonMove,
   ResponsePokemonName,
-  ResponsePokemonSpecie, TImage
-} from "./interface";
+  ResponsePokemonSpecie,
+  TImage,
+} from './interface';
 
 export class Pokemon {
   limit: number = 1302;
@@ -72,7 +73,7 @@ export class Pokemon {
 
       return {
         ...response,
-        image: this.generateImage(response.sprites)
+        image: this.generateImage(response.sprites),
       };
     });
   }
@@ -98,18 +99,20 @@ export class Pokemon {
     return Number(url.replace(urlDefault, '').replace('/', ''));
   }
 
-  generateImage(sprites?: ResponsePokemonName['sprites'], type: TImage = 'front' ) {
+  generateImage(
+    sprites?: IResponsePokemonName['sprites'],
+    type: TImage = 'front',
+  ) {
     if (!sprites) {
       return '';
     }
 
-    if(type === 'front') {
+    if (type === 'front') {
       const frontDefault = sprites.front_default;
       const dreamWorld = sprites.other.dream_world.front_default;
       return frontDefault || dreamWorld;
     }
 
     return '';
-
   }
 }

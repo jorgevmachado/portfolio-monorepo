@@ -4,14 +4,18 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { Pokemon as PokemonBusiness } from '@repo/business/pokemon/pokemon';
+
 import {
   POKEMON_IVYSAUR_INCOMPLETE_FIXTURE,
   POKEMON_LIST_FIXTURE,
   POKEMON_VENUSAUR_INCOMPLETE_FIXTURE,
+} from '@repo/business/pokemon/fixture/entityPokemon';
+
+import {
   RESPONSE_PAGINATE_POKEMON_FIXTURE,
   RESPONSE_POKEMON_BULBASAUR_FIXTURE,
   RESPONSE_POKEMON_LIST_FIXTURE,
-} from '@repo/business/pokemon/fixture';
+} from '@repo/business/pokemon/fixture/responsePokemon';
 
 import { EStatus } from '@repo/business/shared/enum';
 

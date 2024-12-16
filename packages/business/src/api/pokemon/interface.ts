@@ -5,6 +5,8 @@ export interface IResponsePokemon {
 }
 
 export interface IResponsePokemonName {
+  name: string;
+  order: number;
   types: Array<IResponseType>;
   moves: Array<IResponseMove>;
   stats: Array<IResponseStat>;
@@ -67,7 +69,7 @@ export interface IResponsePokemonSpecie {
   hatch_counter: number;
   base_happiness: number;
   evolution_chain: Pick<IResponsePokemon, 'url'>;
-  evolves_from_species: any;
+  evolves_from_species?: Pick<IResponsePokemon, 'url' | 'name'>;
   has_gender_differences: boolean;
 }
 

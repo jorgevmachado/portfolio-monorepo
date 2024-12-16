@@ -14,7 +14,7 @@ export interface PokemonConfig {
 
 export type ResponsePokemon = IResponsePokemon;
 
-export interface ResponsePokemonName extends IResponsePokemonName {
+export interface ResponsePokemonName extends Omit<IResponsePokemonName, 'sprites'> {
   image: string;
 }
 

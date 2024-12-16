@@ -1,28 +1,29 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 
-import { Pokemon as PokemonBusiness } from '@repo/business/pokemon/pokemon';
 import { EStatus } from '@repo/business/shared/enum';
+
+import { Pokemon as PokemonBusiness } from '@repo/business/pokemon/pokemon';
+
 import {
   POKEMON_BULBASAUR_INCOMPLETE_FIXTURE,
-  POKEMON_IVYSAUR_INCOMPLETE_FIXTURE,
-  POKEMON_VENUSAUR_INCOMPLETE_FIXTURE,
+  POKEMON_IVYSAUR_INCOMPLETE_FIXTURE, POKEMON_VENUSAUR_INCOMPLETE_FIXTURE,
   RESPONSE_PAGINATE_POKEMON_FIXTURE,
   RESPONSE_POKEMON_LIST_FIXTURE
 } from "@repo/business/pokemon/fixture";
 
-import { GenerationService } from './generation.service';
+import { GenerateService } from './generate.service';
 
 import { Pokemon } from '../entities/pokemon.entity';
 
-describe('GenerationService', () => {
-  let service: GenerationService;
+describe('GenerateService', () => {
+  let service: GenerateService;
   let business: PokemonBusiness;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        GenerationService,
+        GenerateService,
         {
           provide: PokemonBusiness,
           useValue: {
@@ -32,7 +33,7 @@ describe('GenerationService', () => {
       ],
     }).compile();
 
-    service = module.get<GenerationService>(GenerationService);
+    service = module.get<GenerateService>(GenerateService);
     business = module.get<PokemonBusiness>(PokemonBusiness);
   });
 
@@ -41,13 +42,13 @@ describe('GenerationService', () => {
     expect(business).toBeDefined();
   });
 
-  describe('generateList()', () => {
+  describe('generatingListOfPokemonsByResponsePokemon()', () => {
     it('Should convert external api response to Pokemon type list', async () => {
       jest
         .spyOn(business, 'getAll')
         .mockResolvedValueOnce(RESPONSE_PAGINATE_POKEMON_FIXTURE);
 
-      expect(await service.generateList()).toEqual(
+      expect(await service.generatingListOfPokemonsByResponsePokemon()).toEqual(
         RESPONSE_POKEMON_LIST_FIXTURE.map((response) => {
           const pokemon = new Pokemon();
           pokemon.url = response.url;
@@ -56,18 +57,6 @@ describe('GenerationService', () => {
           pokemon.status = EStatus.INCOMPLETE;
           return pokemon;
         }),
-      );
-    });
-  });
-
-  describe('returnsResponseFromExternalApi', () => {
-    it('It should return a list of pokemons returned by an external api', async () => {
-      jest
-        .spyOn(business, 'getAll')
-        .mockResolvedValueOnce(RESPONSE_PAGINATE_POKEMON_FIXTURE);
-
-      expect(await service.returnsResponseFromExternalApi()).toEqual(
-        RESPONSE_POKEMON_LIST_FIXTURE,
       );
     });
   });
@@ -98,5 +87,5 @@ describe('GenerationService', () => {
         )
       ).toEqual(differenceBetweenDatabaseAndExternalApi)
     })
-  })
+  });
 });

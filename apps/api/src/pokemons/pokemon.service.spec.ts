@@ -17,7 +17,7 @@ import { EStatus } from '@repo/business/shared/enum';
 
 import { Pokemon } from './entities/pokemon.entity';
 
-import { GenerationService } from './generation/generation.service';
+import { GenerateService } from "./generate/generate.service";
 
 import { PokemonService } from './pokemon.service';
 
@@ -25,7 +25,7 @@ describe('PokemonsService', () => {
   let service: PokemonService;
   let repository: Repository<Pokemon>;
   let business: PokemonBusiness;
-  let generationService: GenerationService;
+  let generateService: GenerateService;
 
   const listOfPokemonsConvertedFromResponse = RESPONSE_POKEMON_LIST_FIXTURE.map(
     (response) => {
@@ -51,9 +51,9 @@ describe('PokemonsService', () => {
           },
         },
         {
-          provide: GenerationService,
+          provide: GenerateService,
           useValue: {
-            generateList: jest.fn(),
+            generatingListOfPokemonsByResponsePokemon: jest.fn(),
             returnsDifferenceBetweenDatabaseAndExternalApi: jest.fn(),
           },
         },
@@ -63,13 +63,13 @@ describe('PokemonsService', () => {
     service = module.get<PokemonService>(PokemonService);
     repository = module.get<Repository<Pokemon>>(getRepositoryToken(Pokemon));
     business = module.get<PokemonBusiness>(PokemonBusiness);
-    generationService = module.get<GenerationService>(GenerationService);
+    generateService = module.get<GenerateService>(GenerateService);
   });
 
   it('should be defined', () => {
     expect(service).toBeDefined();
     expect(business).toBeDefined();
-    expect(generationService).toBeDefined();
+    expect(generateService).toBeDefined();
   });
 
   describe('findAll()', () => {
@@ -81,7 +81,7 @@ describe('PokemonsService', () => {
         .mockResolvedValueOnce(RESPONSE_PAGINATE_POKEMON_FIXTURE);
 
       jest
-        .spyOn(generationService, 'generateList')
+        .spyOn(generateService, 'generatingListOfPokemonsByResponsePokemon')
         .mockResolvedValueOnce(listOfPokemonsConvertedFromResponse);
 
       listOfPokemonsConvertedFromResponse.forEach((pokemon) => {
@@ -104,7 +104,7 @@ describe('PokemonsService', () => {
         .mockResolvedValueOnce(RESPONSE_PAGINATE_POKEMON_FIXTURE);
 
       jest
-        .spyOn(generationService, 'generateList')
+        .spyOn(generateService, 'generatingListOfPokemonsByResponsePokemon')
         .mockResolvedValueOnce(listOfPokemonsConvertedFromResponse);
 
       const database: Array<Pokemon> = [
@@ -127,7 +127,7 @@ describe('PokemonsService', () => {
 
       jest
         .spyOn(
-          generationService,
+          generateService,
           'returnsDifferenceBetweenDatabaseAndExternalApi',
         )
         .mockReturnValueOnce(differenceOfPokemonsConvertedFromResponse);

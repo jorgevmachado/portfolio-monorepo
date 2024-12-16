@@ -1,11 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Pokemon } from './entities/pokemon.entity';
-import { Paginate, QueryParameters } from '@repo/business/shared/interface';
+
+import { QueryParameters } from '@repo/business/shared/interface';
+import { PaginateParameters } from "@repo/business/paginate/interface";
+
 import { Pokemon as PokemonBusiness } from '@repo/business/pokemon/pokemon';
+
+import { Pokemon } from './entities/pokemon.entity';
+
 import { Service } from '../shared';
-import { GenerationService } from './generation/generation.service';
+
+import { GenerateService } from "./generate/generate.service";
 
 @Injectable()
 export class PokemonService extends Service<Pokemon> {
@@ -13,14 +19,14 @@ export class PokemonService extends Service<Pokemon> {
     @InjectRepository(Pokemon)
     protected repository: Repository<Pokemon>,
     protected business: PokemonBusiness,
-    protected generationService: GenerationService,
+    protected generateService: GenerateService,
   ) {
     super('pokemons', [], repository);
   }
 
   async findAll(
     parameters: QueryParameters,
-  ): Promise<Array<Pokemon> | Paginate<Pokemon>> {
+  ): Promise<Array<Pokemon> | PaginateParameters<Pokemon>> {
     await this.initializeDatabase();
     return this.list({ parameters });
   }
@@ -29,18 +35,20 @@ export class PokemonService extends Service<Pokemon> {
     const total = await this.repository.count();
 
     if (total === 0) {
-      const pokemonList = await this.generationService.generateList();
+      const pokemonList = await this.generateService
+        .generatingListOfPokemonsByResponsePokemon();
 
       return this.createPokemonList(pokemonList);
     }
 
     if (total !== this.business.limit) {
-      const pokemonList = await this.generationService.generateList();
+      const pokemonList = await this.generateService
+        .generatingListOfPokemonsByResponsePokemon();
 
       const entities = total !== 0 ? await this.repository.find() : [];
 
       const saveList =
-        this.generationService.returnsDifferenceBetweenDatabaseAndExternalApi(
+        this.generateService.returnsDifferenceBetweenDatabaseAndExternalApi(
           entities,
           pokemonList,
         );

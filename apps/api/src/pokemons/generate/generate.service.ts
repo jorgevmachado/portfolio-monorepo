@@ -1,32 +1,25 @@
 import { Injectable } from '@nestjs/common';
 
-import { Pokemon as PokemonBusiness } from '@repo/business/pokemon/pokemon';
-import { ResponsePokemon } from '@repo/business/pokemon/interface';
 import { EStatus } from '@repo/business/shared/enum';
 
+import { Pokemon as PokemonBusiness } from '@repo/business/pokemon/pokemon';
+
 import { Base } from '../../shared';
+
 import { Pokemon } from '../entities/pokemon.entity';
 
 @Injectable()
-export class GenerationService extends Base {
+export class GenerateService extends Base {
   constructor(protected business: PokemonBusiness) {
     super();
   }
 
-  async generateList(): Promise<Array<Pokemon>> {
-    const responseList = await this.returnsResponseFromExternalApi();
-
-    return this.initializeList(responseList);
-  }
-
-  async returnsResponseFromExternalApi(): Promise<Array<ResponsePokemon>> {
-    return this.business
+  async generatingListOfPokemonsByResponsePokemon(): Promise<Array<Pokemon>> {
+    const responseList = await this.business
       .getAll()
       .then((response) => response.results)
       .catch((error) => this.error(error));
-  }
 
-  private initializeList(responseList: Array<ResponsePokemon>) {
     return responseList.map((response) => {
       const pokemon = new Pokemon();
       pokemon.url = response.url;

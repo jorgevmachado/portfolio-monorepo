@@ -1,7 +1,20 @@
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { EntityAbility, EntityMove, EntityPokemon, EntityType } from "@repo/business/pokemon/interface";
-import { EStatus } from "@repo/business/api/enum";
+import type {
+  EntityAbility,
+  EntityMove,
+  EntityPokemon,
+  EntityType,
+} from '@repo/business/pokemon/interface';
+
+import { EStatus } from '@repo/business/shared/enum';
 
 @Entity({ name: 'pokemons' })
 export class Pokemon implements EntityPokemon {

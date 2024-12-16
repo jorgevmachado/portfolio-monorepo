@@ -13,7 +13,7 @@ import {
   RESPONSE_POKEMON_LIST_FIXTURE,
 } from '@repo/business/pokemon/fixture';
 
-import { EStatus } from '@repo/business/api/enum';
+import { EStatus } from '@repo/business/shared/enum';
 
 import { Pokemon } from './entities/pokemon.entity';
 

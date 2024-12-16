@@ -2,9 +2,11 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 
 import { Pokemon as PokemonBusiness } from '@repo/business/pokemon/pokemon';
-import { EStatus } from '@repo/business/api/enum';
+import { EStatus } from '@repo/business/shared/enum';
 import {
-  POKEMON_BULBASAUR_INCOMPLETE_FIXTURE, POKEMON_IVYSAUR_INCOMPLETE_FIXTURE, POKEMON_VENUSAUR_INCOMPLETE_FIXTURE,
+  POKEMON_BULBASAUR_INCOMPLETE_FIXTURE,
+  POKEMON_IVYSAUR_INCOMPLETE_FIXTURE,
+  POKEMON_VENUSAUR_INCOMPLETE_FIXTURE,
   RESPONSE_PAGINATE_POKEMON_FIXTURE,
   RESPONSE_POKEMON_LIST_FIXTURE
 } from "@repo/business/pokemon/fixture";

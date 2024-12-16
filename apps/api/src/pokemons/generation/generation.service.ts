@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
+
 import { Pokemon as PokemonBusiness } from '@repo/business/pokemon/pokemon';
 import { ResponsePokemon } from '@repo/business/pokemon/interface';
+import { EStatus } from '@repo/business/shared/enum';
+
 import { Base } from '../../shared';
 import { Pokemon } from '../entities/pokemon.entity';
-import { EStatus } from '@repo/business/api/enum';
 
 @Injectable()
 export class GenerationService extends Base {

@@ -1,3 +1,4 @@
+import { validate as isUuid } from 'uuid';
 import { serialize } from '../object';
 
 export function formatUrl(url: string, path: string, params = {}) {
@@ -15,4 +16,8 @@ export function uuid(currentDate: Date = new Date()) {
     date = Math.floor(date / 16);
     return (c == 'x' ? random : (random & 0x3 | 0x8)).toString(16);
   });
+}
+
+export function isUUID(value: string): boolean {
+  return isUuid(value);
 }

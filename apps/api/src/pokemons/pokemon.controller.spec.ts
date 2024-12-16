@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { beforeEach, describe, expect, it } from '@jest/globals';
+
 import { PokemonController } from './pokemon.controller';
 import { PokemonService } from './pokemon.service';
-import { beforeEach, describe, expect, it } from '@jest/globals';
 
 describe('PokemonsController', () => {
   let controller: PokemonController;
@@ -18,6 +19,7 @@ describe('PokemonsController', () => {
     }).compile();
 
     controller = module.get<PokemonController>(PokemonController);
+    service = module.get<PokemonService>(PokemonService);
   });
 
   it('should be defined', () => {

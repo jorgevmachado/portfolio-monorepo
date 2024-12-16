@@ -1,4 +1,4 @@
-import { QueryParameters } from "@repo/business/api/interface";
+import { QueryParameters } from "@repo/business/shared/interface";
 
 export interface ListParams {
   filters?: Array<FilterParams>;

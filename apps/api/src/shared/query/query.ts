@@ -1,4 +1,4 @@
-import { QueryParameters } from "@repo/business/api/interface";
+import { QueryParameters } from "@repo/business/shared/interface";
 import { ObjectLiteral, Repository, SelectQueryBuilder } from "typeorm";
 import { FilterParams, SearchParams } from "../interface";
 import { ConflictException } from "@nestjs/common";

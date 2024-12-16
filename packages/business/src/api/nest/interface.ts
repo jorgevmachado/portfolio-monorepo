@@ -1,5 +1,5 @@
 import { EGender } from './enum';
-import { ERole, EStatus } from '../enum';
+import { ERole, EStatus } from '../../shared';
 
 export interface INestConfig {
   baseUrl: string;

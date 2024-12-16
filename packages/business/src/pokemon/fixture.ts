@@ -1,5 +1,7 @@
 import { EntityPokemon, ResponsePokemon } from './interface';
-import { EStatus, Paginate, ResponsePaginate } from '../api';
+import { ResponsePaginate } from '../api';
+import { EStatus } from '../shared/enum';
+import { PaginateParameters } from '../paginate/interface';
 
 export const RESPONSE_POKEMON_BULBASAUR_FIXTURE: ResponsePokemon = {
   url: 'https://pokeapi.co/api/v2/pokemon/1/',
@@ -95,7 +97,7 @@ export const POKEMON_LIST_FIXTURE: Array<EntityPokemon> = [
   POKEMON_VENUSAUR_INCOMPLETE_FIXTURE
 ]
 
-export const POKEMON_PAGINATE_FIXTURE: Paginate<EntityPokemon> = {
+export const POKEMON_PAGINATE_FIXTURE: PaginateParameters<EntityPokemon> = {
   skip: 0,
   next: 2,
   prev: 0,

@@ -1,6 +1,8 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
+
+import { QueryParameters } from '@repo/business/shared/interface';
+
 import { PokemonService } from './pokemon.service';
-import { QueryParameters } from '@repo/business/api/interface';
 
 @Controller('pokemon')
 export class PokemonController {

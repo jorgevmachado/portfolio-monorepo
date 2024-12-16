@@ -1,8 +1,9 @@
 import { ObjectLiteral, Repository } from 'typeorm';
-import { Paginate as PaginateParameters } from '@repo/business/api/interface';
+import { PaginateParameters } from '@repo/business/paginate/interface';
+import { Paginate } from '@repo/business/paginate/paginate';
+
 import { Query } from '../query';
 import { ListParams } from '../interface';
-import { Paginate } from '../paginate';
 import { Base } from '../base';
 
 export abstract class Service<T extends ObjectLiteral> extends Base {

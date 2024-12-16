@@ -1,11 +1,11 @@
 import {
   IResponsePokemon,
-  IResponsePokemonName,
-  IResponsePokemonMove,
-  IResponsePokemonSpecie,
   IResponsePokemonEvolution,
-} from "../api/pokemon";
-import { EStatus } from "../api";
+  IResponsePokemonMove,
+  IResponsePokemonName,
+  IResponsePokemonSpecie,
+} from '../api/pokemon';
+import { EStatus } from '../shared/enum';
 
 export interface PokemonConfig {
   token?: string;
@@ -14,7 +14,11 @@ export interface PokemonConfig {
 
 export type ResponsePokemon = IResponsePokemon;
 
-export type ResponsePokemonName = IResponsePokemonName;
+export interface ResponsePokemonName extends IResponsePokemonName {
+  image: string;
+}
+
+export type TImage = 'front';
 
 export type ResponsePokemonMove = IResponsePokemonMove;
 
@@ -84,9 +88,9 @@ export interface EntityType {
   url: string;
   name: string;
   order: number;
-  createdAt: Date;
-  updatedAt: Date;
-  deletedAt: Date;
+  created_at: Date;
+  updated_at: Date;
+  deleted_at: Date;
   text_color: string;
   background_color: string;
 }

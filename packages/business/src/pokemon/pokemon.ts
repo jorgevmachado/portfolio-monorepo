@@ -6,8 +6,8 @@ import {
   ResponsePokemonEvolution,
   ResponsePokemonMove,
   ResponsePokemonName,
-  ResponsePokemonSpecie,
-} from './interface';
+  ResponsePokemonSpecie, TImage
+} from "./interface";
 
 export class Pokemon {
   limit: number = 1302;
@@ -70,7 +70,10 @@ export class Pokemon {
         ),
       }));
 
-      return response;
+      return {
+        ...response,
+        image: this.generateImage(response.sprites)
+      };
     });
   }
 
@@ -93,5 +96,20 @@ export class Pokemon {
 
   generateOrder(url: string, urlDefault: string): number {
     return Number(url.replace(urlDefault, '').replace('/', ''));
+  }
+
+  generateImage(sprites?: ResponsePokemonName['sprites'], type: TImage = 'front' ) {
+    if (!sprites) {
+      return '';
+    }
+
+    if(type === 'front') {
+      const frontDefault = sprites.front_default;
+      const dreamWorld = sprites.other.dream_world.front_default;
+      return frontDefault || dreamWorld;
+    }
+
+    return '';
+
   }
 }

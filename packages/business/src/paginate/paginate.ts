@@ -1,9 +1,6 @@
-import { ObjectLiteral } from 'typeorm';
-import { Paginate as PaginateParameters } from '@repo/business/api/interface';
+import { PaginateParameters } from './interface';
 
-export class Paginate<T extends ObjectLiteral>
-  implements PaginateParameters<T>
-{
+export class Paginate<T> implements PaginateParameters<T> {
   skip: number = 0;
   next: number = 0;
   prev: number = 0;
@@ -79,4 +76,5 @@ export class Paginate<T extends ObjectLiteral>
   private insertResultsIntoPagination(results: Array<T>) {
     this.results = results;
   }
+
 }

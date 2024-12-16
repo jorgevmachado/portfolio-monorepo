@@ -1,5 +1,6 @@
-import { describe, expect, it } from "@jest/globals";
-import { Paginate } from "./paginate";
+import { describe, expect, it } from '@jest/globals';
+
+import { Paginate } from './paginate';
 
 describe('paginate', () => {
   it('You must build the pagination', () => {
@@ -11,7 +12,7 @@ describe('paginate', () => {
       pages: 14,
       results: [],
       per_page: 100,
-      current_page: 1
+      current_page: 1,
     });
   });
 
@@ -24,8 +25,8 @@ describe('paginate', () => {
       pages: 14,
       results: [],
       per_page: 100,
-      current_page: 2
-    })
+      current_page: 2,
+    });
   });
 
   it('You must build the pagination with pages above 2', () => {
@@ -37,8 +38,8 @@ describe('paginate', () => {
       pages: 14,
       results: [],
       per_page: 95,
-      current_page: 3
-    })
+      current_page: 3,
+    });
   });
 
   it('You must build the pagination with the page equal to the last page', () => {
@@ -50,8 +51,8 @@ describe('paginate', () => {
       pages: 14,
       results: [],
       per_page: 95,
-      current_page: 14
-    })
+      current_page: 14,
+    });
   });
 
   it('Must build pagination without limit', () => {
@@ -63,7 +64,7 @@ describe('paginate', () => {
       pages: 1,
       results: [],
       per_page: 1302,
-      current_page: 1
-    })
+      current_page: 1,
+    });
   });
 });

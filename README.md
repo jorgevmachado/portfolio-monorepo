@@ -31,6 +31,9 @@ Project created with the aim of improving my knowledge of monorepo, nest, next, 
 ## How to create project with Turbo Repo
 See [Create Project with Turbo Repo](HOW-CREATE-PROJECT-TURBOREPO.md)
 
+## How to install and use docker with this project
+See [How to install and use docker](HOW-USING-DOCKER-WITH-THIS-PROJECT.md)
+
 ## How to run
 
 See [Running the aplication](HOW-TO-RUN.md)

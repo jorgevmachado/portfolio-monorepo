@@ -24,7 +24,7 @@ export const ENTITY_TYPE_POISON_FIXTURE: EntityType = {
   background_color: '#8b008b'
 };
 
-export const ENTITY_TYPE_LIST_FIXTURE: Array<EntityType> = [
+export const ENTITY_LIST_TYPE_FIXTURE: Array<EntityType> = [
   ENTITY_TYPE_GRASS_FIXTURE,
   ENTITY_TYPE_POISON_FIXTURE
 ]

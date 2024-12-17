@@ -5,10 +5,10 @@ import { Repository } from 'typeorm';
 
 import { RESPONSE_LIST_TYPE_FIXTURE } from '@repo/business/pokemon/fixture/responseType';
 import {
+  ENTITY_LIST_TYPE_FIXTURE,
   ENTITY_TYPE_GRASS_FIXTURE,
-  ENTITY_TYPE_LIST_FIXTURE,
-  ENTITY_TYPE_POISON_FIXTURE,
-} from '@repo/business/pokemon/fixture/entityType';
+  ENTITY_TYPE_POISON_FIXTURE
+} from "@repo/business/pokemon/fixture/entityType";
 
 import { Type } from '../entities/type.entity';
 
@@ -58,7 +58,7 @@ describe('TypeService', () => {
       } as any);
 
       expect(await service.findList(RESPONSE_LIST_TYPE_FIXTURE)).toEqual(
-        ENTITY_TYPE_LIST_FIXTURE,
+        ENTITY_LIST_TYPE_FIXTURE,
       );
     });
 
@@ -112,7 +112,7 @@ describe('TypeService', () => {
       } as any);
 
       expect(await service.findList(RESPONSE_LIST_TYPE_FIXTURE)).toEqual(
-        ENTITY_TYPE_LIST_FIXTURE,
+        ENTITY_LIST_TYPE_FIXTURE,
       );
     });
   });

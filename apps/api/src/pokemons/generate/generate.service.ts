@@ -11,6 +11,7 @@ import { Pokemon } from '../entities/pokemon.entity';
 import { Type } from '../entities/type.entity';
 
 import { TYPE_COLORS } from './generate.constants';
+import { Move } from "../entities/move.entity";
 
 interface PokemonByResponsePokemonName {
   types: ResponsePokemonName['types'];
@@ -192,13 +193,47 @@ export class GenerateService extends Base {
     const typeColor = TYPE_COLORS.find(
       (color) => color.name === responseType?.type?.name,
     );
-    const type = new Type();
-    type.url = responseType?.type?.url;
-    type.name = responseType?.type?.name;
-    type.order = responseType?.order;
-    type.text_color = !typeColor ? '#FFF' : typeColor.textColor;
-    type.background_color = !typeColor ? '#000' : typeColor.backgroundColor;
-    return type;
+    return new Type({
+      id: undefined,
+      url: responseType?.type?.url,
+      name: responseType?.type?.name,
+      order: responseType?.order,
+      created_at: undefined,
+      updated_at: undefined,
+      deleted_at: undefined,
+      text_color: !typeColor ? '#FFF' : typeColor.textColor,
+      background_color: !typeColor ? '#000' : typeColor.backgroundColor,
+    });
+  }
 
+  async generatingMoveOfResponseMove(responsePokemonNameMove: ResponsePokemonName['moves'][number]) {
+    const responseMove = await this.business
+      .getMove(responsePokemonNameMove.order)
+      .then((response) => response)
+      .catch((error) => this.error(error));
+
+    return new Move({
+      id: undefined,
+      pp: responseMove.pp,
+      url: responsePokemonNameMove.move.url,
+      type: responseMove.type,
+      name: responsePokemonNameMove.move.name,
+      order: responsePokemonNameMove.order,
+      power: responseMove.power,
+      target: responseMove.target,
+      effect: responseMove.effect,
+      priority: responseMove.priority,
+      accuracy: responseMove.accuracy,
+      created_at: undefined,
+      updated_at: undefined,
+      deleted_at: undefined,
+      short_effect: responseMove.short_effect,
+      damage_class: responseMove.damage_class,
+      effect_chance: responseMove.effect_chance,
+      learned_by_pokemon: JSON.stringify(
+        responseMove.learned_by_pokemon
+      ),
+      pokemons: responseMove.learned_by_pokemon
+    });
   }
 }

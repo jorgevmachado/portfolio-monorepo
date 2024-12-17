@@ -1,7 +1,6 @@
 import {
   IResponsePokemon,
   IResponsePokemonEvolution,
-  IResponsePokemonMove,
   IResponsePokemonName,
   IResponsePokemonSpecie,
 } from '../api/pokemon';
@@ -20,7 +19,19 @@ export interface ResponsePokemonName extends Omit<IResponsePokemonName, 'sprites
 
 export type TImage = 'front';
 
-export type ResponsePokemonMove = IResponsePokemonMove;
+export interface ResponsePokemonMove {
+  pp: number;
+  type: string;
+  power: number;
+  effect: string;
+  target: string;
+  priority: number;
+  accuracy: number;
+  short_effect: string;
+  damage_class: string;
+  effect_chance?: number;
+  learned_by_pokemon: Array<string>;
+}
 
 export type ResponsePokemonSpecie = IResponsePokemonSpecie;
 
@@ -68,11 +79,11 @@ export interface EntityMove {
   type: string;
   name: string;
   order: number;
-  power: number;
+  power?: number;
   target: string;
   effect: string;
   priority: number;
-  accuracy: number;
+  accuracy?: number;
   pokemons?: Array<string>;
   created_at: Date;
   updated_at: Date;

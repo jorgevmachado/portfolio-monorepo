@@ -17,7 +17,7 @@ import { Service } from '../shared';
 
 import { GenerateService } from './generate/generate.service';
 import { TypeService } from './type/type.service';
-
+import { MoveService } from './move/move.service';
 
 @Injectable()
 export class PokemonService extends Service<Pokemon> {
@@ -26,7 +26,8 @@ export class PokemonService extends Service<Pokemon> {
     protected repository: Repository<Pokemon>,
     protected business: PokemonBusiness,
     protected generateService: GenerateService,
-    protected typeService: TypeService
+    protected typeService: TypeService,
+    protected moveService: MoveService,
   ) {
     super('pokemons', [], repository);
   }
@@ -83,7 +84,7 @@ export class PokemonService extends Service<Pokemon> {
       return result;
     }
 
-    if(!complete) {
+    if (!complete) {
       return result;
     }
 
@@ -91,9 +92,14 @@ export class PokemonService extends Service<Pokemon> {
   }
 
   private async completingPokemonData(pokemon: Pokemon) {
-    const basicPokemon = await this.generateService.completingPokemonDataThroughTheExternalApiByName(pokemon);
-    const types = await this.typeService.findList(basicPokemon.types)
+    const basicPokemon =
+      await this.generateService.completingPokemonDataThroughTheExternalApiByName(
+        pokemon,
+      );
+    const types = await this.typeService.findList(basicPokemon.types);
+    const moves = await this.moveService.findList(basicPokemon.moves);
     console.log('types => ', types);
+    console.log('moves => ', moves);
     await this.save(basicPokemon.pokemon);
 
     return await this.findOne(pokemon.name, false);

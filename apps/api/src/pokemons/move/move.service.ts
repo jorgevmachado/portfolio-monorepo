@@ -1,27 +1,30 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 import { ResponsePokemonName } from '@repo/business/pokemon/interface';
 
 import { Service } from '../../shared';
-import { Type } from '../entities/type.entity';
+
+import { Move } from '../entities/move.entity';
+
 import { GenerateService } from '../generate/generate.service';
-import { FindOneParams } from "../../shared/interface";
+
+import { FindOneParams } from '../../shared/interface';
 
 @Injectable()
-export class TypeService extends Service<Type> {
+export class MoveService extends Service<Move> {
   constructor(
-    @InjectRepository(Type)
-    protected repository: Repository<Type>,
+    @InjectRepository(Move)
+    protected repository: Repository<Move>,
     protected generateService: GenerateService,
   ) {
-    super('types', [], repository);
+    super('moves', [], repository);
   }
 
-  async findList(types: ResponsePokemonName['types']) {
+  async findList(moves: ResponsePokemonName['moves']) {
     return await Promise.all(
-      types.map(async (response) =>
+      moves.map(async (response) =>
         this.findOne({
           order: response.order,
           response,
@@ -36,7 +39,7 @@ export class TypeService extends Service<Type> {
     complete = true,
     withThrow = true,
     response,
-  }: FindOneParams<ResponsePokemonName['types'][number]>): Promise<Type> {
+  }: FindOneParams<ResponsePokemonName['moves'][number]>) {
     const result = await this.findBy({
       searchParams: {
         by: 'order',
@@ -49,20 +52,19 @@ export class TypeService extends Service<Type> {
       return result;
     }
 
-    return await this.completingTypeData(result, response);
+    return await this.completingMoveData(result, response);
   }
 
-  async completingTypeData(
-    entity: Type,
-    responseType: ResponsePokemonName['types'][number],
-  ): Promise<Type> {
+  async completingMoveData(
+    entity: Move,
+    response: ResponsePokemonName['moves'][number],
+  ) {
     if (!entity) {
-      const type =
-        this.generateService.generatingTypeOfResponseType(responseType);
+      const move = await this.generateService.generatingMoveOfResponseMove(response);
 
-      await this.save(type);
+      await this.save(move);
 
-      return await this.findOne({ order: type.order, complete: false });
+      return await this.findOne({ order: move.order, complete: false });
     }
 
     return entity;

@@ -90,9 +90,23 @@ export class Pokemon {
     return this.pokemonApi.getEvolutionsByOrder(order);
   }
 
-  async getMove(url: string): Promise<ResponsePokemonMove> {
-    const order = this.generateOrder(url, `${this.pokemonApi.url}/move/`);
-    return this.pokemonApi.getMoveByOrder(order);
+  async getMove(order: number): Promise<ResponsePokemonMove> {
+    return this.pokemonApi.getMoveByOrder(order).then((response) => {
+      const effect_entries = response.effect_entries[0];
+      return {
+        pp: response.pp,
+        type: response.type?.name,
+        power: response.power,
+        effect: effect_entries?.effect,
+        target: response.target?.name,
+        priority: response.priority,
+        accuracy: response.accuracy,
+        short_effect: effect_entries?.short_effect,
+        damage_class: response.damage_class.name,
+        effect_chance: response.effect_chance,
+        learned_by_pokemon: response.learned_by_pokemon.map((item) => item.name),
+      }
+    });
   }
 
   generateOrder(url: string, urlDefault: string): number {

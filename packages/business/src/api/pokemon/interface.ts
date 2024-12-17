@@ -77,4 +77,18 @@ export interface IResponsePokemonSpecie {
 
 export interface IResponsePokemonEvolution {}
 
-export interface IResponsePokemonMove {}
+export interface IResponsePokemonMove {
+  pp: number;
+  type: Pick<IResponsePokemon, 'url' | 'name'>;
+  power: number;
+  target: Pick<IResponsePokemon, 'url' | 'name'>;
+  priority: number;
+  accuracy: number;
+  effect_entries: Array<{
+    effect: string;
+    short_effect: string;
+  }>
+  damage_class: Pick<IResponsePokemon, 'url' | 'name'>;
+  effect_chance?: number;
+  learned_by_pokemon: Array<Pick<IResponsePokemon, 'url' | 'name'>>;
+}

@@ -33,3 +33,10 @@ export type TBy =
   | 'email'
   | 'whatsUp'
   | 'accountId';
+
+export interface FindOneParams<T> {
+  order: number;
+  response?: T;
+  complete?: boolean;
+  withThrow?: boolean;
+}

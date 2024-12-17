@@ -22,7 +22,7 @@ import {
 
 import { RESPONSE_POKEMON_BY_NAME_BULBASAUR_FIXTURE } from '@repo/business/pokemon/fixture/responsePokemonByName';
 
-import { ENTITY_TYPE_LIST_FIXTURE } from '@repo/business/pokemon/fixture/entityType';
+import { ENTITY_LIST_TYPE_FIXTURE } from '@repo/business/pokemon/fixture/entityType';
 
 import { EStatus } from '@repo/business/shared/enum';
 
@@ -32,6 +32,7 @@ import { GenerateService } from './generate/generate.service';
 
 import { PokemonService } from './pokemon.service';
 import { TypeService } from './type/type.service';
+import { MoveService } from './move/move.service';
 
 describe('PokemonsService', () => {
   let service: PokemonService;
@@ -39,6 +40,7 @@ describe('PokemonsService', () => {
   let business: PokemonBusiness;
   let generateService: GenerateService;
   let typeService: TypeService;
+  let moveService: MoveService;
 
   const listOfPokemonsConvertedFromResponse = RESPONSE_POKEMON_LIST_FIXTURE.map(
     (response) => {
@@ -77,6 +79,12 @@ describe('PokemonsService', () => {
             findList: jest.fn(),
           },
         },
+        {
+          provide: MoveService,
+          useValue: {
+            findList: jest.fn(),
+          },
+        },
       ],
     }).compile();
 
@@ -85,6 +93,7 @@ describe('PokemonsService', () => {
     business = module.get<PokemonBusiness>(PokemonBusiness);
     generateService = module.get<GenerateService>(GenerateService);
     typeService = module.get<TypeService>(TypeService);
+    moveService = module.get<MoveService>(MoveService);
   });
 
   it('should be defined', () => {
@@ -92,6 +101,7 @@ describe('PokemonsService', () => {
     expect(business).toBeDefined();
     expect(generateService).toBeDefined();
     expect(typeService).toBeDefined();
+    expect(moveService).toBeDefined();
   });
 
   describe('findAll()', () => {
@@ -228,10 +238,11 @@ describe('PokemonsService', () => {
 
       jest
         .spyOn(typeService, 'findList')
-        .mockResolvedValueOnce(ENTITY_TYPE_LIST_FIXTURE);
+        .mockResolvedValueOnce(ENTITY_LIST_TYPE_FIXTURE);
 
-      jest.spyOn(repository, 'save')
-        .mockResolvedValueOnce(POKEMON_BULBASAUR_INCOMPLETE_BASIC_FIXTURE)
+      jest
+        .spyOn(repository, 'save')
+        .mockResolvedValueOnce(POKEMON_BULBASAUR_INCOMPLETE_BASIC_FIXTURE);
 
       jest.spyOn(repository, 'createQueryBuilder').mockReturnValueOnce({
         andWhere: jest.fn(),

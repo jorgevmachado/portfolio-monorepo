@@ -1,21 +1,21 @@
-import { ResponsePokemon } from '../interface';
-import { ResponsePaginate } from '../../api';
+import { ResponsePokemon } from '../../interface';
+import {
+    RESPONSE_GET_ALL_BULBASAUR_FIXTURE, RESPONSE_GET_ALL_IVYSAUR_FIXTURE, RESPONSE_GET_ALL_VENUSAUR_FIXTURE,
+    ResponsePaginate,
+} from '../../../api';
 
 export const RESPONSE_POKEMON_BULBASAUR_FIXTURE: ResponsePokemon = {
-  url: 'https://pokeapi.co/api/v2/pokemon/1/',
-  name: 'bulbasaur',
+  ...RESPONSE_GET_ALL_BULBASAUR_FIXTURE,
   order: 1,
 };
 
 export const RESPONSE_POKEMON_IVYSAUR_FIXTURE: ResponsePokemon = {
-  url: 'https://pokeapi.co/api/v2/pokemon/2/',
-  name: 'ivysaur',
+  ...RESPONSE_GET_ALL_IVYSAUR_FIXTURE,
   order: 2,
 };
 
 export const RESPONSE_POKEMON_VENUSAUR_FIXTURE: ResponsePokemon = {
-  url: 'https://pokeapi.co/api/v2/pokemon/3/',
-  name: 'venusaur',
+  ...RESPONSE_GET_ALL_VENUSAUR_FIXTURE,
   order: 3,
 };
 

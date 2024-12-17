@@ -10,18 +10,18 @@ import {
   POKEMON_BULBASAUR_INCOMPLETE_FIXTURE,
   POKEMON_IVYSAUR_INCOMPLETE_FIXTURE,
   POKEMON_VENUSAUR_INCOMPLETE_FIXTURE,
-} from '@repo/business/pokemon/fixture/entityPokemon';
+} from '../../../../../packages/business/src/pokemon/fixture/entities/pokemon/entityPokemon';
 
 import {
   RESPONSE_PAGINATE_POKEMON_FIXTURE,
   RESPONSE_POKEMON_LIST_FIXTURE,
-} from '@repo/business/pokemon/fixture/responsePokemon';
+} from '../../../../../packages/business/src/pokemon/fixture/response/responsePokemon';
 
-import { RESPONSE_POKEMON_BY_NAME_BULBASAUR_FIXTURE } from '@repo/business/pokemon/fixture/responsePokemonByName';
-import { POKEMON_BULBASAUR_MERGE_RESPONSE_POKEMON_NAME_INCOMPLETE_FIXTURE } from '@repo/business/pokemon/fixture/entityPokemonByName';
+import { RESPONSE_POKEMON_BY_NAME_BULBASAUR_FIXTURE } from '../../../../../packages/business/src/pokemon/fixture/response/responsePokemonName';
+import { POKEMON_BULBASAUR_MERGE_RESPONSE_POKEMON_NAME_INCOMPLETE_FIXTURE } from '../../../../../packages/business/src/pokemon/fixture/entities/pokemon/entityPokemonByName';
 
-import { RESPONSE_POKEMON_BY_NAME_SPECIE_BULBASAUR_FIXTURE } from '@repo/business/pokemon/fixture/responsePokemonByNameSpecie';
-import { POKEMON_BULBASAUR_MERGE_RESPONSE_POKEMON_NAME_SPECIE_INCOMPLETE_FIXTURE } from '@repo/business/pokemon/fixture/entityPokemonByNameSpecie';
+import { RESPONSE_POKEMON_BY_NAME_SPECIE_BULBASAUR_FIXTURE } from '../../../../../packages/business/src/pokemon/fixture/response/responsePokemonNameSpecie';
+import { POKEMON_BULBASAUR_MERGE_RESPONSE_POKEMON_NAME_SPECIE_INCOMPLETE_FIXTURE } from '../../../../../packages/business/src/pokemon/fixture/entities/pokemon/entityPokemonByNameSpecie';
 
 import { GenerateService } from './generate.service';
 

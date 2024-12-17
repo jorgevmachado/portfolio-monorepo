@@ -12,17 +12,17 @@ import {
   POKEMON_IVYSAUR_INCOMPLETE_FIXTURE,
   POKEMON_LIST_FIXTURE,
   POKEMON_VENUSAUR_INCOMPLETE_FIXTURE,
-} from '@repo/business/pokemon/fixture/entityPokemon';
+} from '../../../../packages/business/src/pokemon/fixture/entities/pokemon/entityPokemon';
 
 import {
   RESPONSE_PAGINATE_POKEMON_FIXTURE,
   RESPONSE_POKEMON_BULBASAUR_FIXTURE,
   RESPONSE_POKEMON_LIST_FIXTURE,
-} from '@repo/business/pokemon/fixture/responsePokemon';
+} from '../../../../packages/business/src/pokemon/fixture/response/responsePokemon';
 
-import { RESPONSE_POKEMON_BY_NAME_BULBASAUR_FIXTURE } from '@repo/business/pokemon/fixture/responsePokemonByName';
+import { RESPONSE_POKEMON_BY_NAME_BULBASAUR_FIXTURE } from '../../../../packages/business/src/pokemon/fixture/response/responsePokemonName';
 
-import { ENTITY_LIST_TYPE_FIXTURE } from '@repo/business/pokemon/fixture/entityType';
+import { ENTITY_LIST_TYPE_FIXTURE } from '../../../../packages/business/src/pokemon/fixture/entities/entityType';
 
 import { EStatus } from '@repo/business/shared/enum';
 
@@ -33,6 +33,7 @@ import { GenerateService } from './generate/generate.service';
 import { PokemonService } from './pokemon.service';
 import { TypeService } from './type/type.service';
 import { MoveService } from './move/move.service';
+import {AbilityService} from "./ability/ability.service";
 
 describe('PokemonsService', () => {
   let service: PokemonService;
@@ -41,6 +42,7 @@ describe('PokemonsService', () => {
   let generateService: GenerateService;
   let typeService: TypeService;
   let moveService: MoveService;
+  let abilityService: AbilityService;
 
   const listOfPokemonsConvertedFromResponse = RESPONSE_POKEMON_LIST_FIXTURE.map(
     (response) => {
@@ -85,6 +87,12 @@ describe('PokemonsService', () => {
             findList: jest.fn(),
           },
         },
+        {
+          provide: AbilityService,
+          useValue: {
+            findList: jest.fn(),
+          },
+        },
       ],
     }).compile();
 
@@ -94,6 +102,7 @@ describe('PokemonsService', () => {
     generateService = module.get<GenerateService>(GenerateService);
     typeService = module.get<TypeService>(TypeService);
     moveService = module.get<MoveService>(MoveService);
+    abilityService = module.get<AbilityService>(AbilityService);
   });
 
   it('should be defined', () => {
@@ -102,6 +111,7 @@ describe('PokemonsService', () => {
     expect(generateService).toBeDefined();
     expect(typeService).toBeDefined();
     expect(moveService).toBeDefined();
+    expect(abilityService).toBeDefined();
   });
 
   describe('findAll()', () => {

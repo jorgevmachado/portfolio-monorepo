@@ -11,7 +11,7 @@ import {
   ENTITY_MOVE_LIST_FIXTURE,
   ENTITY_MOVE_RAZOR_WIND_FIXTURE,
   ENTITY_MOVE_SWORDS_DANCE_FIXTURE,
-} from '@repo/business/pokemon/fixture/entityMove';
+} from '../../../../../packages/business/src/pokemon/fixture/entities/entityMove';
 
 import { RESPONSE_LIST_MOVE_FIXTURE } from '@repo/business/pokemon/fixture/responseMove';
 
@@ -19,7 +19,7 @@ import {
   RESPONSE_POKEMON_MOVE_CUT_FIXTURE,
   RESPONSE_POKEMON_MOVE_RAZOR_WIND_FIXTURE,
   RESPONSE_POKEMON_MOVE_SWORDS_DANCE_FIXTURE
-} from '@repo/business/pokemon/fixture/responsePokemonMove';
+} from '../../../../../packages/business/src/pokemon/fixture/response/responsePokemonMove';
 
 import { Move } from '../entities/move.entity';
 

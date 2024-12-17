@@ -1,8 +1,6 @@
-import {
+import type {
   IResponsePokemon,
   IResponsePokemonEvolution,
-  IResponsePokemonName,
-  IResponsePokemonSpecie,
 } from '../api/pokemon';
 import { EStatus } from '../shared/enum';
 
@@ -13,8 +11,31 @@ export interface PokemonConfig {
 
 export type ResponsePokemon = IResponsePokemon;
 
-export interface ResponsePokemonName extends Omit<IResponsePokemonName, 'sprites'> {
+export interface ResponsePokemonName extends Stats {
+  name: string;
+  order: number;
   image: string;
+  types: Array<ResponseType>;
+  moves: Array<ResponseMove>;
+  abilities: Array<ResponseAbility>;
+}
+
+export interface ResponseType extends IResponsePokemon {
+  text_color: string;
+  background_color: string;
+}
+
+export type ResponseMove = IResponsePokemon;
+
+export type ResponseAbility = IResponsePokemon;
+
+export interface Stats {
+  hp: number;
+  speed: number;
+  attack: number;
+  defense: number;
+  special_attack: number;
+  special_defense: number;
 }
 
 export type TImage = 'front';
@@ -33,7 +54,21 @@ export interface ResponsePokemonMove {
   learned_by_pokemon: Array<string>;
 }
 
-export type ResponsePokemonSpecie = IResponsePokemonSpecie;
+export interface ResponsePokemonSpecie {
+  habitat: string;
+  is_baby: boolean;
+  shape_url: string;
+  shape_name: string;
+  is_mythical: boolean;
+  gender_rate: number;
+  is_legendary: boolean;
+  capture_rate: number;
+  hatch_counter: number;
+  base_happiness: number;
+  evolution_chain_url: string;
+  evolves_from_species: string;
+  has_gender_differences: boolean;
+}
 
 export type ResponsePokemonEvolution = IResponsePokemonEvolution;
 
@@ -116,13 +151,4 @@ export interface EntityAbility {
   created_at: Date;
   updated_at?: Date;
   deleted_at?: Date;
-}
-
-export interface Stats {
-  hp: number;
-  speed: number;
-  attack: number;
-  defense: number;
-  special_attack: number;
-  special_defense: number;
 }

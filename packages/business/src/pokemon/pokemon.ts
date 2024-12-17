@@ -6,9 +6,10 @@ import {
   ResponsePokemonEvolution,
   ResponsePokemonMove,
   ResponsePokemonName,
-  ResponsePokemonSpecie,
+  ResponsePokemonSpecie, Stats,
   TImage,
 } from './interface';
+import {TYPE_COLORS} from "api/dist/src/pokemons/type/type.constants";
 
 export class Pokemon {
   limit: number = 1302;
@@ -29,57 +30,115 @@ export class Pokemon {
       ...response,
       results: response.results.map((pokemon) => ({
         ...pokemon,
-        order: this.generateOrder(
-          pokemon.url,
-          `${this.pokemonApi.url}/pokemon/`,
-        ),
+        order: this.generateOrder(pokemon.url, `${this.pokemonApi.url}/pokemon/`),
       })),
     }));
   }
 
   async getByName(name: string): Promise<ResponsePokemonName> {
     return this.pokemonApi.getByName(name).then((response) => {
-      response.types = response.types.map((item) => ({
-        ...item,
-        order: this.generateOrder(
-          item.type.url,
-          `${this.pokemonApi.url}/type/`,
-        ),
-      }));
-
-      response.moves = response.moves.map((item) => ({
-        ...item,
-        order: this.generateOrder(
-          item.move.url,
-          `${this.pokemonApi.url}/move/`,
-        ),
-      }));
-
-      response.stats = response.stats.map((item) => ({
-        ...item,
-        order: this.generateOrder(
-          item.stat.url,
-          `${this.pokemonApi.url}/stat/`,
-        ),
-      }));
-
-      response.abilities = response.abilities.map((item) => ({
-        ...item,
-        order: this.generateOrder(
-          item.ability.url,
-          `${this.pokemonApi.url}/ability/`,
-        ),
-      }));
-
+      const stats = this.generatingPokemonStatsByResponse(response.stats);
       return {
-        ...response,
+        hp: stats.hp,
+        name: response.name,
+        order: response.order,
         image: this.generateImage(response.sprites),
+        types: this.convertingToResponseTypes(response.types),
+        moves: this.convertingToResponseMoves(response.moves),
+        speed: stats.speed,
+        attack: stats.attack,
+        defense: stats.defense,
+        abilities: this.convertingToResponseAbilities(response.abilities),
+        special_attack: stats.special_attack,
+        special_defense: stats.special_defense,
       };
     });
   }
 
+  private convertingToResponseTypes(response: IResponsePokemonName['types']): ResponsePokemonName['types'] {
+    return response.map((item) => {
+        const typeColor = TYPE_COLORS.find(
+            (color) => color.name === item?.type?.name,
+        );
+        return {
+          url: item?.type?.url,
+          name: item?.type?.name,
+          order: this.generateOrder(item.type.url, `${this.pokemonApi.url}/type/`),
+          text_color: !typeColor ? '#FFF' : typeColor.textColor,
+          background_color: !typeColor ? '#000' : typeColor.backgroundColor,
+        }
+    });
+  }
+
+  private convertingToResponseMoves(response: IResponsePokemonName['moves']): ResponsePokemonName['moves'] {
+    return response.map((item) => ({
+      url: item.move.url,
+      name: item.move.name,
+      order: this.generateOrder( item.move.url, `${this.pokemonApi.url}/move/`),
+    }));
+  }
+  
+  private convertingToResponseAbilities(response: IResponsePokemonName['abilities']): ResponsePokemonName['abilities'] {
+    return response.map((item) => ({
+      url: item.ability.url,
+      name: item.ability.name,
+      order: this.generateOrder( item.ability.url, `${this.pokemonApi.url}/ability/`),
+    }));
+  }
+
+  private generatingPokemonStatsByResponse(stats: IResponsePokemonName['stats']): Stats {
+    return stats.reduce(
+        (acc, stat) => {
+          switch (stat.stat.name) {
+            case 'hp':
+              acc.hp = stat.base_stat;
+              break;
+            case 'speed':
+              acc.speed = stat.base_stat;
+              break;
+            case 'attack':
+              acc.attack = stat.base_stat;
+              break;
+            case 'defense':
+              acc.defense = stat.base_stat;
+              break;
+            case 'special-attack':
+              acc.special_attack = stat.base_stat;
+              break;
+            case 'special-defense':
+              acc.special_defense = stat.base_stat;
+              break;
+            default:
+          }
+          return acc;
+        },
+        {
+          hp: 0,
+          speed: 0,
+          attack: 0,
+          defense: 0,
+          special_attack: 0,
+          special_defense: 0,
+        },
+    );
+  }
+
   async getSpecieByName(name: string): Promise<ResponsePokemonSpecie> {
-    return this.pokemonApi.getSpeciesByName(name);
+    return this.pokemonApi.getSpeciesByName(name).then((response) => ({
+      habitat: response?.habitat?.name,
+      is_baby: response?.is_baby,
+      shape_url: response?.shape?.url,
+      shape_name: response?.shape?.name,
+      is_mythical: response?.is_mythical,
+      gender_rate: response?.gender_rate,
+      is_legendary: response?.is_legendary,
+      capture_rate: response?.capture_rate,
+      hatch_counter: response?.hatch_counter,
+      base_happiness: response?.base_happiness,
+      evolution_chain_url: response?.evolution_chain?.url,
+      evolves_from_species: response?.evolves_from_species?.name,
+      has_gender_differences: response?.has_gender_differences,
+    }));
   }
 
   async getEvolutions(url: string): Promise<ResponsePokemonEvolution> {

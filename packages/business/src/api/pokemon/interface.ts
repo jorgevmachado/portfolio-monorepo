@@ -17,17 +17,14 @@ export interface IResponsePokemonName {
 export interface IResponseType {
   slot: number;
   type: Pick<IResponsePokemon, 'url' | 'name'>;
-  order: number;
 }
 
 export interface IResponseMove {
   move: Pick<IResponsePokemon, 'url' | 'name'>;
-  order: number;
 }
 
 export interface IResponseStat {
   stat: Pick<IResponsePokemon, 'url' | 'name'>;
-  order: number;
   base_stat: number;
 }
 
@@ -56,7 +53,6 @@ interface IResponseSpritesUrl {
 }
 
 export interface IResponseAbility {
-  order: number;
   ability: Pick<IResponsePokemon, 'url' | 'name'>;
 }
 
@@ -80,6 +76,7 @@ export interface IResponsePokemonEvolution {}
 export interface IResponsePokemonMove {
   pp: number;
   type: Pick<IResponsePokemon, 'url' | 'name'>;
+  name: string;
   power: number;
   target: Pick<IResponsePokemon, 'url' | 'name'>;
   priority: number;

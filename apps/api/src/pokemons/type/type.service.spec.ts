@@ -8,7 +8,7 @@ import {
   ENTITY_LIST_TYPE_FIXTURE,
   ENTITY_TYPE_GRASS_FIXTURE,
   ENTITY_TYPE_POISON_FIXTURE,
-} from '@repo/business/pokemon/fixture/entityType';
+} from '../../../../../packages/business/src/pokemon/fixture/entities/entityType';
 
 import { Type } from '../entities/type.entity';
 

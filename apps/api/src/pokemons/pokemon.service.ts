@@ -18,6 +18,7 @@ import { Service } from '../shared';
 import { GenerateService } from './generate/generate.service';
 import { TypeService } from './type/type.service';
 import { MoveService } from './move/move.service';
+import { AbilityService } from './ability/ability.service';
 
 @Injectable()
 export class PokemonService extends Service<Pokemon> {
@@ -28,6 +29,7 @@ export class PokemonService extends Service<Pokemon> {
     protected generateService: GenerateService,
     protected typeService: TypeService,
     protected moveService: MoveService,
+    protected abilityService: AbilityService,
   ) {
     super('pokemons', [], repository);
   }
@@ -98,8 +100,12 @@ export class PokemonService extends Service<Pokemon> {
       );
     const types = await this.typeService.findList(basicPokemon.types);
     const moves = await this.moveService.findList(basicPokemon.moves);
+    const abilities = await this.abilityService.findList(
+      basicPokemon.abilities,
+    );
     console.log('types => ', types);
     console.log('moves => ', moves);
+    console.log('abilities => ', abilities);
     await this.save(basicPokemon.pokemon);
 
     return await this.findOne(pokemon.name, false);

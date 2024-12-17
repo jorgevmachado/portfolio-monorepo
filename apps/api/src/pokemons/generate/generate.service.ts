@@ -8,7 +8,6 @@ import type { ResponsePokemonName } from '@repo/business/pokemon/interface';
 import { Base } from '../../shared';
 
 import { Pokemon } from '../entities/pokemon.entity';
-import { Move } from '../entities/move.entity';
 
 interface PokemonByResponsePokemonName {
   types: ResponsePokemonName['types'];
@@ -190,37 +189,6 @@ export class GenerateService extends Base {
       evolution_chain_url: pokemonSpecie?.evolution_chain_url,
       evolves_from_species: pokemonSpecie?.evolves_from_species,
       has_gender_differences: pokemonSpecie?.has_gender_differences,
-    });
-  }
-
-  async generatingMoveOfResponseMove(
-    responsePokemonNameMove: ResponsePokemonName['moves'][number],
-  ) {
-    const responseMove = await this.business
-      .getMove(responsePokemonNameMove.order)
-      .then((response) => response)
-      .catch((error) => this.error(error));
-
-    return new Move({
-      id: undefined,
-      pp: responseMove.pp,
-      url: responsePokemonNameMove.move.url,
-      type: responseMove.type,
-      name: responsePokemonNameMove.move.name,
-      order: responsePokemonNameMove.order,
-      power: responseMove.power,
-      target: responseMove.target,
-      effect: responseMove.effect,
-      priority: responseMove.priority,
-      accuracy: responseMove.accuracy,
-      created_at: undefined,
-      updated_at: undefined,
-      deleted_at: undefined,
-      short_effect: responseMove.short_effect,
-      damage_class: responseMove.damage_class,
-      effect_chance: responseMove.effect_chance,
-      learned_by_pokemon: JSON.stringify(responseMove.learned_by_pokemon),
-      pokemons: responseMove.learned_by_pokemon,
     });
   }
 }

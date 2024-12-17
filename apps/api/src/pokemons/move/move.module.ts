@@ -1,15 +1,15 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { Move } from '../entities/move.entity';
+import { Pokemon as PokemonBusiness } from '@repo/business/pokemon/pokemon';
 
-import { GenerateModule } from '../generate/generate.module';
+import { Move } from '../entities/move.entity';
 
 import { MoveService } from './move.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Move]), GenerateModule],
-  providers: [MoveService],
+  imports: [TypeOrmModule.forFeature([Move])],
+  providers: [MoveService, PokemonBusiness],
   exports: [MoveService],
 })
 export class MoveModule {}

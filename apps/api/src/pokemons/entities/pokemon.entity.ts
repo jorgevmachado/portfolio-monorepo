@@ -122,6 +122,7 @@ export class Pokemon implements EntityPokemon {
       this.status = pokemon.status ?? this.status;
       this.attack = pokemon.attack ?? this.attack;
       this.defense = pokemon.defense ?? this.defense;
+      this.habitat = pokemon.habitat ?? this.habitat;
       this.is_baby = pokemon.is_baby ?? this.is_baby;
       this.shape_url = pokemon.shape_url ?? this.shape_url;
       this.created_at = pokemon.created_at ?? this.created_at;
@@ -137,6 +138,7 @@ export class Pokemon implements EntityPokemon {
       this.special_attack = pokemon.special_attack ?? this.special_attack;
       this.special_defense = pokemon.special_defense ?? this.special_defense;
       this.evolution_chain_url = pokemon.evolution_chain_url ?? this.evolution_chain_url;
+      this.evolves_from_species = pokemon.evolves_from_species ?? this.evolves_from_species;
       this.has_gender_differences = pokemon.has_gender_differences ?? this.has_gender_differences;
     }
   }

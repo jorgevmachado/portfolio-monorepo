@@ -106,3 +106,12 @@ export interface EntityAbility {
   updated_at?: Date;
   deleted_at?: Date;
 }
+
+export interface Stats {
+  hp: number;
+  speed: number;
+  attack: number;
+  defense: number;
+  special_attack: number;
+  special_defense: number;
+}

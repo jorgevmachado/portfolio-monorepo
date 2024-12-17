@@ -28,6 +28,7 @@ export interface IResponseMove {
 export interface IResponseStat {
   stat: Pick<IResponsePokemon, 'url' | 'name'>;
   order: number;
+  base_stat: number;
 }
 
 export interface IResponsePokemonNameSprites {

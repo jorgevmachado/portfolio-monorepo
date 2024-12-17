@@ -2,8 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
+import { isUUID } from '@repo/services/string/string';
+
 import { QueryParameters } from '@repo/business/shared/interface';
-import { PaginateParameters } from "@repo/business/paginate/interface";
+import { EStatus } from '@repo/business/shared/enum';
+
+import { PaginateParameters } from '@repo/business/paginate/interface';
 
 import { Pokemon as PokemonBusiness } from '@repo/business/pokemon/pokemon';
 
@@ -11,7 +15,9 @@ import { Pokemon } from './entities/pokemon.entity';
 
 import { Service } from '../shared';
 
-import { GenerateService } from "./generate/generate.service";
+import { GenerateService } from './generate/generate.service';
+import { TypeService } from './type/type.service';
+
 
 @Injectable()
 export class PokemonService extends Service<Pokemon> {
@@ -20,6 +26,7 @@ export class PokemonService extends Service<Pokemon> {
     protected repository: Repository<Pokemon>,
     protected business: PokemonBusiness,
     protected generateService: GenerateService,
+    protected typeService: TypeService
   ) {
     super('pokemons', [], repository);
   }
@@ -35,15 +42,15 @@ export class PokemonService extends Service<Pokemon> {
     const total = await this.repository.count();
 
     if (total === 0) {
-      const pokemonList = await this.generateService
-        .generatingListOfPokemonsByResponsePokemon();
+      const pokemonList =
+        await this.generateService.generatingListOfPokemonsByResponsePokemon();
 
       return this.createPokemonList(pokemonList);
     }
 
     if (total !== this.business.limit) {
-      const pokemonList = await this.generateService
-        .generatingListOfPokemonsByResponsePokemon();
+      const pokemonList =
+        await this.generateService.generatingListOfPokemonsByResponsePokemon();
 
       const entities = total !== 0 ? await this.repository.find() : [];
 
@@ -58,12 +65,37 @@ export class PokemonService extends Service<Pokemon> {
   }
 
   private async createPokemonList(list: Array<Pokemon>) {
-    return Promise.all(list.map((item: Pokemon) => this.repository.save(item)))
+    return Promise.all(list.map((item: Pokemon) => this.save(item)))
       .then()
       .catch((error) => this.error(error));
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} pokemon`;
+  async findOne(value: string, complete: boolean = true) {
+    const result = await this.findBy({
+      searchParams: {
+        by: isUUID(value) ? 'id' : 'name',
+        value,
+      },
+      withThrow: true,
+    });
+
+    if (result?.status === EStatus.COMPLETE) {
+      return result;
+    }
+
+    if(!complete) {
+      return result;
+    }
+
+    return this.completingPokemonData(result);
+  }
+
+  private async completingPokemonData(pokemon: Pokemon) {
+    const basicPokemon = await this.generateService.completingPokemonDataThroughTheExternalApiByName(pokemon);
+    const types = await this.typeService.findList(basicPokemon.types)
+    console.log('types => ', types);
+    await this.save(basicPokemon.pokemon);
+
+    return await this.findOne(pokemon.name, false);
   }
 }

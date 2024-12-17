@@ -6,7 +6,7 @@ import { ConflictException } from "@nestjs/common";
 export interface QueryParams<T> {
   readonly alias: string;
   readonly filters?: Array<FilterParams>;
-  readonly relations: Array<string>
+  readonly relations?: Array<string>
   readonly parameters?: QueryParameters;
   readonly repository: Repository<T>;
   readonly withDeleted?: boolean;
@@ -18,7 +18,7 @@ export class Query<T extends ObjectLiteral> {
   private query: SelectQueryBuilder<T>;
   private readonly alias: string;
   private readonly filters?: Array<FilterParams>;
-  private readonly relations: Array<string>
+  private readonly relations?: Array<string>
   private readonly parameters?: QueryParameters;
   private readonly repository: Repository<T>;
   private readonly withDeleted?: boolean;
@@ -27,9 +27,9 @@ export class Query<T extends ObjectLiteral> {
 
   constructor({
     alias,
-    filters,
-    relations,
-    parameters,
+    filters = [],
+    relations = [],
+    parameters = {},
     repository,
     withDeleted,
     searchParams,

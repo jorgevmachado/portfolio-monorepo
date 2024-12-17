@@ -8,6 +8,9 @@ import { ResponsePokemonName } from '@repo/business/pokemon/interface';
 import { Base } from '../../shared';
 
 import { Pokemon } from '../entities/pokemon.entity';
+import { Type } from '../entities/type.entity';
+
+import { TYPE_COLORS } from './generate.constants';
 
 interface PokemonByResponsePokemonName {
   types: ResponsePokemonName['types'];
@@ -48,6 +51,26 @@ export class GenerateService extends Base {
     );
   }
 
+  async completingPokemonDataThroughTheExternalApiByName(
+    pokemon: Pokemon,
+  ): Promise<PokemonByResponsePokemonName> {
+    return await Promise.all([
+      await this.generatingPokemonOfPokemonByResponsePokemonName(pokemon),
+      await this.generatingPokemonOfPokemonByResponsePokemonSpecie(pokemon),
+    ])
+      .then(([pokemonByName, pokemonByNameSpecie]) => {
+        return {
+          ...pokemonByName,
+          pokemon: {
+            ...pokemon,
+            ...pokemonByNameSpecie,
+            image: pokemonByName.pokemon.image,
+          },
+        };
+      })
+      .catch((error) => this.error(error));
+  }
+
   async generatingPokemonOfPokemonByResponsePokemonName(
     pokemon: Pokemon,
   ): Promise<PokemonByResponsePokemonName> {
@@ -67,7 +90,9 @@ export class GenerateService extends Base {
       .catch((error) => this.error(error));
   }
 
-  async generatingPokemonOfPokemonByResponsePokemonSpecie(pokemon: Pokemon): Promise<Pokemon> {
+  async generatingPokemonOfPokemonByResponsePokemonSpecie(
+    pokemon: Pokemon,
+  ): Promise<Pokemon> {
     return await this.business
       .getSpecieByName(pokemon.name)
       .then((response) => {
@@ -88,5 +113,20 @@ export class GenerateService extends Base {
         return entity;
       })
       .catch((error) => this.error(error));
+  }
+
+  generatingTypeOfResponseType(
+    responseType: ResponsePokemonName['types'][number],
+  ) {
+    const typeColor = TYPE_COLORS.find(
+      (color) => color.name === responseType?.type?.name,
+    );
+    const type = new Type();
+    type.url = responseType?.type?.url;
+    type.name = responseType?.type?.name;
+    type.order = responseType?.order;
+    type.text_color = !typeColor ? '#FFF' : typeColor.textColor;
+    type.background_color = !typeColor ? '#000' : typeColor.backgroundColor;
+    return type;
   }
 }

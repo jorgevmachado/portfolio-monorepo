@@ -15,6 +15,7 @@ export interface IResponsePokemonName {
 }
 
 export interface IResponseType {
+  slot: number;
   type: Pick<IResponsePokemon, 'url' | 'name'>;
   order: number;
 }

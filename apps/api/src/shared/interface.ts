@@ -1,4 +1,4 @@
-import { QueryParameters } from "@repo/business/shared/interface";
+import { QueryParameters } from '@repo/business/shared/interface';
 
 export interface ListParams {
   filters?: Array<FilterParams>;
@@ -13,7 +13,23 @@ export interface FilterParams {
   condition: string;
 }
 
-export interface SearchParams {
-  by: string;
-  value: string;
+export interface FindParams {
+  withThrow?: boolean;
+  searchParams: SearchParams;
+  withDeleted?: boolean;
+  withRelations?: boolean;
 }
+
+export interface SearchParams {
+  by: TBy;
+  value: string | number;
+}
+
+export type TBy =
+  | 'id'
+  | 'cpf'
+  | 'order'
+  | 'name'
+  | 'email'
+  | 'whatsUp'
+  | 'accountId';

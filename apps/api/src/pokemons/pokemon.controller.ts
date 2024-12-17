@@ -13,8 +13,8 @@ export class PokemonController {
     return this.pokemonService.findAll(parameters);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.pokemonService.findOne(+id);
+  @Get(':param')
+  findOne(@Param('param') param: string) {
+    return this.pokemonService.findOne(param);
   }
 }

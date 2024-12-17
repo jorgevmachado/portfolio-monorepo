@@ -6,15 +6,14 @@ import { ResponsePokemonName } from '@repo/business/pokemon/interface';
 
 import { Service } from '../../shared';
 import { Type } from '../entities/type.entity';
-import { GenerateService } from '../generate/generate.service';
 import { FindOneParams } from "../../shared/interface";
+import { TYPE_COLORS } from "./type.constants";
 
 @Injectable()
 export class TypeService extends Service<Type> {
   constructor(
     @InjectRepository(Type)
-    protected repository: Repository<Type>,
-    protected generateService: GenerateService,
+    protected repository: Repository<Type>
   ) {
     super('types', [], repository);
   }
@@ -58,7 +57,7 @@ export class TypeService extends Service<Type> {
   ): Promise<Type> {
     if (!entity) {
       const type =
-        this.generateService.generatingTypeOfResponseType(responseType);
+        this.generatingTypeOfResponseType(responseType);
 
       await this.save(type);
 
@@ -66,5 +65,24 @@ export class TypeService extends Service<Type> {
     }
 
     return entity;
+  }
+
+  private generatingTypeOfResponseType(
+    responseType: ResponsePokemonName['types'][number],
+  ) {
+    const typeColor = TYPE_COLORS.find(
+      (color) => color.name === responseType?.type?.name,
+    );
+    return new Type({
+      id: undefined,
+      url: responseType?.type?.url,
+      name: responseType?.type?.name,
+      order: responseType?.order,
+      created_at: undefined,
+      updated_at: undefined,
+      deleted_at: undefined,
+      text_color: !typeColor ? '#FFF' : typeColor.textColor,
+      background_color: !typeColor ? '#000' : typeColor.backgroundColor,
+    });
   }
 }

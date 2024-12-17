@@ -9,8 +9,8 @@ import {
   POKEMON_BULBASAUR_INCOMPLETE_BASIC_FIXTURE,
   POKEMON_BULBASAUR_INCOMPLETE_FIXTURE,
   POKEMON_IVYSAUR_INCOMPLETE_FIXTURE,
-  POKEMON_VENUSAUR_INCOMPLETE_FIXTURE
-} from "@repo/business/pokemon/fixture/entityPokemon";
+  POKEMON_VENUSAUR_INCOMPLETE_FIXTURE,
+} from '@repo/business/pokemon/fixture/entityPokemon';
 
 import {
   RESPONSE_PAGINATE_POKEMON_FIXTURE,
@@ -26,9 +26,6 @@ import { POKEMON_BULBASAUR_MERGE_RESPONSE_POKEMON_NAME_SPECIE_INCOMPLETE_FIXTURE
 import { GenerateService } from './generate.service';
 
 import { Pokemon } from '../entities/pokemon.entity';
-import { RESPONSE_TYPE_GRASS_FIXTURE } from '@repo/business/pokemon/fixture/responseType';
-
-import { ENTITY_TYPE_GRASS_FIXTURE } from '@repo/business/pokemon/fixture/entityType';
 
 describe('GenerateService', () => {
   let service: GenerateService;
@@ -117,15 +114,15 @@ describe('GenerateService', () => {
 
       expect(
         await service.completingPokemonDataThroughTheExternalApiByName(
-          POKEMON_BULBASAUR_INCOMPLETE_FIXTURE
-        )
+          POKEMON_BULBASAUR_INCOMPLETE_FIXTURE,
+        ),
       ).toEqual({
         types: RESPONSE_POKEMON_BY_NAME_BULBASAUR_FIXTURE.types,
         stats: RESPONSE_POKEMON_BY_NAME_BULBASAUR_FIXTURE.stats,
         moves: RESPONSE_POKEMON_BY_NAME_BULBASAUR_FIXTURE.moves,
         abilities: RESPONSE_POKEMON_BY_NAME_BULBASAUR_FIXTURE.abilities,
-        pokemon: POKEMON_BULBASAUR_INCOMPLETE_BASIC_FIXTURE
-      })
+        pokemon: POKEMON_BULBASAUR_INCOMPLETE_BASIC_FIXTURE,
+      });
     });
   });
 
@@ -165,20 +162,6 @@ describe('GenerateService', () => {
       ).toEqual(
         POKEMON_BULBASAUR_MERGE_RESPONSE_POKEMON_NAME_SPECIE_INCOMPLETE_FIXTURE,
       );
-    });
-  });
-
-  describe('generatingTypeOfResponseType(responseType)', () => {
-    it('must transform the responseType to Type', () => {
-      expect(
-        service.generatingTypeOfResponseType(RESPONSE_TYPE_GRASS_FIXTURE),
-      ).toEqual({
-        ...ENTITY_TYPE_GRASS_FIXTURE,
-        id: undefined,
-        created_at: undefined,
-        deleted_at: undefined,
-        updated_at: undefined,
-      });
     });
   });
 });

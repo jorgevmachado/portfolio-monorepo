@@ -7,42 +7,32 @@ import { RESPONSE_LIST_TYPE_FIXTURE } from '@repo/business/pokemon/fixture/respo
 import {
   ENTITY_LIST_TYPE_FIXTURE,
   ENTITY_TYPE_GRASS_FIXTURE,
-  ENTITY_TYPE_POISON_FIXTURE
-} from "@repo/business/pokemon/fixture/entityType";
+  ENTITY_TYPE_POISON_FIXTURE,
+} from '@repo/business/pokemon/fixture/entityType';
 
 import { Type } from '../entities/type.entity';
 
 import { TypeService } from './type.service';
-import { GenerateService } from '../generate/generate.service';
 
 describe('TypeService', () => {
   let service: TypeService;
   let repository: Repository<Type>;
-  let generateService: GenerateService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         TypeService,
         { provide: getRepositoryToken(Type), useClass: Repository },
-        {
-          provide: GenerateService,
-          useValue: {
-            generatingTypeOfResponseType: jest.fn(),
-          },
-        },
       ],
     }).compile();
 
     service = module.get<TypeService>(TypeService);
-    generateService = module.get<GenerateService>(GenerateService);
     repository = module.get<Repository<Type>>(getRepositoryToken(Type));
   });
 
   it('should be defined', () => {
     expect(service).toBeDefined();
     expect(repository).toBeDefined();
-    expect(generateService).toBeDefined();
   });
 
   describe('findList(responseType)', () => {
@@ -72,26 +62,6 @@ describe('TypeService', () => {
         andWhere: jest.fn(),
         getOne: jest.fn().mockReturnValueOnce(null),
       } as any);
-
-      jest
-        .spyOn(generateService, 'generatingTypeOfResponseType')
-        .mockReturnValueOnce({
-          ...ENTITY_TYPE_GRASS_FIXTURE,
-          id: undefined,
-          created_at: undefined,
-          deleted_at: undefined,
-          updated_at: undefined,
-        });
-
-      jest
-        .spyOn(generateService, 'generatingTypeOfResponseType')
-        .mockReturnValueOnce({
-          ...ENTITY_TYPE_POISON_FIXTURE,
-          id: undefined,
-          created_at: undefined,
-          deleted_at: undefined,
-          updated_at: undefined,
-        });
 
       jest
         .spyOn(repository, 'save')

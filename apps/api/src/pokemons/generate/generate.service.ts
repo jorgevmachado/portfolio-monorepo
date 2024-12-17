@@ -3,15 +3,12 @@ import { Injectable } from '@nestjs/common';
 import { EStatus } from '@repo/business/shared/enum';
 
 import { Pokemon as PokemonBusiness } from '@repo/business/pokemon/pokemon';
-import type { ResponsePokemonName, Stats } from "@repo/business/pokemon/interface";
+import type { ResponsePokemonName } from '@repo/business/pokemon/interface';
 
 import { Base } from '../../shared';
 
 import { Pokemon } from '../entities/pokemon.entity';
-import { Type } from '../entities/type.entity';
-
-import { TYPE_COLORS } from './generate.constants';
-import { Move } from "../entities/move.entity";
+import { Move } from '../entities/move.entity';
 
 interface PokemonByResponsePokemonName {
   types: ResponsePokemonName['types'];
@@ -60,7 +57,11 @@ export class GenerateService extends Base {
       await this.generatingPokemonOfPokemonByResponsePokemonSpecie(pokemon),
     ])
       .then(([pokemonByName, pokemonByNameSpecie]) => {
-        const entity = this.mergePokemonAttributes(pokemon, pokemonByName.pokemon, pokemonByNameSpecie);
+        const entity = this.mergePokemonAttributes(
+          pokemon,
+          pokemonByName.pokemon,
+          pokemonByNameSpecie,
+        );
         return {
           ...pokemonByName,
           pokemon: entity,
@@ -75,7 +76,9 @@ export class GenerateService extends Base {
     return await this.business
       .getByName(pokemon.name)
       .then((response) => {
-        const stats = this.generatingPokemonStatsByResponse(response?.stats ?? []);
+        const stats = this.generatingPokemonStatsByResponse(
+          response?.stats ?? [],
+        );
         const entity = new Pokemon({
           ...pokemon,
           image: response?.image,
@@ -97,7 +100,7 @@ export class GenerateService extends Base {
       .catch((error) => this.error(error));
   }
 
-  generatingPokemonStatsByResponse(stats:  ResponsePokemonName['stats']) {
+  generatingPokemonStatsByResponse(stats: ResponsePokemonName['stats']) {
     return stats.reduce(
       (acc, stat) => {
         switch (stat.stat.name) {
@@ -130,7 +133,7 @@ export class GenerateService extends Base {
         defense: 0,
         special_attack: 0,
         special_defense: 0,
-      }
+      },
     );
   }
 
@@ -154,13 +157,17 @@ export class GenerateService extends Base {
           base_happiness: response?.base_happiness,
           evolution_chain_url: response?.evolution_chain?.url,
           evolves_from_species: response?.evolves_from_species?.name,
-          has_gender_differences: response?.has_gender_differences
+          has_gender_differences: response?.has_gender_differences,
         });
       })
       .catch((error) => this.error(error));
   }
 
-  mergePokemonAttributes(pokemon: Pokemon, pokemonName: Pokemon, pokemonSpecie: Pokemon) {
+  mergePokemonAttributes(
+    pokemon: Pokemon,
+    pokemonName: Pokemon,
+    pokemonSpecie: Pokemon,
+  ) {
     return new Pokemon({
       ...pokemon,
       image: pokemonName.image,
@@ -184,29 +191,11 @@ export class GenerateService extends Base {
       evolves_from_species: pokemonSpecie?.evolves_from_species,
       has_gender_differences: pokemonSpecie?.has_gender_differences,
     });
-
   }
 
-  generatingTypeOfResponseType(
-    responseType: ResponsePokemonName['types'][number],
+  async generatingMoveOfResponseMove(
+    responsePokemonNameMove: ResponsePokemonName['moves'][number],
   ) {
-    const typeColor = TYPE_COLORS.find(
-      (color) => color.name === responseType?.type?.name,
-    );
-    return new Type({
-      id: undefined,
-      url: responseType?.type?.url,
-      name: responseType?.type?.name,
-      order: responseType?.order,
-      created_at: undefined,
-      updated_at: undefined,
-      deleted_at: undefined,
-      text_color: !typeColor ? '#FFF' : typeColor.textColor,
-      background_color: !typeColor ? '#000' : typeColor.backgroundColor,
-    });
-  }
-
-  async generatingMoveOfResponseMove(responsePokemonNameMove: ResponsePokemonName['moves'][number]) {
     const responseMove = await this.business
       .getMove(responsePokemonNameMove.order)
       .then((response) => response)
@@ -230,10 +219,8 @@ export class GenerateService extends Base {
       short_effect: responseMove.short_effect,
       damage_class: responseMove.damage_class,
       effect_chance: responseMove.effect_chance,
-      learned_by_pokemon: JSON.stringify(
-        responseMove.learned_by_pokemon
-      ),
-      pokemons: responseMove.learned_by_pokemon
+      learned_by_pokemon: JSON.stringify(responseMove.learned_by_pokemon),
+      pokemons: responseMove.learned_by_pokemon,
     });
   }
 }

@@ -73,6 +73,7 @@ export abstract class Service<T extends ObjectLiteral> extends Base {
   }: FindParams) {
     const query = new Query<T>({
       alias: this.alias,
+      relations: this.relations,
       repository: this.repository,
       withDeleted,
       searchParams,

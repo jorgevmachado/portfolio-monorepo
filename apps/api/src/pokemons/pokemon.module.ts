@@ -4,7 +4,6 @@ import { PokemonController } from './pokemon.controller';
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { Pokemon } from "./entities/pokemon.entity";
 import { Pokemon as PokemonBusiness } from "@repo/business/pokemon/pokemon";
-import { GenerateModule } from './generate/generate.module';
 import { TypeModule } from './type/type.module';
 import { MoveModule } from './move/move.module';
 import { AbilityModule } from './ability/ability.module';
@@ -12,7 +11,6 @@ import { AbilityModule } from './ability/ability.module';
 @Module({
   imports: [
     TypeOrmModule.forFeature([Pokemon]),
-    GenerateModule,
     TypeModule,
     MoveModule,
     AbilityModule,

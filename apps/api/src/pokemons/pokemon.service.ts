@@ -15,7 +15,6 @@ import { Pokemon } from './entities/pokemon.entity';
 
 import { Service } from '../shared';
 
-import { GenerateService } from './generate/generate.service';
 import { TypeService } from './type/type.service';
 import { MoveService } from './move/move.service';
 import { AbilityService } from './ability/ability.service';
@@ -26,7 +25,6 @@ export class PokemonService extends Service<Pokemon> {
     @InjectRepository(Pokemon)
     protected repository: Repository<Pokemon>,
     protected business: PokemonBusiness,
-    protected generateService: GenerateService,
     protected typeService: TypeService,
     protected moveService: MoveService,
     protected abilityService: AbilityService,
@@ -48,24 +46,21 @@ export class PokemonService extends Service<Pokemon> {
   private async initializeDatabase(): Promise<void> {
     const total = await this.repository.count();
 
-    if (total === 0) {
-      const pokemonList =
-        await this.generateService.generatingListOfPokemonsByResponsePokemon();
-
-      return this.createPokemonList(pokemonList);
-    }
-
     if (total !== this.business.limit) {
-      const pokemonList =
-        await this.generateService.generatingListOfPokemonsByResponsePokemon();
+      const pokemonList = await this.business
+          .getAll()
+          .then((response) => response.results)
+          .catch((error) => this.error(error));
 
-      const entities = total !== 0 ? await this.repository.find() : [];
+      if(total === 0) {
+        return this.createPokemonList(pokemonList);
+      }
 
-      const saveList =
-        this.generateService.returnsDifferenceBetweenDatabaseAndExternalApi(
-          entities,
-          pokemonList,
-        );
+      const entities = await this.repository.find() ?? [];
+
+      const saveList = pokemonList.filter(
+          (item) => !entities.find((database) => database.name === item.name),
+      );
 
       return this.createPokemonList(saveList);
     }

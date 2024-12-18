@@ -8,7 +8,6 @@ import { Nest, ResponsePaginate } from '../api';
 import {
   CompletingPokemonData,
   EntityPokemon,
-  ResponsePokemon,
   ResponsePokemonEvolution,
   ResponsePokemonMove,
   ResponsePokemonName,
@@ -18,6 +17,7 @@ import {
 } from './interface';
 
 import { TYPE_COLORS } from './constants';
+import { EStatus } from '../shared';
 
 export class Pokemon {
   limit: number = 1302;
@@ -33,15 +33,21 @@ export class Pokemon {
   async getAll(
     offset: number = 0,
     limit: number = this.limit,
-  ): Promise<ResponsePaginate<ResponsePokemon>> {
+  ): Promise<ResponsePaginate<EntityPokemon>> {
     return this.pokemonApi.getAll(offset, limit).then((response) => ({
       ...response,
       results: response.results.map((pokemon) => ({
-        ...pokemon,
+        id: undefined,
+        url: pokemon.url,
+        name: pokemon.name,
         order: this.generateOrder(
           pokemon.url,
           `${this.pokemonApi.url}/pokemon/`,
         ),
+        status: EStatus.INCOMPLETE,
+        created_at: undefined,
+        deleted_at: undefined,
+        updated_at: undefined,
       })),
     }));
   }

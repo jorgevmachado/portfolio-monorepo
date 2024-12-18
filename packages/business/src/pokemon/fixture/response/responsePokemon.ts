@@ -1,4 +1,4 @@
-import { ResponsePokemon } from '../../interface';
+import {EntityPokemon, ResponsePokemon} from '../../interface';
 import {
     RESPONSE_GET_ALL_BULBASAUR_FIXTURE, RESPONSE_GET_ALL_IVYSAUR_FIXTURE, RESPONSE_GET_ALL_VENUSAUR_FIXTURE,
     ResponsePaginate,
@@ -31,4 +31,43 @@ export const RESPONSE_PAGINATE_POKEMON_FIXTURE: ResponsePaginate<ResponsePokemon
     next: null,
     previous: null,
     results: RESPONSE_POKEMON_LIST_FIXTURE,
+  };
+
+export const RESPONSE_PAGINATE_ENTITY_POKEMON_FIXTURE: ResponsePaginate<EntityPokemon> =
+  {
+    count: 0,
+    next: null,
+    previous: null,
+    results: [
+        {
+            id: undefined,
+            url: RESPONSE_POKEMON_BULBASAUR_FIXTURE.url,
+            name: RESPONSE_POKEMON_BULBASAUR_FIXTURE.name,
+            order: RESPONSE_POKEMON_BULBASAUR_FIXTURE.order,
+            status: undefined,
+            created_at: undefined,
+            deleted_at: undefined,
+            updated_at: undefined,
+        },
+        {
+            id: undefined,
+            url: RESPONSE_POKEMON_IVYSAUR_FIXTURE.url,
+            name: RESPONSE_POKEMON_IVYSAUR_FIXTURE.name,
+            order: RESPONSE_POKEMON_IVYSAUR_FIXTURE.order,
+            status: undefined,
+            created_at: undefined,
+            deleted_at: undefined,
+            updated_at: undefined,
+        },
+        {
+            id: undefined,
+            url: RESPONSE_POKEMON_VENUSAUR_FIXTURE.url,
+            name: RESPONSE_POKEMON_VENUSAUR_FIXTURE.name,
+            order: RESPONSE_POKEMON_VENUSAUR_FIXTURE.order,
+            status: undefined,
+            created_at: undefined,
+            deleted_at: undefined,
+            updated_at: undefined,
+        }
+    ],
   };

@@ -8,8 +8,7 @@ import { Pokemon as PokemonBusiness } from '@repo/business/pokemon/pokemon';
 import { EStatus } from '@repo/business/shared/enum';
 
 import {
-  RESPONSE_PAGINATE_POKEMON_FIXTURE,
-  RESPONSE_POKEMON_BULBASAUR_FIXTURE,
+  RESPONSE_PAGINATE_ENTITY_POKEMON_FIXTURE,
   RESPONSE_POKEMON_LIST_FIXTURE,
 } from '@repo/business/pokemon/fixture/response/responsePokemon';
 import {
@@ -27,8 +26,6 @@ import { RESPONSE_POKEMON_EVOLUTIONS_BULBASAUR_FIXTURE } from '@repo/business/po
 
 import { Pokemon } from './entities/pokemon.entity';
 
-import { GenerateService } from './generate/generate.service';
-
 import { PokemonService } from './pokemon.service';
 import { TypeService } from './type/type.service';
 import { MoveService } from './move/move.service';
@@ -38,7 +35,6 @@ describe('PokemonsService', () => {
   let service: PokemonService;
   let repository: Repository<Pokemon>;
   let business: PokemonBusiness;
-  let generateService: GenerateService;
   let typeService: TypeService;
   let moveService: MoveService;
   let abilityService: AbilityService;
@@ -69,13 +65,6 @@ describe('PokemonsService', () => {
           },
         },
         {
-          provide: GenerateService,
-          useValue: {
-            generatingListOfPokemonsByResponsePokemon: jest.fn(),
-            returnsDifferenceBetweenDatabaseAndExternalApi: jest.fn(),
-          },
-        },
-        {
           provide: TypeService,
           useValue: {
             findList: jest.fn(),
@@ -99,7 +88,6 @@ describe('PokemonsService', () => {
     service = module.get<PokemonService>(PokemonService);
     repository = module.get<Repository<Pokemon>>(getRepositoryToken(Pokemon));
     business = module.get<PokemonBusiness>(PokemonBusiness);
-    generateService = module.get<GenerateService>(GenerateService);
     typeService = module.get<TypeService>(TypeService);
     moveService = module.get<MoveService>(MoveService);
     abilityService = module.get<AbilityService>(AbilityService);
@@ -108,7 +96,6 @@ describe('PokemonsService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
     expect(business).toBeDefined();
-    expect(generateService).toBeDefined();
     expect(typeService).toBeDefined();
     expect(moveService).toBeDefined();
     expect(abilityService).toBeDefined();
@@ -120,11 +107,7 @@ describe('PokemonsService', () => {
 
       jest
         .spyOn(business, 'getAll')
-        .mockResolvedValueOnce(RESPONSE_PAGINATE_POKEMON_FIXTURE);
-
-      jest
-        .spyOn(generateService, 'generatingListOfPokemonsByResponsePokemon')
-        .mockResolvedValueOnce(listOfPokemonsConvertedFromResponse);
+        .mockResolvedValueOnce(RESPONSE_PAGINATE_ENTITY_POKEMON_FIXTURE);
 
       listOfPokemonsConvertedFromResponse.forEach((pokemon) => {
         jest.spyOn(repository, 'save').mockResolvedValueOnce(pokemon);
@@ -148,40 +131,18 @@ describe('PokemonsService', () => {
 
       jest
         .spyOn(business, 'getAll')
-        .mockResolvedValueOnce(RESPONSE_PAGINATE_POKEMON_FIXTURE);
+        .mockResolvedValueOnce(RESPONSE_PAGINATE_ENTITY_POKEMON_FIXTURE);
 
       jest
-        .spyOn(generateService, 'generatingListOfPokemonsByResponsePokemon')
-        .mockResolvedValueOnce(listOfPokemonsConvertedFromResponse);
-
-      const database: Array<Pokemon> = [
-        ENTITY_POKEMON_IVYSAUR_INCOMPLETE_FIXTURE,
-        ENTITY_POKEMON_VENUSAUR_INCOMPLETE_FIXTURE,
-      ];
-
-      jest.spyOn(repository, 'find').mockResolvedValueOnce(database);
-
-      const differenceOfPokemonsConvertedFromResponse = [
-        RESPONSE_POKEMON_BULBASAUR_FIXTURE,
-      ].map((response) => {
-        const pokemon = new Pokemon();
-        pokemon.url = response.url;
-        pokemon.name = response.name;
-        pokemon.order = response.order;
-        pokemon.status = EStatus.INCOMPLETE;
-        return pokemon;
-      });
+        .spyOn(repository, 'find')
+        .mockResolvedValueOnce([
+          ENTITY_POKEMON_IVYSAUR_INCOMPLETE_FIXTURE,
+          ENTITY_POKEMON_VENUSAUR_INCOMPLETE_FIXTURE,
+        ]);
 
       jest
-        .spyOn(
-          generateService,
-          'returnsDifferenceBetweenDatabaseAndExternalApi',
-        )
-        .mockReturnValueOnce(differenceOfPokemonsConvertedFromResponse);
-
-      differenceOfPokemonsConvertedFromResponse.forEach((pokemon) => {
-        jest.spyOn(repository, 'save').mockResolvedValueOnce(pokemon);
-      });
+        .spyOn(repository, 'save')
+        .mockResolvedValueOnce(ENTITY_POKEMON_BULBASAUR_INCOMPLETE_FIXTURE);
 
       jest.spyOn(repository, 'createQueryBuilder').mockReturnValueOnce({
         orderBy: jest.fn(),

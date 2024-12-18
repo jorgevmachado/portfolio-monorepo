@@ -2,22 +2,22 @@ import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { EntityType } from '@repo/business/pokemon/interface';
+import { EntityAbility } from '@repo/business/pokemon/interface';
 
 import { Service } from '../../shared';
-import { Type } from '../entities/type.entity';
+import { Ability } from '../entities/ability.entity';
 import { FindOneParams } from '../../shared/interface';
 
 @Injectable()
-export class TypeService extends Service<Type> {
+export class AbilityService extends Service<Ability> {
   constructor(
-    @InjectRepository(Type)
-    protected repository: Repository<Type>,
+    @InjectRepository(Ability)
+    protected repository: Repository<Ability>,
   ) {
-    super('types', [], repository);
+    super('abilities', [], repository);
   }
 
-  async findList(types: Array<EntityType>) {
+  async findList(types: Array<EntityAbility>) {
     return await Promise.all(
       types.map(async (response) =>
         this.findOne({
@@ -34,7 +34,7 @@ export class TypeService extends Service<Type> {
     complete = true,
     withThrow = true,
     response,
-  }: FindOneParams<EntityType>): Promise<Type> {
+  }: FindOneParams<EntityAbility>): Promise<Ability> {
     const result = await this.findBy({
       searchParams: {
         by: 'order',
@@ -51,9 +51,9 @@ export class TypeService extends Service<Type> {
   }
 
   async completingData(
-    entity: Type,
-    responseType: EntityType,
-  ): Promise<Type> {
+    entity: Ability,
+    responseType: EntityAbility,
+  ): Promise<Ability> {
     if (!entity) {
       await this.save(responseType);
 

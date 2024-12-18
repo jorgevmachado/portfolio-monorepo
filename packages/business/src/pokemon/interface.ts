@@ -15,7 +15,7 @@ export interface CompletingPokemonData {
   types: Array<EntityType>;
   moves: Array<ResponseMove>;
   pokemon: EntityPokemon;
-  abilities: Array<ResponseAbility>;
+  abilities: Array<EntityAbility>;
 }
 
 export interface ResponsePokemonName extends Stats {
@@ -159,6 +159,6 @@ export interface EntityAbility {
   order: number;
   is_hidden: boolean;
   created_at: Date;
-  updated_at?: Date;
-  deleted_at?: Date;
+  updated_at: Date;
+  deleted_at: Date;
 }

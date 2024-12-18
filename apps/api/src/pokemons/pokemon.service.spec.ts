@@ -21,6 +21,7 @@ import {
 import { ENTITY_POKEMON_WITH_NO_RELATIONSHIP_BULBASAUR_INCOMPLETE_FIXTURE } from '@repo/business/pokemon/fixture/entities/pokemon/entityPokemonWithNoRelationship';
 import { RESPONSE_POKEMON_NAME_BULBASAUR_FIXTURE } from '@repo/business/pokemon/fixture/response/responsePokemonName';
 import { ENTITY_LIST_TYPE_FIXTURE } from '@repo/business/pokemon/fixture/entities/entityType';
+import { ENTITY_ABILITY_LIST_FIXTURE } from '@repo/business/pokemon/fixture/entities/entityAbility';
 
 import { Pokemon } from './entities/pokemon.entity';
 
@@ -246,14 +247,11 @@ describe('PokemonsService', () => {
       } as any);
 
       jest
-        .spyOn(
-          business,
-          'completingPokemonDataThroughTheExternalApi',
-        )
+        .spyOn(business, 'completingPokemonDataThroughTheExternalApi')
         .mockResolvedValueOnce({
           types: ENTITY_LIST_TYPE_FIXTURE,
           moves: RESPONSE_POKEMON_NAME_BULBASAUR_FIXTURE.moves,
-          abilities: RESPONSE_POKEMON_NAME_BULBASAUR_FIXTURE.abilities,
+          abilities: ENTITY_ABILITY_LIST_FIXTURE,
           pokemon:
             ENTITY_POKEMON_WITH_NO_RELATIONSHIP_BULBASAUR_INCOMPLETE_FIXTURE,
         });

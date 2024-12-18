@@ -66,7 +66,7 @@ export class Pokemon {
           pokemon.special_attack = byName?.special_attack;
           pokemon.special_defense = byName?.special_defense;
           return {
-            types: byName?.types.map((type) => ({
+            types: byName?.types?.map((type) => ({
               id: undefined,
               url: type?.url,
               name: type?.name,
@@ -79,7 +79,17 @@ export class Pokemon {
             })),
             moves: byName?.moves,
             pokemon,
-            abilities: byName?.abilities
+            abilities: byName?.abilities?.map((ability) => ({
+              id: undefined,
+              url: ability.url,
+              name: ability.name,
+              slot: ability.slot,
+              order: ability.order,
+              is_hidden: ability.is_hidden,
+              created_at: undefined,
+              updated_at: undefined,
+              deleted_at: undefined,
+            }))
           };
         })
         .catch((error) => error);

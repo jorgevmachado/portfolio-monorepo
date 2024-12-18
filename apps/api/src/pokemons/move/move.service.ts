@@ -10,8 +10,6 @@ import { Service } from '../../shared';
 
 import { Move } from '../entities/move.entity';
 
-import { FindOneParams } from '../../shared/interface';
-
 @Injectable()
 export class MoveService extends Service<Move> {
   constructor(
@@ -25,37 +23,17 @@ export class MoveService extends Service<Move> {
   async findList(moves: ResponsePokemonName['moves']) {
     return await Promise.all(
       moves.map(async (response) =>
-        this.findOne({
+        this.findOneByOrder<ResponsePokemonName['moves'][number]>({
           order: response.order,
           response,
           withThrow: false,
+          completingData: (result, response) =>  this.completingData(result, response),
         }),
       ),
     );
   }
 
-  async findOne({
-    order,
-    complete = true,
-    withThrow = true,
-    response,
-  }: FindOneParams<ResponsePokemonName['moves'][number]>) {
-    const result = await this.findBy({
-      searchParams: {
-        by: 'order',
-        value: order,
-      },
-      withThrow,
-    });
-
-    if (!complete) {
-      return result;
-    }
-
-    return await this.completingMoveData(result, response);
-  }
-
-  async completingMoveData(
+  async completingData(
     entity: Move,
     response: ResponsePokemonName['moves'][number],
   ) {
@@ -64,7 +42,7 @@ export class MoveService extends Service<Move> {
 
       await this.save(move);
 
-      return await this.findOne({ order: move.order, complete: false });
+      return await this.findOneByOrder({ order: move.order, complete: false });
     }
 
     return entity;

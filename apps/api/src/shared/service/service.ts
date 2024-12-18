@@ -3,7 +3,7 @@ import { PaginateParameters } from '@repo/business/paginate/interface';
 import { Paginate } from '@repo/business/paginate/paginate';
 
 import { Query } from '../query';
-import { FindParams, ListParams } from "../interface";
+import {FindOneParams, FindParams, ListParams} from "../interface";
 import { Base } from '../base';
 import { NotFoundException } from "@nestjs/common";
 
@@ -19,6 +19,7 @@ export abstract class Service<T extends ObjectLiteral> extends Base {
   async list({
     filters = [],
     parameters,
+    defaultAsc,
     withDeleted = false,
     withRelations = true,
   }: ListParams): Promise<Array<T> | PaginateParameters<T>> {
@@ -26,6 +27,7 @@ export abstract class Service<T extends ObjectLiteral> extends Base {
       alias: this.alias,
       filters,
       relations: this.relations,
+      defaultAsc,
       parameters,
       repository: this.repository,
       withDeleted,
@@ -39,6 +41,28 @@ export abstract class Service<T extends ObjectLiteral> extends Base {
     const [results, total] = await query.getManyAndCount();
 
     return new Paginate(parameters.page, parameters.limit, total, results);
+  }
+
+  async findOneByOrder<R> ({
+      order,
+      complete = true,
+      withThrow = true,
+      response,
+      completingData
+}: FindOneParams<T,R>): Promise<T> {
+    const result = await this.findBy({
+      searchParams: {
+        by: 'order',
+        value: order,
+      },
+      withThrow,
+    });
+
+    if (!complete || !completingData) {
+      return result;
+    }
+
+    return completingData(result, response);
   }
 
   async findBy({

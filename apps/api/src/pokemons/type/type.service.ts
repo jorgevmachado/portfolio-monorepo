@@ -6,7 +6,6 @@ import { EntityType } from '@repo/business/pokemon/interface';
 
 import { Service } from '../../shared';
 import { Type } from '../entities/type.entity';
-import { FindOneParams } from '../../shared/interface';
 
 @Injectable()
 export class TypeService extends Service<Type> {
@@ -20,34 +19,14 @@ export class TypeService extends Service<Type> {
   async findList(types: Array<EntityType>) {
     return await Promise.all(
       types.map(async (response) =>
-        this.findOne({
+        this.findOneByOrder<EntityType>({
           order: response.order,
           response,
           withThrow: false,
+          completingData: (result, response) =>  this.completingData(result, response),
         }),
       ),
     );
-  }
-
-  async findOne({
-    order,
-    complete = true,
-    withThrow = true,
-    response,
-  }: FindOneParams<EntityType>): Promise<Type> {
-    const result = await this.findBy({
-      searchParams: {
-        by: 'order',
-        value: order,
-      },
-      withThrow,
-    });
-
-    if (!complete) {
-      return result;
-    }
-
-    return await this.completingData(result, response);
   }
 
   async completingData(
@@ -57,7 +36,7 @@ export class TypeService extends Service<Type> {
     if (!entity) {
       await this.save(responseType);
 
-      return await this.findOne({ order: responseType.order, complete: false });
+      return await this.findOneByOrder({ order: responseType.order, complete: false });
     }
 
     return entity;

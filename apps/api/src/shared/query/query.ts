@@ -6,7 +6,8 @@ import { ConflictException } from "@nestjs/common";
 export interface QueryParams<T> {
   readonly alias: string;
   readonly filters?: Array<FilterParams>;
-  readonly relations?: Array<string>
+  readonly relations?: Array<string>;
+  readonly defaultAsc?: string;
   readonly parameters?: QueryParameters;
   readonly repository: Repository<T>;
   readonly withDeleted?: boolean;
@@ -18,7 +19,8 @@ export class Query<T extends ObjectLiteral> {
   private query: SelectQueryBuilder<T>;
   private readonly alias: string;
   private readonly filters?: Array<FilterParams>;
-  private readonly relations?: Array<string>
+  private readonly relations?: Array<string>;
+  private readonly defaultAsc?: string;
   private readonly parameters?: QueryParameters;
   private readonly repository: Repository<T>;
   private readonly withDeleted?: boolean;
@@ -29,6 +31,7 @@ export class Query<T extends ObjectLiteral> {
     alias,
     filters = [],
     relations = [],
+    defaultAsc,
     parameters = {},
     repository,
     withDeleted,
@@ -38,6 +41,7 @@ export class Query<T extends ObjectLiteral> {
     this.alias = alias;
     this.filters = filters;
     this.relations = relations;
+    this.defaultAsc = defaultAsc;
     this.parameters = parameters;
     this.repository = repository;
     this.withDeleted = withDeleted;
@@ -65,10 +69,16 @@ export class Query<T extends ObjectLiteral> {
 
     if (asc) {
       this.query.orderBy(`${this.alias}.${asc}`, 'ASC');
+      return;
     }
 
     if (desc) {
       this.query.orderBy(`${this.alias}.${desc}`, 'DESC');
+      return;
+    }
+
+    if(this.defaultAsc) {
+      this.query.orderBy(`${this.alias}.${this.defaultAsc}`, 'ASC');
     }
   }
 

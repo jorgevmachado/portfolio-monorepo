@@ -6,7 +6,6 @@ import { EntityAbility } from '@repo/business/pokemon/interface';
 
 import { Service } from '../../shared';
 import { Ability } from '../entities/ability.entity';
-import { FindOneParams } from '../../shared/interface';
 
 @Injectable()
 export class AbilityService extends Service<Ability> {
@@ -19,35 +18,15 @@ export class AbilityService extends Service<Ability> {
 
   async findList(types: Array<EntityAbility>) {
     return await Promise.all(
-      types.map(async (response) =>
-        this.findOne({
-          order: response.order,
-          response,
-          withThrow: false,
-        }),
-      ),
+        types.map(async (response) =>
+            this.findOneByOrder<EntityAbility>({
+              order: response.order,
+              response,
+              withThrow: false,
+              completingData: (result, response) =>  this.completingData(result, response),
+            }),
+        ),
     );
-  }
-
-  async findOne({
-    order,
-    complete = true,
-    withThrow = true,
-    response,
-  }: FindOneParams<EntityAbility>): Promise<Ability> {
-    const result = await this.findBy({
-      searchParams: {
-        by: 'order',
-        value: order,
-      },
-      withThrow,
-    });
-
-    if (!complete) {
-      return result;
-    }
-
-    return await this.completingData(result, response);
   }
 
   async completingData(
@@ -57,7 +36,7 @@ export class AbilityService extends Service<Ability> {
     if (!entity) {
       await this.save(responseType);
 
-      return await this.findOne({ order: responseType.order, complete: false });
+      return await this.findOneByOrder({ order: responseType.order, complete: false });
     }
 
     return entity;

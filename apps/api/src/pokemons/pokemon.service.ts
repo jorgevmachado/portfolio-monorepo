@@ -40,7 +40,7 @@ export class PokemonService extends Service<Pokemon> {
     parameters: QueryParameters,
   ): Promise<Array<Pokemon> | PaginateParameters<Pokemon>> {
     await this.initializeDatabase();
-    return this.list({ parameters });
+    return this.list({ parameters, defaultAsc: 'order' });
   }
 
   private async initializeDatabase(): Promise<void> {

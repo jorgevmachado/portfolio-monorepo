@@ -2,6 +2,7 @@ import { QueryParameters } from '@repo/business/shared/interface';
 
 export interface ListParams {
   filters?: Array<FilterParams>;
+  defaultAsc?: string;
   parameters?: QueryParameters;
   withDeleted?: boolean;
   withRelations?: boolean;
@@ -34,9 +35,11 @@ export type TBy =
   | 'whatsUp'
   | 'accountId';
 
-export interface FindOneParams<T> {
+export interface FindOneParams<T, R> {
   order: number;
-  response?: T;
+  response?: R;
   complete?: boolean;
   withThrow?: boolean;
+  completingData?: (result: T, response: R | T) => Promise<T>;
+
 }

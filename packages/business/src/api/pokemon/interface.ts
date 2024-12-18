@@ -73,7 +73,17 @@ export interface IResponsePokemonSpecie {
   has_gender_differences: boolean;
 }
 
-export interface IResponsePokemonEvolution {}
+export interface IResponsePokemonEvolution {
+  chain: {
+    species: Pick<IResponsePokemon, 'url' | 'name'>;
+    evolves_to: Array<IResponseEvolvesTo>;
+  },
+}
+
+interface IResponseEvolvesTo {
+  species: Pick<IResponsePokemon, 'url' | 'name'>;
+  evolves_to: Array<IResponseEvolvesTo>;
+}
 
 export interface IResponsePokemonMove {
   pp: number;

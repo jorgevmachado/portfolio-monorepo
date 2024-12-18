@@ -1,8 +1,13 @@
-import { type IResponsePokemonName, PokemonApi } from '../api/pokemon';
+import {
+  IResponsePokemonEvolution,
+  type IResponsePokemonName,
+  PokemonApi,
+} from '../api/pokemon';
 import { Nest, ResponsePaginate } from '../api';
 
 import {
-  CompletingPokemonData, EntityPokemon,
+  CompletingPokemonData,
+  EntityPokemon,
   ResponsePokemon,
   ResponsePokemonEvolution,
   ResponsePokemonMove,
@@ -41,58 +46,60 @@ export class Pokemon {
     }));
   }
 
-  async completingPokemonDataThroughTheExternalApi(pokemon: EntityPokemon): Promise<CompletingPokemonData> {
-    return await Promise
-        .all([
-            await this.getByName(pokemon.name),
-            await this.getSpecieByName(pokemon.name)
-        ])
-        .then(([byName, byNameSpecie]) => {
-          pokemon.hp = byName?.hp;
-          pokemon.image = byName?.image;
-          pokemon.speed = byName?.speed;
-          pokemon.attack = byName?.attack;
-          pokemon.defense = byName?.defense;
-          pokemon.habitat = byNameSpecie?.habitat;
-          pokemon.is_baby = byNameSpecie?.is_baby;
-          pokemon.shape_url = byNameSpecie?.shape_url;
-          pokemon.shape_name = byNameSpecie?.shape_name;
-          pokemon.is_mythical = byNameSpecie?.is_mythical;
-          pokemon.gender_rate = byNameSpecie?.gender_rate;
-          pokemon.is_legendary = byNameSpecie?.is_legendary;
-          pokemon.capture_rate = byNameSpecie?.capture_rate;
-          pokemon.hatch_counter = byNameSpecie?.hatch_counter;
-          pokemon.base_happiness= byNameSpecie?.base_happiness;
-          pokemon.special_attack = byName?.special_attack;
-          pokemon.special_defense = byName?.special_defense;
-          return {
-            types: byName?.types?.map((type) => ({
-              id: undefined,
-              url: type?.url,
-              name: type?.name,
-              order: type?.order,
-              created_at: undefined,
-              updated_at: undefined,
-              deleted_at: undefined,
-              text_color: type?.text_color,
-              background_color: type?.background_color,
-            })),
-            moves: byName?.moves,
-            pokemon,
-            abilities: byName?.abilities?.map((ability) => ({
-              id: undefined,
-              url: ability.url,
-              name: ability.name,
-              slot: ability.slot,
-              order: ability.order,
-              is_hidden: ability.is_hidden,
-              created_at: undefined,
-              updated_at: undefined,
-              deleted_at: undefined,
-            }))
-          };
-        })
-        .catch((error) => error);
+  async completingPokemonDataThroughTheExternalApi(
+    pokemon: EntityPokemon,
+  ): Promise<CompletingPokemonData> {
+    return await Promise.all([
+      await this.getByName(pokemon.name),
+      await this.getSpecieByName(pokemon.name),
+    ])
+      .then(([byName, byNameSpecie]) => {
+        pokemon.hp = byName?.hp;
+        pokemon.image = byName?.image;
+        pokemon.speed = byName?.speed;
+        pokemon.attack = byName?.attack;
+        pokemon.defense = byName?.defense;
+        pokemon.habitat = byNameSpecie?.habitat;
+        pokemon.is_baby = byNameSpecie?.is_baby;
+        pokemon.shape_url = byNameSpecie?.shape_url;
+        pokemon.shape_name = byNameSpecie?.shape_name;
+        pokemon.is_mythical = byNameSpecie?.is_mythical;
+        pokemon.gender_rate = byNameSpecie?.gender_rate;
+        pokemon.is_legendary = byNameSpecie?.is_legendary;
+        pokemon.capture_rate = byNameSpecie?.capture_rate;
+        pokemon.hatch_counter = byNameSpecie?.hatch_counter;
+        pokemon.base_happiness = byNameSpecie?.base_happiness;
+        pokemon.special_attack = byName?.special_attack;
+        pokemon.special_defense = byName?.special_defense;
+        pokemon.evolution_chain_url = byNameSpecie?.evolution_chain_url;
+        return {
+          types: byName?.types?.map((type) => ({
+            id: undefined,
+            url: type?.url,
+            name: type?.name,
+            order: type?.order,
+            created_at: undefined,
+            updated_at: undefined,
+            deleted_at: undefined,
+            text_color: type?.text_color,
+            background_color: type?.background_color,
+          })),
+          moves: byName?.moves,
+          pokemon,
+          abilities: byName?.abilities?.map((ability) => ({
+            id: undefined,
+            url: ability.url,
+            name: ability.name,
+            slot: ability.slot,
+            order: ability.order,
+            is_hidden: ability.is_hidden,
+            created_at: undefined,
+            updated_at: undefined,
+            deleted_at: undefined,
+          })),
+        };
+      })
+      .catch((error) => error);
   }
 
   async getByName(name: string): Promise<ResponsePokemonName> {
@@ -222,7 +229,22 @@ export class Pokemon {
       url,
       `${this.pokemonApi.url}/evolution-chain/`,
     );
-    return this.pokemonApi.getEvolutionsByOrder(order);
+    return this.pokemonApi
+      .getEvolutionsByOrder(order)
+      .then((response) => [
+        response?.chain?.species?.name,
+        ...this.nextEvolution(response.chain.evolves_to),
+      ]);
+  }
+
+  private nextEvolution(
+    evolves: IResponsePokemonEvolution['chain']['evolves_to'],
+  ) {
+    return evolves
+      .map((item) =>
+        [item.species.name].concat(...this.nextEvolution(item.evolves_to)),
+      )
+      .reduce((arr, curr) => [...arr, ...curr], []);
   }
 
   async getMove(order: number): Promise<ResponsePokemonMove> {

@@ -3,6 +3,8 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -15,6 +17,9 @@ import type {
 } from '@repo/business/pokemon/interface';
 
 import { EStatus } from '@repo/business/shared/enum';
+import { Move } from './move.entity';
+import { Type } from './type.entity';
+import {Ability} from "./ability.entity";
 
 @Entity({ name: 'pokemons' })
 export class Pokemon implements EntityPokemon {
@@ -36,11 +41,15 @@ export class Pokemon implements EntityPokemon {
   @Column({ nullable: true })
   speed?: number;
 
+  @ManyToMany(() => Move, { nullable: true })
+  @JoinTable()
   moves?: Array<EntityMove>;
 
   @Column({ nullable: false })
   order: number;
 
+  @ManyToMany(() => Type, { nullable: true })
+  @JoinTable()
   types?: Array<EntityType>;
 
   @Column({ nullable: false, default: EStatus.INCOMPLETE })
@@ -61,8 +70,12 @@ export class Pokemon implements EntityPokemon {
   @Column({ nullable: true, length: 200 })
   shape_url?: string;
 
+  @ManyToMany(() => Ability, { nullable: true })
+  @JoinTable()
   abilities?: Array<EntityAbility>;
 
+  @ManyToMany(() => Pokemon, { nullable: true })
+  @JoinTable()
   evolutions?: Array<EntityPokemon>;
 
   @CreateDateColumn()
@@ -111,7 +124,7 @@ export class Pokemon implements EntityPokemon {
   has_gender_differences?: boolean;
 
   constructor(pokemon?: Pokemon) {
-    if(pokemon) {
+    if (pokemon) {
       this.id = pokemon.id ?? this.id;
       this.hp = pokemon.hp ?? this.hp;
       this.url = pokemon.url ?? this.url;
@@ -137,9 +150,12 @@ export class Pokemon implements EntityPokemon {
       this.base_happiness = pokemon.base_happiness ?? this.base_happiness;
       this.special_attack = pokemon.special_attack ?? this.special_attack;
       this.special_defense = pokemon.special_defense ?? this.special_defense;
-      this.evolution_chain_url = pokemon.evolution_chain_url ?? this.evolution_chain_url;
-      this.evolves_from_species = pokemon.evolves_from_species ?? this.evolves_from_species;
-      this.has_gender_differences = pokemon.has_gender_differences ?? this.has_gender_differences;
+      this.evolution_chain_url =
+        pokemon.evolution_chain_url ?? this.evolution_chain_url;
+      this.evolves_from_species =
+        pokemon.evolves_from_species ?? this.evolves_from_species;
+      this.has_gender_differences =
+        pokemon.has_gender_differences ?? this.has_gender_differences;
     }
   }
 }

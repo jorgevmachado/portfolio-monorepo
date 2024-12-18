@@ -31,7 +31,11 @@ export class PokemonService extends Service<Pokemon> {
     protected moveService: MoveService,
     protected abilityService: AbilityService,
   ) {
-    super('pokemons', [], repository);
+    super(
+      'pokemons',
+      ['moves', 'types', 'abilities', 'evolutions'],
+      repository,
+    );
   }
 
   async findAll(
@@ -80,6 +84,7 @@ export class PokemonService extends Service<Pokemon> {
         value,
       },
       withThrow: true,
+      withRelations: true,
     });
 
     if (result?.status === EStatus.COMPLETE) {
@@ -95,19 +100,26 @@ export class PokemonService extends Service<Pokemon> {
 
   private async completingPokemonData(pokemon: Pokemon) {
     const basicPokemon =
-      await this.business.completingPokemonDataThroughTheExternalApi(
-        pokemon,
-      );
-    const types = await this.typeService.findList(basicPokemon.types);
-    const moves = await this.moveService.findList(basicPokemon.moves);
-    const abilities = await this.abilityService.findList(
+      await this.business.completingPokemonDataThroughTheExternalApi(pokemon);
+    const entity = new Pokemon(basicPokemon.pokemon);
+    entity.moves = await this.moveService.findList(basicPokemon.moves);
+    entity.types = await this.typeService.findList(basicPokemon.types);
+    entity.abilities = await this.abilityService.findList(
       basicPokemon.abilities,
     );
-    console.log('types => ', types);
-    console.log('moves => ', moves?.length);
-    console.log('abilities => ', abilities?.length);
-    await this.save(basicPokemon.pokemon);
+    entity.evolutions = await this.getEvolutions(entity.evolution_chain_url);
+    entity.status = EStatus.COMPLETE;
+
+    await this.save(entity);
 
     return await this.findOne(pokemon.name, false);
+  }
+
+  private async getEvolutions(url: string): Promise<Array<Pokemon>> {
+    const response = await this.business.getEvolutions(url);
+
+    return await Promise.all(
+      response.map(async (name) => await this.findOne(name, false)),
+    );
   }
 }

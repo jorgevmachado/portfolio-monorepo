@@ -1,7 +1,4 @@
-import type {
-  IResponsePokemon,
-  IResponsePokemonEvolution,
-} from '../api/pokemon';
+import type { IResponsePokemon } from '../api/pokemon';
 import { EStatus } from '../shared/enum';
 
 export interface PokemonConfig {
@@ -80,7 +77,7 @@ export interface ResponsePokemonSpecie {
   has_gender_differences: boolean;
 }
 
-export type ResponsePokemonEvolution = IResponsePokemonEvolution;
+export type ResponsePokemonEvolution = Array<string>;
 
 export interface EntityPokemon {
   id: string;

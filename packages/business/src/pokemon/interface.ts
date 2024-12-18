@@ -11,6 +11,13 @@ export interface PokemonConfig {
 
 export type ResponsePokemon = IResponsePokemon;
 
+export interface CompletingPokemonData {
+  types: Array<EntityType>;
+  moves: Array<ResponseMove>;
+  pokemon: EntityPokemon;
+  abilities: Array<ResponseAbility>;
+}
+
 export interface ResponsePokemonName extends Stats {
   name: string;
   order: number;

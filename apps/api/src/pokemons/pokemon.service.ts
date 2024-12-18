@@ -95,7 +95,7 @@ export class PokemonService extends Service<Pokemon> {
 
   private async completingPokemonData(pokemon: Pokemon) {
     const basicPokemon =
-      await this.generateService.completingPokemonDataThroughTheExternalApiByName(
+      await this.business.completingPokemonDataThroughTheExternalApi(
         pokemon,
       );
     const types = await this.typeService.findList(basicPokemon.types);
@@ -104,8 +104,8 @@ export class PokemonService extends Service<Pokemon> {
       basicPokemon.abilities,
     );
     console.log('types => ', types);
-    console.log('moves => ', moves);
-    console.log('abilities => ', abilities);
+    console.log('moves => ', moves?.length);
+    console.log('abilities => ', abilities?.length);
     await this.save(basicPokemon.pokemon);
 
     return await this.findOne(pokemon.name, false);

@@ -61,6 +61,7 @@ describe('PokemonsService', () => {
           useValue: {
             limit: 1302,
             getAll: jest.fn(),
+            completingPokemonDataThroughTheExternalApi: jest.fn(),
           },
         },
         {
@@ -68,7 +69,6 @@ describe('PokemonsService', () => {
           useValue: {
             generatingListOfPokemonsByResponsePokemon: jest.fn(),
             returnsDifferenceBetweenDatabaseAndExternalApi: jest.fn(),
-            completingPokemonDataThroughTheExternalApiByName: jest.fn(),
           },
         },
         {
@@ -247,11 +247,11 @@ describe('PokemonsService', () => {
 
       jest
         .spyOn(
-          generateService,
-          'completingPokemonDataThroughTheExternalApiByName',
+          business,
+          'completingPokemonDataThroughTheExternalApi',
         )
         .mockResolvedValueOnce({
-          types: RESPONSE_POKEMON_NAME_BULBASAUR_FIXTURE.types,
+          types: ENTITY_LIST_TYPE_FIXTURE,
           moves: RESPONSE_POKEMON_NAME_BULBASAUR_FIXTURE.moves,
           abilities: RESPONSE_POKEMON_NAME_BULBASAUR_FIXTURE.abilities,
           pokemon:

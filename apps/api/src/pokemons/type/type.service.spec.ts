@@ -9,8 +9,6 @@ import {
   ENTITY_TYPE_POISON_FIXTURE,
 } from '@repo/business/pokemon/fixture/entities/entityType';
 
-import { RESPONSE_POKEMON_NAME_BULBASAUR_FIXTURE } from '@repo/business/pokemon/fixture/response/responsePokemonName';
-
 import { Type } from '../entities/type.entity';
 
 import { TypeService } from './type.service';
@@ -36,7 +34,7 @@ describe('TypeService', () => {
     expect(repository).toBeDefined();
   });
 
-  describe('findList(responseType)', () => {
+  describe('findList(entityType)', () => {
     it('should return a list of Pokémon types from the database', async () => {
       jest.spyOn(repository, 'createQueryBuilder').mockReturnValueOnce({
         andWhere: jest.fn(),
@@ -49,7 +47,9 @@ describe('TypeService', () => {
       } as any);
 
       expect(
-        await service.findList(RESPONSE_POKEMON_NAME_BULBASAUR_FIXTURE.types),
+        await service.findList(
+          ENTITY_LIST_TYPE_FIXTURE,
+        ),
       ).toEqual(ENTITY_LIST_TYPE_FIXTURE);
     });
 
@@ -82,9 +82,11 @@ describe('TypeService', () => {
         getOne: jest.fn().mockReturnValueOnce(ENTITY_TYPE_POISON_FIXTURE),
       } as any);
 
-      expect(await service.findList(RESPONSE_POKEMON_NAME_BULBASAUR_FIXTURE.types)).toEqual(
-        ENTITY_LIST_TYPE_FIXTURE,
-      );
+      expect(
+        await service.findList(
+          ENTITY_LIST_TYPE_FIXTURE,
+        ),
+      ).toEqual(ENTITY_LIST_TYPE_FIXTURE);
     });
   });
 });

@@ -11,7 +11,6 @@ import { Pokemon } from '../entities/pokemon.entity';
 
 interface PokemonByResponsePokemonName {
   types: ResponsePokemonName['types'];
-  stats: ResponsePokemonName['stats'];
   moves: ResponsePokemonName['moves'];
   pokemon: Pokemon;
   abilities: ResponsePokemonName['abilities'];
@@ -75,65 +74,24 @@ export class GenerateService extends Base {
     return await this.business
       .getByName(pokemon.name)
       .then((response) => {
-        const stats = this.generatingPokemonStatsByResponse(
-          response?.stats ?? [],
-        );
         const entity = new Pokemon({
           ...pokemon,
           image: response?.image,
-          hp: stats.hp,
-          speed: stats.speed,
-          attack: stats.attack,
-          defense: stats.defense,
-          special_attack: stats.special_attack,
-          special_defense: stats.special_defense,
+          hp: response?.hp,
+          speed: response?.speed,
+          attack: response?.attack,
+          defense: response?.defense,
+          special_attack: response?.special_attack,
+          special_defense: response?.special_defense,
         });
         return {
           types: response?.types,
-          stats: response?.stats,
           moves: response?.moves,
           pokemon: entity,
           abilities: response?.abilities,
         };
       })
       .catch((error) => this.error(error));
-  }
-
-  generatingPokemonStatsByResponse(stats: ResponsePokemonName['stats']) {
-    return stats.reduce(
-      (acc, stat) => {
-        switch (stat.stat.name) {
-          case 'hp':
-            acc.hp = stat.base_stat;
-            break;
-          case 'speed':
-            acc.speed = stat.base_stat;
-            break;
-          case 'attack':
-            acc.attack = stat.base_stat;
-            break;
-          case 'defense':
-            acc.defense = stat.base_stat;
-            break;
-          case 'special-attack':
-            acc.special_attack = stat.base_stat;
-            break;
-          case 'special-defense':
-            acc.special_defense = stat.base_stat;
-            break;
-          default:
-        }
-        return acc;
-      },
-      {
-        hp: 0,
-        speed: 0,
-        attack: 0,
-        defense: 0,
-        special_attack: 0,
-        special_defense: 0,
-      },
-    );
   }
 
   async generatingPokemonOfPokemonByResponsePokemonSpecie(
@@ -144,18 +102,18 @@ export class GenerateService extends Base {
       .then((response) => {
         return new Pokemon({
           ...pokemon,
-          habitat: response?.habitat?.name,
+          habitat: response?.habitat,
           is_baby: response?.is_baby,
-          shape_url: response?.shape?.url,
-          shape_name: response?.shape?.name,
+          shape_url: response?.shape_url,
+          shape_name: response?.shape_name,
           is_mythical: response?.is_mythical,
           gender_rate: response?.gender_rate,
           is_legendary: response?.is_legendary,
           capture_rate: response?.capture_rate,
           hatch_counter: response?.hatch_counter,
           base_happiness: response?.base_happiness,
-          evolution_chain_url: response?.evolution_chain?.url,
-          evolves_from_species: response?.evolves_from_species?.name,
+          evolution_chain_url: response?.evolution_chain_url,
+          evolves_from_species: response?.evolves_from_species,
           has_gender_differences: response?.has_gender_differences,
         });
       })
@@ -169,8 +127,8 @@ export class GenerateService extends Base {
   ) {
     return new Pokemon({
       ...pokemon,
-      image: pokemonName.image,
       hp: pokemonName.hp,
+      image: pokemonName.image,
       speed: pokemonName.speed,
       attack: pokemonName.attack,
       defense: pokemonName.defense,

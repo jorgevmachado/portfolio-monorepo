@@ -11,19 +11,19 @@ import {
   ENTITY_MOVE_LIST_FIXTURE,
   ENTITY_MOVE_RAZOR_WIND_FIXTURE,
   ENTITY_MOVE_SWORDS_DANCE_FIXTURE,
-} from '../../../../../packages/business/src/pokemon/fixture/entities/entityMove';
+} from '@repo/business/pokemon/fixture/entities/entityMove';
 
-import { RESPONSE_LIST_MOVE_FIXTURE } from '@repo/business/pokemon/fixture/responseMove';
-
+import { RESPONSE_POKEMON_NAME_BULBASAUR_FIXTURE } from '@repo/business/pokemon/fixture/response/responsePokemonName';
 import {
   RESPONSE_POKEMON_MOVE_CUT_FIXTURE,
   RESPONSE_POKEMON_MOVE_RAZOR_WIND_FIXTURE,
-  RESPONSE_POKEMON_MOVE_SWORDS_DANCE_FIXTURE
-} from '../../../../../packages/business/src/pokemon/fixture/response/responsePokemonMove';
+  RESPONSE_POKEMON_MOVE_SWORDS_DANCE_FIXTURE,
+} from '@repo/business/pokemon/fixture/response/responsePokemonMove';
 
 import { Move } from '../entities/move.entity';
 
 import { MoveService } from './move.service';
+
 
 describe('MoveService', () => {
   let service: MoveService;
@@ -72,9 +72,9 @@ describe('MoveService', () => {
         getOne: jest.fn().mockReturnValueOnce(ENTITY_MOVE_CUT_FIXTURE),
       } as any);
 
-      expect(await service.findList(RESPONSE_LIST_MOVE_FIXTURE)).toEqual(
-        ENTITY_MOVE_LIST_FIXTURE,
-      );
+      expect(
+        await service.findList(RESPONSE_POKEMON_NAME_BULBASAUR_FIXTURE.moves),
+      ).toEqual(ENTITY_MOVE_LIST_FIXTURE);
     });
 
     it('must save a list of pokemon moves in the database when none exist', async () => {
@@ -98,12 +98,12 @@ describe('MoveService', () => {
         .mockResolvedValueOnce(RESPONSE_POKEMON_MOVE_RAZOR_WIND_FIXTURE);
 
       jest
-          .spyOn(business, 'getMove')
-          .mockResolvedValueOnce(RESPONSE_POKEMON_MOVE_SWORDS_DANCE_FIXTURE);
+        .spyOn(business, 'getMove')
+        .mockResolvedValueOnce(RESPONSE_POKEMON_MOVE_SWORDS_DANCE_FIXTURE);
 
       jest
-          .spyOn(business, 'getMove')
-          .mockResolvedValueOnce(RESPONSE_POKEMON_MOVE_CUT_FIXTURE);
+        .spyOn(business, 'getMove')
+        .mockResolvedValueOnce(RESPONSE_POKEMON_MOVE_CUT_FIXTURE);
 
       jest
         .spyOn(repository, 'save')
@@ -132,9 +132,9 @@ describe('MoveService', () => {
         getOne: jest.fn().mockReturnValueOnce(ENTITY_MOVE_CUT_FIXTURE),
       } as any);
 
-      expect(await service.findList(RESPONSE_LIST_MOVE_FIXTURE)).toEqual(
-        ENTITY_MOVE_LIST_FIXTURE,
-      );
+      expect(
+        await service.findList(RESPONSE_POKEMON_NAME_BULBASAUR_FIXTURE.moves),
+      ).toEqual(ENTITY_MOVE_LIST_FIXTURE);
     });
   });
 });

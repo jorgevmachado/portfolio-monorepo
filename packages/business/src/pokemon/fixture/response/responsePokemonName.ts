@@ -47,12 +47,16 @@ export const RESPONSE_POKEMON_NAME_BULBASAUR_FIXTURE: ResponsePokemonName = {
     {
       url: RESPONSE_GET_BY_NAME_BULBASAUR.abilities[0].ability.url,
       name: RESPONSE_GET_BY_NAME_BULBASAUR.abilities[0].ability.name,
+      slot: RESPONSE_GET_BY_NAME_BULBASAUR.abilities[0].slot,
       order: 65,
+      is_hidden: RESPONSE_GET_BY_NAME_BULBASAUR.abilities[0].is_hidden,
     },
     {
       url: RESPONSE_GET_BY_NAME_BULBASAUR.abilities[1].ability.url,
       name: RESPONSE_GET_BY_NAME_BULBASAUR.abilities[1].ability.name,
+      slot: RESPONSE_GET_BY_NAME_BULBASAUR.abilities[1].slot,
       order: 34,
+      is_hidden: RESPONSE_GET_BY_NAME_BULBASAUR.abilities[1].is_hidden,
     }
   ],
   special_attack: RESPONSE_GET_BY_NAME_BULBASAUR.stats[3].base_stat,

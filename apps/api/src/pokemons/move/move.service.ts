@@ -81,9 +81,9 @@ export class MoveService extends Service<Move> {
     return new Move({
       id: undefined,
       pp: responseMove.pp,
-      url: responsePokemonNameMove.move.url,
+      url: responsePokemonNameMove.url,
       type: responseMove.type,
-      name: responsePokemonNameMove.move.name,
+      name: responsePokemonNameMove.name,
       order: responsePokemonNameMove.order,
       power: responseMove.power,
       target: responseMove.target,

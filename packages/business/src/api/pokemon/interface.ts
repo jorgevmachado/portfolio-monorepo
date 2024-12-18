@@ -53,7 +53,9 @@ interface IResponseSpritesUrl {
 }
 
 export interface IResponseAbility {
+  slot: number;
   ability: Pick<IResponsePokemon, 'url' | 'name'>;
+  is_hidden: boolean;
 }
 
 export interface IResponsePokemonSpecie {

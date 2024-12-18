@@ -13,6 +13,6 @@ export const RESPONSE_POKEMON_NAME_SPECIE_BULBASAUR_FIXTURE: ResponsePokemonSpec
   hatch_counter: RESPONSE_GET_SPECIE_BY_NAME_BULBASAUR_FIXTURE.hatch_counter,
   base_happiness: RESPONSE_GET_SPECIE_BY_NAME_BULBASAUR_FIXTURE.base_happiness,
   evolution_chain_url: RESPONSE_GET_SPECIE_BY_NAME_BULBASAUR_FIXTURE.evolution_chain.url,
-  evolves_from_species: RESPONSE_GET_SPECIE_BY_NAME_BULBASAUR_FIXTURE.evolves_from_species.name,
+  evolves_from_species: RESPONSE_GET_SPECIE_BY_NAME_BULBASAUR_FIXTURE.evolves_from_species?.name,
   has_gender_differences: RESPONSE_GET_SPECIE_BY_NAME_BULBASAUR_FIXTURE.has_gender_differences,
 };

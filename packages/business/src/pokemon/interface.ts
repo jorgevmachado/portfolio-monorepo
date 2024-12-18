@@ -27,7 +27,10 @@ export interface ResponseType extends IResponsePokemon {
 
 export type ResponseMove = IResponsePokemon;
 
-export type ResponseAbility = IResponsePokemon;
+export interface ResponseAbility extends IResponsePokemon {
+  slot: number;
+  is_hidden: boolean;
+}
 
 export interface Stats {
   hp: number;

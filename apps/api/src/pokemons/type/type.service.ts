@@ -6,14 +6,13 @@ import { ResponsePokemonName } from '@repo/business/pokemon/interface';
 
 import { Service } from '../../shared';
 import { Type } from '../entities/type.entity';
-import { FindOneParams } from "../../shared/interface";
-import { TYPE_COLORS } from "./type.constants";
+import { FindOneParams } from '../../shared/interface';
 
 @Injectable()
 export class TypeService extends Service<Type> {
   constructor(
     @InjectRepository(Type)
-    protected repository: Repository<Type>
+    protected repository: Repository<Type>,
   ) {
     super('types', [], repository);
   }
@@ -56,8 +55,7 @@ export class TypeService extends Service<Type> {
     responseType: ResponsePokemonName['types'][number],
   ): Promise<Type> {
     if (!entity) {
-      const type =
-        this.generatingTypeOfResponseType(responseType);
+      const type = this.generatingTypeOfResponseType(responseType);
 
       await this.save(type);
 
@@ -70,19 +68,16 @@ export class TypeService extends Service<Type> {
   private generatingTypeOfResponseType(
     responseType: ResponsePokemonName['types'][number],
   ) {
-    const typeColor = TYPE_COLORS.find(
-      (color) => color.name === responseType?.type?.name,
-    );
     return new Type({
       id: undefined,
-      url: responseType?.type?.url,
-      name: responseType?.type?.name,
+      url: responseType?.url,
+      name: responseType?.name,
       order: responseType?.order,
       created_at: undefined,
       updated_at: undefined,
       deleted_at: undefined,
-      text_color: !typeColor ? '#FFF' : typeColor.textColor,
-      background_color: !typeColor ? '#000' : typeColor.backgroundColor,
+      text_color: responseType?.text_color,
+      background_color: responseType?.background_color,
     });
   }
 }

@@ -111,16 +111,20 @@ const RESPONSE_GET_BY_NAME_BULBASAUR_SPRITES: IResponsePokemonName['sprites'] =
 const RESPONSE_GET_BY_NAME_BULBASAUR_ABILITIES: IResponsePokemonName['abilities'] =
   [
     {
+      slot: 1,
       ability: {
         name: 'overgrow',
         url: 'https://pokeapi.co/api/v2/ability/65/',
       },
+      is_hidden: false,
     },
     {
+      slot: 3,
       ability: {
         name: 'chlorophyll',
         url: 'https://pokeapi.co/api/v2/ability/34/',
       },
+      is_hidden: true,
     },
   ];
 

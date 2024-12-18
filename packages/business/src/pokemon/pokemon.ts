@@ -6,10 +6,12 @@ import {
   ResponsePokemonEvolution,
   ResponsePokemonMove,
   ResponsePokemonName,
-  ResponsePokemonSpecie, Stats,
+  ResponsePokemonSpecie,
+  Stats,
   TImage,
 } from './interface';
-import {TYPE_COLORS} from "api/dist/src/pokemons/type/type.constants";
+
+import { TYPE_COLORS } from './constants';
 
 export class Pokemon {
   limit: number = 1302;
@@ -30,7 +32,10 @@ export class Pokemon {
       ...response,
       results: response.results.map((pokemon) => ({
         ...pokemon,
-        order: this.generateOrder(pokemon.url, `${this.pokemonApi.url}/pokemon/`),
+        order: this.generateOrder(
+          pokemon.url,
+          `${this.pokemonApi.url}/pokemon/`,
+        ),
       })),
     }));
   }
@@ -55,71 +60,87 @@ export class Pokemon {
     });
   }
 
-  private convertingToResponseTypes(response: IResponsePokemonName['types']): ResponsePokemonName['types'] {
+  private convertingToResponseTypes(
+    response: IResponsePokemonName['types'],
+  ): ResponsePokemonName['types'] {
     return response.map((item) => {
-        const typeColor = TYPE_COLORS.find(
-            (color) => color.name === item?.type?.name,
-        );
-        return {
-          url: item?.type?.url,
-          name: item?.type?.name,
-          order: this.generateOrder(item.type.url, `${this.pokemonApi.url}/type/`),
-          text_color: !typeColor ? '#FFF' : typeColor.textColor,
-          background_color: !typeColor ? '#000' : typeColor.backgroundColor,
-        }
+      const typeColor = TYPE_COLORS.find(
+        (color) => color.name === item?.type?.name,
+      );
+      return {
+        url: item?.type?.url,
+        name: item?.type?.name,
+        order: this.generateOrder(
+          item.type.url,
+          `${this.pokemonApi.url}/type/`,
+        ),
+        text_color: !typeColor ? '#FFF' : typeColor.textColor,
+        background_color: !typeColor ? '#000' : typeColor.backgroundColor,
+      };
     });
   }
 
-  private convertingToResponseMoves(response: IResponsePokemonName['moves']): ResponsePokemonName['moves'] {
+  private convertingToResponseMoves(
+    response: IResponsePokemonName['moves'],
+  ): ResponsePokemonName['moves'] {
     return response.map((item) => ({
       url: item.move.url,
       name: item.move.name,
-      order: this.generateOrder( item.move.url, `${this.pokemonApi.url}/move/`),
-    }));
-  }
-  
-  private convertingToResponseAbilities(response: IResponsePokemonName['abilities']): ResponsePokemonName['abilities'] {
-    return response.map((item) => ({
-      url: item.ability.url,
-      name: item.ability.name,
-      order: this.generateOrder( item.ability.url, `${this.pokemonApi.url}/ability/`),
+      order: this.generateOrder(item.move.url, `${this.pokemonApi.url}/move/`),
     }));
   }
 
-  private generatingPokemonStatsByResponse(stats: IResponsePokemonName['stats']): Stats {
+  private convertingToResponseAbilities(
+    response: IResponsePokemonName['abilities'],
+  ): ResponsePokemonName['abilities'] {
+    return response.map((item) => ({
+      url: item.ability.url,
+      slot: item.slot,
+      name: item.ability.name,
+      order: this.generateOrder(
+        item.ability.url,
+        `${this.pokemonApi.url}/ability/`,
+      ),
+      is_hidden: item.is_hidden,
+    }));
+  }
+
+  private generatingPokemonStatsByResponse(
+    stats: IResponsePokemonName['stats'],
+  ): Stats {
     return stats.reduce(
-        (acc, stat) => {
-          switch (stat.stat.name) {
-            case 'hp':
-              acc.hp = stat.base_stat;
-              break;
-            case 'speed':
-              acc.speed = stat.base_stat;
-              break;
-            case 'attack':
-              acc.attack = stat.base_stat;
-              break;
-            case 'defense':
-              acc.defense = stat.base_stat;
-              break;
-            case 'special-attack':
-              acc.special_attack = stat.base_stat;
-              break;
-            case 'special-defense':
-              acc.special_defense = stat.base_stat;
-              break;
-            default:
-          }
-          return acc;
-        },
-        {
-          hp: 0,
-          speed: 0,
-          attack: 0,
-          defense: 0,
-          special_attack: 0,
-          special_defense: 0,
-        },
+      (acc, stat) => {
+        switch (stat.stat.name) {
+          case 'hp':
+            acc.hp = stat.base_stat;
+            break;
+          case 'speed':
+            acc.speed = stat.base_stat;
+            break;
+          case 'attack':
+            acc.attack = stat.base_stat;
+            break;
+          case 'defense':
+            acc.defense = stat.base_stat;
+            break;
+          case 'special-attack':
+            acc.special_attack = stat.base_stat;
+            break;
+          case 'special-defense':
+            acc.special_defense = stat.base_stat;
+            break;
+          default:
+        }
+        return acc;
+      },
+      {
+        hp: 0,
+        speed: 0,
+        attack: 0,
+        defense: 0,
+        special_attack: 0,
+        special_defense: 0,
+      },
     );
   }
 
@@ -163,8 +184,10 @@ export class Pokemon {
         short_effect: effect_entries?.short_effect,
         damage_class: response.damage_class.name,
         effect_chance: response.effect_chance,
-        learned_by_pokemon: response.learned_by_pokemon.map((item) => item.name),
-      }
+        learned_by_pokemon: response.learned_by_pokemon.map(
+          (item) => item.name,
+        ),
+      };
     });
   }
 

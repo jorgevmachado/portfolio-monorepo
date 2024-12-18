@@ -3,12 +3,13 @@ import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { RESPONSE_LIST_TYPE_FIXTURE } from '@repo/business/pokemon/fixture/responseType';
 import {
   ENTITY_LIST_TYPE_FIXTURE,
   ENTITY_TYPE_GRASS_FIXTURE,
   ENTITY_TYPE_POISON_FIXTURE,
-} from '../../../../../packages/business/src/pokemon/fixture/entities/entityType';
+} from '@repo/business/pokemon/fixture/entities/entityType';
+
+import { RESPONSE_POKEMON_NAME_BULBASAUR_FIXTURE } from '@repo/business/pokemon/fixture/response/responsePokemonName';
 
 import { Type } from '../entities/type.entity';
 
@@ -47,9 +48,9 @@ describe('TypeService', () => {
         getOne: jest.fn().mockReturnValueOnce(ENTITY_TYPE_POISON_FIXTURE),
       } as any);
 
-      expect(await service.findList(RESPONSE_LIST_TYPE_FIXTURE)).toEqual(
-        ENTITY_LIST_TYPE_FIXTURE,
-      );
+      expect(
+        await service.findList(RESPONSE_POKEMON_NAME_BULBASAUR_FIXTURE.types),
+      ).toEqual(ENTITY_LIST_TYPE_FIXTURE);
     });
 
     it('must save a list of pokemon types in the database when none exist', async () => {
@@ -81,7 +82,7 @@ describe('TypeService', () => {
         getOne: jest.fn().mockReturnValueOnce(ENTITY_TYPE_POISON_FIXTURE),
       } as any);
 
-      expect(await service.findList(RESPONSE_LIST_TYPE_FIXTURE)).toEqual(
+      expect(await service.findList(RESPONSE_POKEMON_NAME_BULBASAUR_FIXTURE.types)).toEqual(
         ENTITY_LIST_TYPE_FIXTURE,
       );
     });

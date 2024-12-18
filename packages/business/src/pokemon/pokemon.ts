@@ -7,9 +7,9 @@ import { Nest, ResponsePaginate } from '../api';
 
 import {
   CompletingPokemonData,
+  EntityMove,
   EntityPokemon,
   ResponsePokemonEvolution,
-  ResponsePokemonMove,
   ResponsePokemonName,
   ResponsePokemonSpecie,
   Stats,
@@ -253,22 +253,32 @@ export class Pokemon {
       .reduce((arr, curr) => [...arr, ...curr], []);
   }
 
-  async getMove(order: number): Promise<ResponsePokemonMove> {
-    return this.pokemonApi.getMoveByOrder(order).then((response) => {
-      const effect_entries = response.effect_entries[0];
+  async getMove(
+    response: ResponsePokemonName['moves'][number],
+  ): Promise<EntityMove> {
+    return this.pokemonApi.getMoveByOrder(response.order).then((item) => {
+      const effect_entries = item.effect_entries[0];
+
       return {
-        pp: response.pp,
-        type: response.type?.name,
-        power: response.power,
+        id: undefined,
+        pp: item.pp,
+        url: response.url,
+        name: response.name,
+        type: item?.type?.name,
+        order: response.order,
+        power: item?.power,
         effect: effect_entries?.effect,
-        target: response.target?.name,
-        priority: response.priority,
-        accuracy: response.accuracy,
+        target: item?.target?.name,
+        priority: item?.priority,
+        accuracy: item?.accuracy,
+        created_at: undefined,
+        deleted_at: undefined,
+        updated_at: undefined,
         short_effect: effect_entries?.short_effect,
-        damage_class: response.damage_class.name,
-        effect_chance: response.effect_chance,
-        learned_by_pokemon: response.learned_by_pokemon.map(
-          (item) => item.name,
+        damage_class: item?.damage_class?.name,
+        effect_chance: item?.effect_chance,
+        learned_by_pokemon: JSON.stringify(
+          item?.learned_by_pokemon.map((pokemon) => pokemon.name),
         ),
       };
     });

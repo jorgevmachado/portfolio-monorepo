@@ -8,22 +8,19 @@ import { Pokemon as PokemonBusiness } from '@repo/business/pokemon/pokemon';
 
 import {
   ENTITY_MOVE_CUT_FIXTURE,
+  ENTITY_MOVE_INCOMPLETE_CUT_FIXTURE,
+  ENTITY_MOVE_INCOMPLETE_RAZOR_WIND_FIXTURE,
+  ENTITY_MOVE_INCOMPLETE_SWORDS_DANCE_FIXTURE,
   ENTITY_MOVE_LIST_FIXTURE,
   ENTITY_MOVE_RAZOR_WIND_FIXTURE,
   ENTITY_MOVE_SWORDS_DANCE_FIXTURE,
 } from '@repo/business/pokemon/fixture/entities/entityMove';
 
 import { RESPONSE_POKEMON_NAME_BULBASAUR_FIXTURE } from '@repo/business/pokemon/fixture/response/responsePokemonName';
-import {
-  RESPONSE_POKEMON_MOVE_CUT_FIXTURE,
-  RESPONSE_POKEMON_MOVE_RAZOR_WIND_FIXTURE,
-  RESPONSE_POKEMON_MOVE_SWORDS_DANCE_FIXTURE,
-} from '@repo/business/pokemon/fixture/response/responsePokemonMove';
 
 import { Move } from '../entities/move.entity';
 
 import { MoveService } from './move.service';
-
 
 describe('MoveService', () => {
   let service: MoveService;
@@ -95,15 +92,15 @@ describe('MoveService', () => {
 
       jest
         .spyOn(business, 'getMove')
-        .mockResolvedValueOnce(RESPONSE_POKEMON_MOVE_RAZOR_WIND_FIXTURE);
+        .mockResolvedValueOnce(ENTITY_MOVE_INCOMPLETE_RAZOR_WIND_FIXTURE);
 
       jest
         .spyOn(business, 'getMove')
-        .mockResolvedValueOnce(RESPONSE_POKEMON_MOVE_SWORDS_DANCE_FIXTURE);
+        .mockResolvedValueOnce(ENTITY_MOVE_INCOMPLETE_SWORDS_DANCE_FIXTURE);
 
       jest
         .spyOn(business, 'getMove')
-        .mockResolvedValueOnce(RESPONSE_POKEMON_MOVE_CUT_FIXTURE);
+        .mockResolvedValueOnce(ENTITY_MOVE_INCOMPLETE_CUT_FIXTURE);
 
       jest
         .spyOn(repository, 'save')

@@ -25,3 +25,14 @@ export interface IUser {
   recover_token?: string;
   confirmation_token?: string;
 }
+
+export interface ISignUpParams extends Omit<IUser, 'id' | 'role' | 'status'> {
+  password: string;
+  password_confirmation: string;
+}
+
+export interface ISignInParams extends Pick<IUser, 'email'> {
+  password: string;
+}
+
+export type IUpdateUserParams = Omit<IUser, 'id' | 'status' | 'createdAt' | 'updatedAt' | 'deletedAt'>;

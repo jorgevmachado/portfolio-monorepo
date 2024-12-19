@@ -1,10 +1,15 @@
 import { Http } from '@repo/services/http/http';
+
+import { QueryParameters } from '../../shared';
+
 import type {
   INestConfig,
   ISignInParams,
   ISignUpParams,
   IUser,
 } from './interface';
+import {PokemonEntity} from "../../pokemon/modules";
+import {Paginate} from "../../paginate";
 
 export class Nest extends Http {
   constructor({ baseUrl = 'http://localhost:3000', token = '' }: INestConfig) {
@@ -26,5 +31,13 @@ export class Nest extends Http {
 
   public async getUser(id: string): Promise<IUser> {
     return this.get(`auth/${id}`);
+  }
+
+  public async getAllPokemons(parameters: QueryParameters): Promise<Paginate<PokemonEntity> | Array<PokemonEntity>> {
+    return this.get('pokemon', { params: parameters });
+  };
+
+  public async getPokemon(param: string): Promise<PokemonEntity> {
+    return this.get(`pokemon/${param}`);
   }
 }

@@ -1,9 +1,16 @@
 import { Nest } from '../api';
+import {QueryParameters} from "../shared";
+import {Paginate} from "../paginate";
+import {PokemonEntity} from "./modules";
 
 export class Pokemon {
-  private nestApi: Nest;
+  constructor(private nest: Nest) {}
 
-  constructor(baseUrl: string = 'http://localhost:3000', token: string = '') {
-    this.nestApi = new Nest({ baseUrl, token });
+  public async getAll(parameters: QueryParameters): Promise<Paginate<PokemonEntity> | Array<PokemonEntity>> {
+    return this.nest.getAllPokemons(parameters);
+  }
+
+  public async getOne(param: string): Promise<PokemonEntity> {
+    return this.nest.getPokemon(param);
   }
 }

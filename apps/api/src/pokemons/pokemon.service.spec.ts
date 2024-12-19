@@ -178,6 +178,7 @@ describe('PokemonsService', () => {
     it('must return a complete pokemon from the database', async () => {
       jest.spyOn(repository, 'createQueryBuilder').mockReturnValueOnce({
         andWhere: jest.fn(),
+        leftJoinAndSelect: jest.fn(),
         getOne: jest
           .fn()
           .mockReturnValueOnce(ENTITY_POKEMON_COMPLETE_BULBASAUR_FIXTURE),
@@ -191,6 +192,7 @@ describe('PokemonsService', () => {
     it('must return a pokemon from the database even if it is not in complete status', async () => {
       jest.spyOn(repository, 'createQueryBuilder').mockReturnValueOnce({
         andWhere: jest.fn(),
+        leftJoinAndSelect: jest.fn(),
         getOne: jest
           .fn()
           .mockReturnValueOnce(
@@ -206,6 +208,7 @@ describe('PokemonsService', () => {
     it('must complete the data of a pokemon from the database through external api', async () => {
       jest.spyOn(repository, 'createQueryBuilder').mockReturnValueOnce({
         andWhere: jest.fn(),
+        leftJoinAndSelect: jest.fn(),
         getOne: jest
           .fn()
           .mockReturnValueOnce(ENTITY_POKEMON_BULBASAUR_INCOMPLETE_FIXTURE),
@@ -231,6 +234,7 @@ describe('PokemonsService', () => {
 
       jest.spyOn(repository, 'createQueryBuilder').mockReturnValueOnce({
         andWhere: jest.fn(),
+        leftJoinAndSelect: jest.fn(),
         getOne: jest
           .fn()
           .mockReturnValueOnce(ENTITY_POKEMON_BULBASAUR_INCOMPLETE_FIXTURE),
@@ -238,6 +242,7 @@ describe('PokemonsService', () => {
 
       jest.spyOn(repository, 'createQueryBuilder').mockReturnValueOnce({
         andWhere: jest.fn(),
+        leftJoinAndSelect: jest.fn(),
         getOne: jest
           .fn()
           .mockReturnValueOnce(ENTITY_POKEMON_IVYSAUR_INCOMPLETE_FIXTURE),
@@ -245,6 +250,7 @@ describe('PokemonsService', () => {
 
       jest.spyOn(repository, 'createQueryBuilder').mockReturnValueOnce({
         andWhere: jest.fn(),
+        leftJoinAndSelect: jest.fn(),
         getOne: jest
           .fn()
           .mockReturnValueOnce(ENTITY_POKEMON_VENUSAUR_INCOMPLETE_FIXTURE),
@@ -256,6 +262,7 @@ describe('PokemonsService', () => {
 
       jest.spyOn(repository, 'createQueryBuilder').mockReturnValueOnce({
         andWhere: jest.fn(),
+        leftJoinAndSelect: jest.fn(),
         getOne: jest
           .fn()
           .mockReturnValueOnce(ENTITY_POKEMON_COMPLETE_BULBASAUR_FIXTURE),

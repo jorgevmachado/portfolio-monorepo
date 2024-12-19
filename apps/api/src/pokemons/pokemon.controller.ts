@@ -1,10 +1,15 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
 import { QueryParameters } from '@repo/business/shared/interface';
+
+import { AuthRoleGuards } from '../auth/guards/auth-role.guards';
+import { AuthStatusGuards } from '../auth/guards/auth-status.guards';
 
 import { PokemonService } from './pokemon.service';
 
 @Controller('pokemon')
+@UseGuards(AuthGuard(), AuthRoleGuards, AuthStatusGuards)
 export class PokemonController {
   constructor(private readonly pokemonService: PokemonService) {}
 

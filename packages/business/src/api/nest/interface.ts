@@ -10,14 +10,18 @@ export interface IUser {
   id: string;
   cpf: string;
   role: ERole;
+  salt?: string;
   name: string;
   email: string;
   gender: EGender;
   status: EStatus;
-  whatsUp: string;
+  whatsup: string;
   picture?: string;
-  createdAt: Date;
-  updatedAt?: Date;
-  deletedAt?: Date;
-  dateOfBirth: Date;
+  password?: string;
+  created_at: Date;
+  updated_at: Date;
+  deleted_at: Date;
+  date_of_birth: Date;
+  recover_token?: string;
+  confirmation_token?: string;
 }

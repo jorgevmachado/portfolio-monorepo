@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { AppController } from './app.controller';
 import { PokemonModule } from './pokemons/pokemon.module';
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { TypeOrmModule } from "@nestjs/typeorm";
       ],
       synchronize: true,
     }),
-    PokemonModule
+    PokemonModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

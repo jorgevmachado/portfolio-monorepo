@@ -7,10 +7,10 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { EntityType } from '@repo/business/pokemon/interface';
+import type { TypeEntity } from '@repo/business/pokemon/modules/type/interface';
 
 @Entity({ name: 'types' })
-export class Type implements EntityType {
+export class Type implements TypeEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -39,7 +39,7 @@ export class Type implements EntityType {
   background_color: string;
 
   constructor(type?: Type) {
-    if(type) {
+    if (type) {
       this.id = type?.id ?? this.id;
       this.url = type.url ?? this.url;
       this.name = type.name ?? this.name;

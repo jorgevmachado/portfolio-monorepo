@@ -3,9 +3,13 @@ import { PaginateParameters } from '@repo/business/paginate/interface';
 import { Paginate } from '@repo/business/paginate/paginate';
 
 import { Query } from '../query';
-import {FindOneParams, FindParams, ListParams} from "../interface";
+import {
+  FindOneParams,
+  FindParams,
+  ListParams,
+} from '../interface';
 import { Base } from '../base';
-import { NotFoundException } from "@nestjs/common";
+import { NotFoundException } from '@nestjs/common';
 
 export abstract class Service<T extends ObjectLiteral> extends Base {
   protected constructor(
@@ -43,13 +47,13 @@ export abstract class Service<T extends ObjectLiteral> extends Base {
     return new Paginate(parameters.page, parameters.limit, total, results);
   }
 
-  async findOneByOrder<R> ({
-      order,
-      complete = true,
-      withThrow = true,
-      response,
-      completingData
-}: FindOneParams<T,R>): Promise<T> {
+  async findOneByOrder<R>({
+    order,
+    complete = true,
+    withThrow = true,
+    response,
+    completingData,
+  }: FindOneParams<T, R>): Promise<T> {
     const result = await this.findBy({
       searchParams: {
         by: 'order',
@@ -82,7 +86,7 @@ export abstract class Service<T extends ObjectLiteral> extends Base {
 
     const result = await query.getOne();
 
-    if(!result && withThrow) {
+    if (!result && withThrow) {
       throw new NotFoundException(`${this.alias} not found`);
     }
 

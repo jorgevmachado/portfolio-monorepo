@@ -9,20 +9,19 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import type {
-  EntityAbility,
-  EntityMove,
-  EntityPokemon,
-  EntityType,
-} from '@repo/business/pokemon/interface';
-
 import { EStatus } from '@repo/business/shared/enum';
+
+import type { PokemonEntity } from '@repo/business/pokemon/modules/entity/interface';
+import type { AbilityEntity } from "@repo/business/pokemon/modules/ability/interface";
+import type { MoveEntity } from "@repo/business/pokemon/modules/move/interface";
+import type { TypeEntity } from "@repo/business/pokemon/modules/type/interface";
+
 import { Move } from './move.entity';
 import { Type } from './type.entity';
-import {Ability} from "./ability.entity";
+import { Ability } from './ability.entity';
 
 @Entity({ name: 'pokemons' })
-export class Pokemon implements EntityPokemon {
+export class Pokemon implements PokemonEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -43,14 +42,14 @@ export class Pokemon implements EntityPokemon {
 
   @ManyToMany(() => Move, { nullable: true })
   @JoinTable()
-  moves?: Array<EntityMove>;
+  moves?: Array<MoveEntity>;
 
   @Column({ nullable: false })
   order: number;
 
   @ManyToMany(() => Type, { nullable: true })
   @JoinTable()
-  types?: Array<EntityType>;
+  types?: Array<TypeEntity>;
 
   @Column({ nullable: false, default: EStatus.INCOMPLETE })
   status: EStatus;
@@ -72,11 +71,11 @@ export class Pokemon implements EntityPokemon {
 
   @ManyToMany(() => Ability, { nullable: true })
   @JoinTable()
-  abilities?: Array<EntityAbility>;
+  abilities?: Array<AbilityEntity>;
 
   @ManyToMany(() => Pokemon, { nullable: true })
   @JoinTable()
-  evolutions?: Array<EntityPokemon>;
+  evolutions?: Array<PokemonEntity>;
 
   @CreateDateColumn()
   created_at: Date;

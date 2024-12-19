@@ -2,8 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { EntityType } from '@repo/business/pokemon/interface';
-
 import { Service } from '../../shared';
 import { Type } from '../entities/type.entity';
 
@@ -16,10 +14,10 @@ export class TypeService extends Service<Type> {
     super('types', [], repository);
   }
 
-  async findList(types: Array<EntityType>) {
+  async findList(types: Array<Type>) {
     return await Promise.all(
       types.map(async (response) =>
-        this.findOneByOrder<EntityType>({
+        this.findOneByOrder<Type>({
           order: response.order,
           response,
           withThrow: false,
@@ -31,7 +29,7 @@ export class TypeService extends Service<Type> {
 
   async completingData(
     entity: Type,
-    responseType: EntityType,
+    responseType: Type,
   ): Promise<Type> {
     if (!entity) {
       await this.save(responseType);

@@ -4,10 +4,10 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import {
-  ENTITY_ABILITY_LIST_FIXTURE,
-  ENTITY_ABILITY_OVERGROW_FIXTURE,
-  ENTITY_ABILITY_CHLOROPHYLL_FIXTURE,
-} from '@repo/business/pokemon/fixture/entities/entityAbility';
+  ABILITY_ENTITY_CHLOROPHYLL_FIXTURE,
+  ABILITY_ENTITY_LIST_FIXTURE,
+  ABILITY_ENTITY_OVERGROW_FIXTURE,
+} from '@repo/business/pokemon/modules/ability/fixture';
 
 import { Ability } from '../entities/ability.entity';
 
@@ -38,16 +38,18 @@ describe('TypeService', () => {
     it('should return a list of Pokémon types from the database', async () => {
       jest.spyOn(repository, 'createQueryBuilder').mockReturnValueOnce({
         andWhere: jest.fn(),
-        getOne: jest.fn().mockReturnValueOnce(ENTITY_ABILITY_OVERGROW_FIXTURE),
+        getOne: jest.fn().mockReturnValueOnce(ABILITY_ENTITY_OVERGROW_FIXTURE),
       } as any);
 
       jest.spyOn(repository, 'createQueryBuilder').mockReturnValueOnce({
         andWhere: jest.fn(),
-        getOne: jest.fn().mockReturnValueOnce(ENTITY_ABILITY_CHLOROPHYLL_FIXTURE),
+        getOne: jest
+          .fn()
+          .mockReturnValueOnce(ABILITY_ENTITY_CHLOROPHYLL_FIXTURE),
       } as any);
 
-      expect(await service.findList(ENTITY_ABILITY_LIST_FIXTURE)).toEqual(
-          ENTITY_ABILITY_LIST_FIXTURE,
+      expect(await service.findList(ABILITY_ENTITY_LIST_FIXTURE)).toEqual(
+        ABILITY_ENTITY_LIST_FIXTURE,
       );
     });
 
@@ -63,25 +65,27 @@ describe('TypeService', () => {
       } as any);
 
       jest
-          .spyOn(repository, 'save')
-          .mockResolvedValueOnce(ENTITY_ABILITY_OVERGROW_FIXTURE);
+        .spyOn(repository, 'save')
+        .mockResolvedValueOnce(ABILITY_ENTITY_OVERGROW_FIXTURE);
 
       jest
-          .spyOn(repository, 'save')
-          .mockResolvedValueOnce(ENTITY_ABILITY_CHLOROPHYLL_FIXTURE);
+        .spyOn(repository, 'save')
+        .mockResolvedValueOnce(ABILITY_ENTITY_CHLOROPHYLL_FIXTURE);
 
       jest.spyOn(repository, 'createQueryBuilder').mockReturnValueOnce({
         andWhere: jest.fn(),
-        getOne: jest.fn().mockReturnValueOnce(ENTITY_ABILITY_OVERGROW_FIXTURE),
+        getOne: jest.fn().mockReturnValueOnce(ABILITY_ENTITY_OVERGROW_FIXTURE),
       } as any);
 
       jest.spyOn(repository, 'createQueryBuilder').mockReturnValueOnce({
         andWhere: jest.fn(),
-        getOne: jest.fn().mockReturnValueOnce(ENTITY_ABILITY_CHLOROPHYLL_FIXTURE),
+        getOne: jest
+          .fn()
+          .mockReturnValueOnce(ABILITY_ENTITY_CHLOROPHYLL_FIXTURE),
       } as any);
 
-      expect(await service.findList(ENTITY_ABILITY_LIST_FIXTURE)).toEqual(
-          ENTITY_ABILITY_LIST_FIXTURE,
+      expect(await service.findList(ABILITY_ENTITY_LIST_FIXTURE)).toEqual(
+        ABILITY_ENTITY_LIST_FIXTURE,
       );
     });
   });

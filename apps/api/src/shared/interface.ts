@@ -41,5 +41,4 @@ export interface FindOneParams<T, R> {
   complete?: boolean;
   withThrow?: boolean;
   completingData?: (result: T, response: R | T) => Promise<T>;
-
 }

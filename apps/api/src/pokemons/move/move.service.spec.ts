@@ -4,19 +4,14 @@ import { Repository } from 'typeorm';
 
 import { getRepositoryToken } from '@nestjs/typeorm';
 
-import { Pokemon as PokemonBusiness } from '@repo/business/pokemon/pokemon';
+import { PokemonExternalBusiness } from '@repo/business/pokemon/external/pokemonExternalBusiness';
 
 import {
-  ENTITY_MOVE_CUT_FIXTURE,
-  ENTITY_MOVE_INCOMPLETE_CUT_FIXTURE,
-  ENTITY_MOVE_INCOMPLETE_RAZOR_WIND_FIXTURE,
-  ENTITY_MOVE_INCOMPLETE_SWORDS_DANCE_FIXTURE,
-  ENTITY_MOVE_LIST_FIXTURE,
-  ENTITY_MOVE_RAZOR_WIND_FIXTURE,
-  ENTITY_MOVE_SWORDS_DANCE_FIXTURE,
-} from '@repo/business/pokemon/fixture/entities/entityMove';
-
-import { RESPONSE_POKEMON_NAME_BULBASAUR_FIXTURE } from '@repo/business/pokemon/fixture/response/responsePokemonName';
+  MOVE_ENTITY_CUT_FIXTURE,
+  MOVE_ENTITY_LIST_FIXTURE,
+  MOVE_ENTITY_RAZOR_WIND_FIXTURE,
+  MOVE_ENTITY_SWORDS_DANCE_FIXTURE,
+} from '@repo/business/pokemon/modules/move/fixture';
 
 import { Move } from '../entities/move.entity';
 
@@ -25,7 +20,7 @@ import { MoveService } from './move.service';
 describe('MoveService', () => {
   let service: MoveService;
   let repository: Repository<Move>;
-  let business: PokemonBusiness;
+  let businessExternal: PokemonExternalBusiness;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -33,7 +28,7 @@ describe('MoveService', () => {
         MoveService,
         { provide: getRepositoryToken(Move), useClass: Repository },
         {
-          provide: PokemonBusiness,
+          provide: PokemonExternalBusiness,
           useValue: {
             getMove: jest.fn(),
           },
@@ -43,35 +38,37 @@ describe('MoveService', () => {
 
     service = module.get<MoveService>(MoveService);
     repository = module.get<Repository<Move>>(getRepositoryToken(Move));
-    business = module.get<PokemonBusiness>(PokemonBusiness);
+    businessExternal = module.get<PokemonExternalBusiness>(
+      PokemonExternalBusiness,
+    );
   });
 
   it('should be defined', () => {
     expect(service).toBeDefined();
     expect(repository).toBeDefined();
-    expect(business).toBeDefined();
+    expect(businessExternal).toBeDefined();
   });
 
   describe('findList(responseMove)', () => {
     it('should return a list of Pokémon moves from the database', async () => {
       jest.spyOn(repository, 'createQueryBuilder').mockReturnValueOnce({
         andWhere: jest.fn(),
-        getOne: jest.fn().mockReturnValueOnce(ENTITY_MOVE_RAZOR_WIND_FIXTURE),
+        getOne: jest.fn().mockReturnValueOnce(MOVE_ENTITY_RAZOR_WIND_FIXTURE),
       } as any);
 
       jest.spyOn(repository, 'createQueryBuilder').mockReturnValueOnce({
         andWhere: jest.fn(),
-        getOne: jest.fn().mockReturnValueOnce(ENTITY_MOVE_SWORDS_DANCE_FIXTURE),
+        getOne: jest.fn().mockReturnValueOnce(MOVE_ENTITY_SWORDS_DANCE_FIXTURE),
       } as any);
 
       jest.spyOn(repository, 'createQueryBuilder').mockReturnValueOnce({
         andWhere: jest.fn(),
-        getOne: jest.fn().mockReturnValueOnce(ENTITY_MOVE_CUT_FIXTURE),
+        getOne: jest.fn().mockReturnValueOnce(MOVE_ENTITY_CUT_FIXTURE),
       } as any);
 
-      expect(
-        await service.findList(RESPONSE_POKEMON_NAME_BULBASAUR_FIXTURE.moves),
-      ).toEqual(ENTITY_MOVE_LIST_FIXTURE);
+      expect(await service.findList(MOVE_ENTITY_LIST_FIXTURE)).toEqual(
+        MOVE_ENTITY_LIST_FIXTURE,
+      );
     });
 
     it('must save a list of pokemon moves in the database when none exist', async () => {
@@ -91,47 +88,47 @@ describe('MoveService', () => {
       } as any);
 
       jest
-        .spyOn(business, 'getMove')
-        .mockResolvedValueOnce(ENTITY_MOVE_INCOMPLETE_RAZOR_WIND_FIXTURE);
+        .spyOn(businessExternal, 'getMove')
+        .mockResolvedValueOnce(MOVE_ENTITY_RAZOR_WIND_FIXTURE);
 
       jest
-        .spyOn(business, 'getMove')
-        .mockResolvedValueOnce(ENTITY_MOVE_INCOMPLETE_SWORDS_DANCE_FIXTURE);
+        .spyOn(businessExternal, 'getMove')
+        .mockResolvedValueOnce(MOVE_ENTITY_SWORDS_DANCE_FIXTURE);
 
       jest
-        .spyOn(business, 'getMove')
-        .mockResolvedValueOnce(ENTITY_MOVE_INCOMPLETE_CUT_FIXTURE);
-
-      jest
-        .spyOn(repository, 'save')
-        .mockResolvedValueOnce(ENTITY_MOVE_RAZOR_WIND_FIXTURE);
+        .spyOn(businessExternal, 'getMove')
+        .mockResolvedValueOnce(MOVE_ENTITY_CUT_FIXTURE);
 
       jest
         .spyOn(repository, 'save')
-        .mockResolvedValueOnce(ENTITY_MOVE_SWORDS_DANCE_FIXTURE);
+        .mockResolvedValueOnce(MOVE_ENTITY_RAZOR_WIND_FIXTURE);
 
       jest
         .spyOn(repository, 'save')
-        .mockResolvedValueOnce(ENTITY_MOVE_CUT_FIXTURE);
+        .mockResolvedValueOnce(MOVE_ENTITY_SWORDS_DANCE_FIXTURE);
+
+      jest
+        .spyOn(repository, 'save')
+        .mockResolvedValueOnce(MOVE_ENTITY_CUT_FIXTURE);
 
       jest.spyOn(repository, 'createQueryBuilder').mockReturnValueOnce({
         andWhere: jest.fn(),
-        getOne: jest.fn().mockReturnValueOnce(ENTITY_MOVE_RAZOR_WIND_FIXTURE),
+        getOne: jest.fn().mockReturnValueOnce(MOVE_ENTITY_RAZOR_WIND_FIXTURE),
       } as any);
 
       jest.spyOn(repository, 'createQueryBuilder').mockReturnValueOnce({
         andWhere: jest.fn(),
-        getOne: jest.fn().mockReturnValueOnce(ENTITY_MOVE_SWORDS_DANCE_FIXTURE),
+        getOne: jest.fn().mockReturnValueOnce(MOVE_ENTITY_SWORDS_DANCE_FIXTURE),
       } as any);
 
       jest.spyOn(repository, 'createQueryBuilder').mockReturnValueOnce({
         andWhere: jest.fn(),
-        getOne: jest.fn().mockReturnValueOnce(ENTITY_MOVE_CUT_FIXTURE),
+        getOne: jest.fn().mockReturnValueOnce(MOVE_ENTITY_CUT_FIXTURE),
       } as any);
 
-      expect(
-        await service.findList(RESPONSE_POKEMON_NAME_BULBASAUR_FIXTURE.moves),
-      ).toEqual(ENTITY_MOVE_LIST_FIXTURE);
+      expect(await service.findList(MOVE_ENTITY_LIST_FIXTURE)).toEqual(
+        MOVE_ENTITY_LIST_FIXTURE,
+      );
     });
   });
 });

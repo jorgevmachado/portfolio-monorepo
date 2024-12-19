@@ -4,10 +4,10 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import {
-  ENTITY_LIST_TYPE_FIXTURE,
-  ENTITY_TYPE_GRASS_FIXTURE,
-  ENTITY_TYPE_POISON_FIXTURE,
-} from '@repo/business/pokemon/fixture/entities/entityType';
+  TYPE_ENTITY_GRASS_FIXTURE,
+  TYPE_ENTITY_LIST_FIXTURE,
+  TYPE_ENTITY_POISON_FIXTURE,
+} from '@repo/business/pokemon/modules/type/fixture';
 
 import { Type } from '../entities/type.entity';
 
@@ -38,16 +38,16 @@ describe('TypeService', () => {
     it('should return a list of Pokémon types from the database', async () => {
       jest.spyOn(repository, 'createQueryBuilder').mockReturnValueOnce({
         andWhere: jest.fn(),
-        getOne: jest.fn().mockReturnValueOnce(ENTITY_TYPE_GRASS_FIXTURE),
+        getOne: jest.fn().mockReturnValueOnce(TYPE_ENTITY_GRASS_FIXTURE),
       } as any);
 
       jest.spyOn(repository, 'createQueryBuilder').mockReturnValueOnce({
         andWhere: jest.fn(),
-        getOne: jest.fn().mockReturnValueOnce(ENTITY_TYPE_POISON_FIXTURE),
+        getOne: jest.fn().mockReturnValueOnce(TYPE_ENTITY_POISON_FIXTURE),
       } as any);
 
-      expect(await service.findList(ENTITY_LIST_TYPE_FIXTURE)).toEqual(
-        ENTITY_LIST_TYPE_FIXTURE,
+      expect(await service.findList(TYPE_ENTITY_LIST_FIXTURE)).toEqual(
+        TYPE_ENTITY_LIST_FIXTURE,
       );
     });
 
@@ -64,24 +64,24 @@ describe('TypeService', () => {
 
       jest
         .spyOn(repository, 'save')
-        .mockResolvedValueOnce(ENTITY_TYPE_GRASS_FIXTURE);
+        .mockResolvedValueOnce(TYPE_ENTITY_GRASS_FIXTURE);
 
       jest
         .spyOn(repository, 'save')
-        .mockResolvedValueOnce(ENTITY_TYPE_POISON_FIXTURE);
+        .mockResolvedValueOnce(TYPE_ENTITY_POISON_FIXTURE);
 
       jest.spyOn(repository, 'createQueryBuilder').mockReturnValueOnce({
         andWhere: jest.fn(),
-        getOne: jest.fn().mockReturnValueOnce(ENTITY_TYPE_GRASS_FIXTURE),
+        getOne: jest.fn().mockReturnValueOnce(TYPE_ENTITY_GRASS_FIXTURE),
       } as any);
 
       jest.spyOn(repository, 'createQueryBuilder').mockReturnValueOnce({
         andWhere: jest.fn(),
-        getOne: jest.fn().mockReturnValueOnce(ENTITY_TYPE_POISON_FIXTURE),
+        getOne: jest.fn().mockReturnValueOnce(TYPE_ENTITY_POISON_FIXTURE),
       } as any);
 
-      expect(await service.findList(ENTITY_LIST_TYPE_FIXTURE)).toEqual(
-        ENTITY_LIST_TYPE_FIXTURE,
+      expect(await service.findList(TYPE_ENTITY_LIST_FIXTURE)).toEqual(
+        TYPE_ENTITY_LIST_FIXTURE,
       );
     });
   });

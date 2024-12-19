@@ -2,9 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { Pokemon as PokemonBusiness } from '@repo/business/pokemon/pokemon';
-
-import { ResponsePokemonName } from '@repo/business/pokemon/interface';
+import { PokemonExternalBusiness } from '@repo/business/pokemon/external/pokemonExternalBusiness';
 
 import { Service } from '../../shared';
 
@@ -15,33 +13,31 @@ export class MoveService extends Service<Move> {
   constructor(
     @InjectRepository(Move)
     protected repository: Repository<Move>,
-    protected business: PokemonBusiness
+    protected pokemonExternalBusiness: PokemonExternalBusiness,
   ) {
     super('moves', [], repository);
   }
 
-  async findList(moves: ResponsePokemonName['moves']) {
+  async findList(moves: Array<Move>) {
     return await Promise.all(
-      moves.map(async (response) =>
-        this.findOneByOrder<ResponsePokemonName['moves'][number]>({
-          order: response.order,
-          response,
+      moves.map(async (move) =>
+        this.findOneByOrder<Move>({
+          order: move.order,
+          response: move,
           withThrow: false,
-          completingData: (result, response) =>  this.completingData(result, response),
+          completingData: (result, response) =>
+            this.completingData(result, response),
         }),
       ),
     );
   }
 
-  async completingData(
-    entity: Move,
-    response: ResponsePokemonName['moves'][number],
-  ) {
+  async completingData(entity: Move, response: Move) {
     if (!entity) {
-      const move = await this.business
-          .getMove(response)
-          .then((response) => response)
-          .catch((error) => this.error(error));
+      const move = await this.pokemonExternalBusiness
+        .getMove(response)
+        .then((response) => response)
+        .catch((error) => this.error(error));
 
       await this.save(move);
 

@@ -20,7 +20,7 @@ export interface IUser {
   password?: string;
   created_at: Date;
   updated_at: Date;
-  deleted_at: Date;
+  deleted_at?: Date;
   date_of_birth: Date;
   recover_token?: string;
   confirmation_token?: string;

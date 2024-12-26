@@ -8,7 +8,7 @@ import { Code } from '@repo/ui/code';
 import { Button } from '@repo/ui/button';
 
 import styles from './page.module.css';
-import { ERole, EGender, EStatus } from '@repo/business/auth/index';
+import { EGender, ERole, EStatus } from '@repo/business';
 import { User } from '@repo/business/auth/interface';
 
 const Gradient = ({
@@ -75,13 +75,13 @@ const RootPage = ({ params }: { params: { forTest?: boolean } }) => {
     email: 'john.doe@mail.com',
     gender: EGender.MALE,
     status: EStatus.INCOMPLETE,
-    whatsUp: '11998765432',
+    whatsup: '11998765432',
     picture: undefined,
-    createdAt: new Date('2024-09-09'),
-    deletedAt: undefined,
-    updatedAt: undefined,
-    dateOfBirth: new Date('1990-01-01'),
-  }
+    created_at: new Date('2024-09-09'),
+    updated_at: new Date('2024-09-09'),
+    deleted_at: undefined,
+    date_of_birth: new Date('1990-01-01')
+  };
   return (
     <main className={styles.main}>
       <div className={styles.description}>

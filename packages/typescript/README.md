@@ -5,9 +5,9 @@
 ### Comportamento padrão
 #### Quando não é especificado o typescript assume como `"incremental": true` apenas quando usado o modo de compilação `watch` `(tsc --watch)`
 ### Quando `"incremental": true`
-#### 1 - Acelera a compilação: Reutiliza informações de compilações anteriores.
+#### 1 - Acelera a compilação: reutiliza informações de compilações anteriores.
 #### 2 - Reduz o tempo de build: Somente recompila arquivos alterados.
-#### 3 - Melhora a performance: Reduza a carga de processamento
+#### 3 - Melhora o desempenho: Reduza a carga de processamento
 ### funcionamento:
 #### 1 - Cria um arquivo `.tsbuildinfo` para armazenar informações de compilação.
 #### 2 - Verifica quais arquivos foram alterados desde a última compilação.
@@ -217,9 +217,8 @@
 ----
 
 # JavaScript Support
-
 ## allowJs
-### Allow JavaScript files to be a part of your program. Use the 'checkJS' option to get errors from these files.
+### Permite que arquivos JavaScript façam parte do seu programa. Use a opção 'checkJS' para obter erros desses arquivos.
 #### Permite compilar arquivos JavaScript (.js) com arquivos TypeScript (.ts). Com a finalidade:
 #### 1 - Habilitar compilação de arquivos JavaScript.
 #### 2 - Permitir migração gradual de JavaScript para TypeScript.
@@ -365,6 +364,21 @@
 #### 1 - Habilitar para utilizar bibliotecas com exportações nomeadas.
 #### 2 - Verificar documentação das bibliotecas utilizadas.
 #### 3 - Utilizar `"esModuleInterop": true` junto com essa flag.
+
+## esModuleInterop
+### Emite JavaScript adicional para facilitar o suporte à importação de módulos CommonJS. Isso habilita 'allowSyntheticDefaultImports' para compatibilidade de tipo.
+#### Permite interoperabilidade entre módulos ES6 e módulos CommonJS. Quando habilitado, essa opção permite módulos ES6 sejam importados como se fossem módulos CommonJS.
+### Comportamento padrão
+#### Quando não é especificado o typescript assume como `"esModuleInterop": false`
+### Quando `"esModuleInterop": true`
+#### 1 - Módulos ES6 poderão ser importados como módulos CommonJS.
+#### 2 - Será possível usar a sintaxe "require" para importar módulos ES6.
+#### 3 - Erros de tipo não serão gerados ao tentar importar módulos ES6 como CommonJS.
+### Considerações:
+#### 1 - Compatibilidade: permite usar bibliotecas ES6 com CommonJS.
+#### 2 - Desempenho: pode afetar o desempenho, pois o TypeScript precisa realizar conversões adicionais.
+#### 3 - Tipagem: pode afetar a precisão de tipos, pois módulos ES6 são ttratados como CommonJS.
+#### 4 - Configuração: certifique-se de que todas as dependências sejam compatíveis com essa opção.
 
 ## forceConsistentCasingInFileNames
 ### Certifique-se de que as maiúsculas e minúsculas estejam corretas nas importações.
@@ -536,7 +550,7 @@
 #### 2 - Pode ser usado com "watch" ou "watchOptions".
 #### 3 - Não afeta a saída do projeto.
 
-# EXAMPLE NOME
+## EXAMPLE NOME
 ### Tradução da descrição da flag
 #### Descrição
 ### Comportamento padrão

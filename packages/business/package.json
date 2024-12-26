@@ -1,6 +1,11 @@
 {
   "name": "@repo/business",
-  "version": "0.0.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "./dist/**"
+  ],
+  "version": "0.0.1",
   "private": true,
   "license": "MIT",
   "scripts": {
@@ -11,13 +16,21 @@
     "build": "tsc -b -v",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\""
   },
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "./dist/**"
-  ],
-  "publishConfig": {
-    "access": "public"
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    },
+    "./*": {
+      "types": "./dist/*/index.d.ts",
+      "import": "./dist/*.js",
+      "require": "./dist/*.js"
+    }
+  },
+  "dependencies": {
+    "@nestjs/mapped-types": "*",
+    "@repo/services": "*"
   },
   "typesVersions": {
     "*": {
@@ -26,19 +39,8 @@
       ]
     }
   },
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
-    },
-    "./*": {
-      "import": "./dist/*.js",
-      "require": "./dist/*.js"
-    }
-  },
-  "dependencies": {
-    "@nestjs/mapped-types": "*",
-    "@repo/services": "*"
+  "publishConfig": {
+    "access": "public"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",

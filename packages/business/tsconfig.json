@@ -1,12 +1,12 @@
 {
-  "include": ["src", "turbo"],
+  "extends": "@repo/typescript/library.json",
+  "include": ["src"],
   "exclude": ["node_modules", "test", "dist", "**/*spec.ts"],
-  "extends": "@repo/typescript/nestjs.json",
   "compilerOptions": {
     "outDir": "dist",
     "baseUrl": "src",
     "allowJs": true,
     "incremental": false,
-    "esModuleInterop": true,
+    "esModuleInterop": true
   }
 }

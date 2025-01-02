@@ -16,6 +16,11 @@ Powered by
   npm run build 
 ```
 
+## Marcas:
+### Geek
+### Law
+### Finance
+
 ## Como usar?
 ### Para utilizar um token dentro do projeto, basta importar a lib e navegar até o valor desejado.
 #### Neste exemplo está sendo importado o arquivo do tipo css da marca geek

@@ -6,6 +6,12 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
     description: 'Adds a new react component',
     prompts: [
       {
+        type: 'list',
+        name: 'type',
+        message: 'What type of file should be created ?',
+        choices: ['elements', 'components']
+      },
+      {
         type: 'input',
         name: 'name',
         message: 'What is the name of the design system item ?',
@@ -21,12 +27,6 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
           }
           return true;
         }
-      },
-      {
-        type: 'list',
-        name: 'type',
-        message: 'What type of file should be created ?',
-        choices: ['elements', 'components']
       }
     ],
     actions: [

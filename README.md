@@ -37,5 +37,8 @@ See [What are the main libraries used for](MOST-USED-LIBRARY.md)
 ## How to install and use docker with this project
 See [How to install and use docker](HOW-USING-DOCKER-WITH-THIS-PROJECT.md)
 
+## How to use Storybook with react
+See [How to use Storybook](HOW-TO-USE-STORYBOOK-WITH-REACT.md)
+
 ## How to run
 See [Running the aplication](HOW-TO-RUN.md)

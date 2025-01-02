@@ -12,8 +12,6 @@ StyleDictionary.registerFormat({
     format: ({ dictionary }) => JSON.stringify(dictionary.tokens, null, 2)
 });
 
-console.log('brands => ', BRANDS);
-
 function builder(brand) {
     const styleDictionary = new StyleDictionary({
         source: [`src/brands/${brand}/**/*.json`, `src/globals/**/*.json`],

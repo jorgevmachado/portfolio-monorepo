@@ -1,7 +1,8 @@
 import React from 'react';
 
-import './Skeleton.scss';
 import { joinClass } from '../../utils';
+
+import './Skeleton.scss';
 
 export type TRadius =
   | 'none'

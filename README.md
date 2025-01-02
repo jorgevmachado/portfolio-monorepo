@@ -26,14 +26,16 @@ Project created with the aim of improving my knowledge of monorepo, nest, next, 
 ## Prerequisites
 
 - `Nodejs`
-- `Yarn`
+- `npm`
 
-## How to create project with Turbo Repo
-See [Create Project with Turbo Repo](HOW-CREATE-PROJECT-TURBOREPO.md)
+## How to use Turbo Repo
+See [How To Create and use Turbo Repo](HOW-TO-USE-TURBOREPO.md)
+
+## Main libraries used
+See [What are the main libraries used for](MOST-USED-LIBRARY.md)
 
 ## How to install and use docker with this project
 See [How to install and use docker](HOW-USING-DOCKER-WITH-THIS-PROJECT.md)
 
 ## How to run
-
 See [Running the aplication](HOW-TO-RUN.md)

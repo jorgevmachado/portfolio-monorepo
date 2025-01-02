@@ -32,8 +32,6 @@
 
 ----
 
-----
-
 # Language and Environment
 ## target
 ### Define a versão da linguagem JavaScript para o JavaScript emitido e inclui declarações de biblioteca compatíveis.

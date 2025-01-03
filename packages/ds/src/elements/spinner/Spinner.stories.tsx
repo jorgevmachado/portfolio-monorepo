@@ -1,8 +1,6 @@
-import * as React from 'react';
-
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { OContext } from '../../utils';
+import { OContext } from '../../utils/colors';
 
 import Spinner from './Spinner';
 

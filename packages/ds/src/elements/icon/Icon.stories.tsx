@@ -1,9 +1,9 @@
-import * as React from 'react';
-
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { OColors } from '../../utils/colors';
+import { OIcon } from '../../utils/icons';
+
 import Icon from './Icon';
-import { OColors, OIcon } from '../../utils';
 
 const meta = {
   args: {

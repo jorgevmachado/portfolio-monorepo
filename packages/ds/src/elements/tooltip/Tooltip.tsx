@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { joinClass } from '../../utils';
+import { joinClass } from '../../utils/join-class';
 
 import { TooltipProps } from './interface';
 

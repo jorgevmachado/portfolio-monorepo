@@ -1,5 +1,5 @@
 import React from 'react';
-import { TContext } from '../../utils';
+import type { TContext } from '../../utils/colors';
 
 export type TAlign =
   | 'top'

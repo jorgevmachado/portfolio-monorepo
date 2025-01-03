@@ -2,10 +2,11 @@ import * as React from 'react';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { OContext } from '../../utils';
+import { OContext } from '../../utils/colors';
+
+import { OAlign } from './options';
 
 import Tooltip from './Tooltip';
-import { OAlign } from './options';
 
 const meta = {
   args: {

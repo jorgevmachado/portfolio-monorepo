@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { joinClass, TContext } from '../../utils';
+import { joinClass } from '../../utils/join-class';
+import type { TContext } from '../../utils/colors';
 
 import './Spinner.scss';
 

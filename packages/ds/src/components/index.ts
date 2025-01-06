@@ -7,3 +7,4 @@ export { default as Label } from './label';
 export { default as Button } from './button';
 export { default as Link } from './link';
 export { default as Checkbox } from './checkbox';
+export { default as Collapse } from './collapse';

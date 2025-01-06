@@ -1,1 +1,1 @@
-export { default as joinClass } from './joinClass';
+export { default } from './joinClass';

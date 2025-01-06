@@ -2,9 +2,9 @@ import React from 'react';
 
 import { isObject } from '@repo/services';
 
-import { joinClass } from '../../utils/join-class';
+import joinClass from '../../utils/join-class';
 
-import { TextProps } from './interface';
+import type { TextProps } from './interface';
 import { formattedText, isReactNode } from './config';
 
 import './Text.scss';

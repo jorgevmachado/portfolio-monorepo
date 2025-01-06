@@ -2,7 +2,7 @@ import React from 'react';
 
 import { getIcon, type TIcon } from '../../utils/icons';
 import type { TColors } from '../../utils/colors';
-import { joinClass } from '../../utils/join-class';
+import  joinClass from '../../utils/join-class';
 
 import './Icon.scss';
 

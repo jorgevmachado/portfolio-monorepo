@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { joinClass } from '../../utils/join-class';
+import joinClass from '../../utils/join-class';
 
 import { TooltipProps } from './interface';
 
@@ -25,21 +25,25 @@ export default function Tooltip({
   ]);
 
   return (
-      <span
-          tabIndex={0}
-          className={classNameList}
-          aria-describedby={title ? `${title}: ${content}` : content}
-          {...props}
-      >
-        {children}
-          <div role="tooltip" aria-hidden="true" className={bodyClassNameList}>
-            <div className="tooltip__container--body-caret"/>
+    <span
+      tabIndex={0}
+      className={classNameList}
+      aria-describedby={title ? `${title}: ${content}` : content}
+      {...props}
+    >
+      {children}
+      <div role="tooltip" aria-hidden="true" className={bodyClassNameList}>
+        <div className="tooltip__container--body-caret" />
 
-            <div className="tooltip__container--body-content">
-                {title && <div className="tooltip__container--body-content__title">{title}</div>}
-                {content}
+        <div className="tooltip__container--body-content">
+          {title && (
+            <div className="tooltip__container--body-content__title">
+              {title}
             </div>
+          )}
+          {content}
         </div>
+      </div>
     </span>
   );
 }

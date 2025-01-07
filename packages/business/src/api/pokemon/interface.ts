@@ -30,7 +30,7 @@ export interface IResponseStat {
 
 export interface IResponsePokemonNameSprites {
   other: {
-      dream_world: IResponseSpritesUrl;
+    dream_world: IResponseSpritesUrl;
   };
   front_default: string;
 }
@@ -77,7 +77,7 @@ export interface IResponsePokemonEvolution {
   chain: {
     species: Pick<IResponsePokemon, 'url' | 'name'>;
     evolves_to: Array<IResponseEvolvesTo>;
-  },
+  };
 }
 
 interface IResponseEvolvesTo {
@@ -96,7 +96,7 @@ export interface IResponsePokemonMove {
   effect_entries: Array<{
     effect: string;
     short_effect: string;
-  }>
+  }>;
   damage_class: Pick<IResponsePokemon, 'url' | 'name'>;
   effect_chance?: number;
   learned_by_pokemon: Array<Pick<IResponsePokemon, 'url' | 'name'>>;

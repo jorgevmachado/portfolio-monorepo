@@ -1,7 +1,8 @@
 import { EStatus } from '../../../shared';
+
+import type { AbilityEntity } from '../ability';
 import type { MoveEntity } from '../move';
 import type { TypeEntity } from '../type';
-import type { AbilityEntity } from '../ability';
 
 export interface BaseEntity {
   id: string;

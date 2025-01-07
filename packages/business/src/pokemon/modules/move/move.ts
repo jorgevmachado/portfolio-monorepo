@@ -19,9 +19,9 @@ export class Move implements MoveEntity {
   damage_class: string;
   effect_chance?: number;
 
-  constructor(response?:any , order?: number) {
-      this.url = response?.move?.url || this.url;
-      this.name = response.move?.name || this.name;
-      this.order = order ?? this.order;
+  constructor(response?: any, order?: number) {
+    this.url = response?.move?.url || this.url;
+    this.name = response.move?.name || this.name;
+    this.order = order ?? this.order;
   }
 }

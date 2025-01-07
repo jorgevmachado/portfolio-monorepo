@@ -1,4 +1,5 @@
 import { Nest } from '../api/nest';
+
 import { SignInParams, SignUpParams, User } from './interface';
 
 export class Auth {

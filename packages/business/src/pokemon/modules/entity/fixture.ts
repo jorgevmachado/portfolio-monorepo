@@ -12,9 +12,9 @@ import {
   POKEMON_STATS_ATTRIBUTES_BULBASAUR_FIXTURE,
 } from '../../external';
 
+import { ABILITY_ENTITY_LIST_FIXTURE } from '../ability';
 import { MOVE_ENTITY_LIST_FIXTURE } from '../move';
 import { TYPE_ENTITY_LIST_FIXTURE } from '../type';
-import { ABILITY_ENTITY_LIST_FIXTURE } from '../ability';
 
 import type { PokemonEntity } from './interface';
 

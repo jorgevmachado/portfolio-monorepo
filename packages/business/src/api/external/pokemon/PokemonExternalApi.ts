@@ -1,8 +1,12 @@
 import { Http } from '@repo/services/http/http';
-import {ExternalResponseOfMoveByUrl, PokemonExternalPaginate} from './modules';
+
+import {
+  ExternalResponseOfMoveByUrl,
+  PokemonExternalPaginate,
+} from './modules';
+import { ExternalResponseOfEvolutionByUrl } from './modules/evolution';
 import { ExternalResponseOfPokemonAttributesByPokemonName } from './modules/attributes';
 import { ExternalResponseOfPokemonSpecieByPokemonName } from './modules/specie';
-import { ExternalResponseOfEvolutionByUrl } from './modules/evolution';
 
 export class PokemonExternalApi extends Http {
   constructor() {
@@ -31,7 +35,7 @@ export class PokemonExternalApi extends Http {
   }
 
   async getEvolutionsByOrder(
-      order: number
+    order: number,
   ): Promise<ExternalResponseOfEvolutionByUrl> {
     return this.get(`evolution-chain/${order}`);
   }

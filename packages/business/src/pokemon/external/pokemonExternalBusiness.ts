@@ -6,9 +6,10 @@ import {
   PokemonSpritesInformationExternalResponse,
   PokemonStatsInformationExternalResponse,
 } from '../../api/external/pokemon/modules';
+import type { IResponsePokemonEvolution } from '../../api/pokemon';
 
 import { PokemonStatsAttributes } from './modules/attributes';
-import { IResponsePokemonEvolution } from '../../api';
+
 import { Ability, Move, MoveEntity, PokemonEntity, Type } from '../modules';
 
 export class PokemonExternalBusiness {

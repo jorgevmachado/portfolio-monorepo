@@ -39,7 +39,7 @@ export class Paginate<T> implements PaginateParameters<T> {
   }
 
   private insertTotalNumberOfPagesIntoPagination(total: number, limit: number) {
-    if(limit === 0) {
+    if (limit === 0) {
       this.pages = Math.ceil(total / this.per_page);
       return;
     }
@@ -57,7 +57,7 @@ export class Paginate<T> implements PaginateParameters<T> {
       return;
     }
 
-    if(this.current_page === this.pages) {
+    if (this.current_page === this.pages) {
       this.skip = this.total;
       return;
     }
@@ -76,5 +76,4 @@ export class Paginate<T> implements PaginateParameters<T> {
   private insertResultsIntoPagination(results: Array<T>) {
     this.results = results;
   }
-
 }

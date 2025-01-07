@@ -1,5 +1,6 @@
-import { EGender } from './enum';
 import { ERole, EStatus } from '../../shared';
+
+import { EGender } from './enum';
 
 export interface INestConfig {
   baseUrl: string;
@@ -35,4 +36,7 @@ export interface ISignInParams extends Pick<IUser, 'email'> {
   password: string;
 }
 
-export type IUpdateUserParams = Omit<IUser, 'id' | 'status' | 'createdAt' | 'updatedAt' | 'deletedAt'>;
+export type IUpdateUserParams = Omit<
+  IUser,
+  'id' | 'status' | 'createdAt' | 'updatedAt' | 'deletedAt'
+>;

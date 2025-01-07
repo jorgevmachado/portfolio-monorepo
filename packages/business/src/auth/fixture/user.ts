@@ -1,6 +1,8 @@
-import { User } from '../interface';
 import { ERole, EStatus } from '../../shared';
+
 import { EGender } from '../../api';
+
+import { User } from '../interface';
 
 export const ENTITY_USER_PASSWORD: string = '123456';
 
@@ -20,5 +22,6 @@ export const ENTITY_USER_COMPLETE_FIXTURE: User = {
   updated_at: undefined,
   date_of_birth: new Date('1990-01-01'),
   recover_token: undefined,
-  confirmation_token: '9bd0aceff9012467fce99a8c2efdfacd3a27255d87f0b516adfd5e889ad3668e',
+  confirmation_token:
+    '9bd0aceff9012467fce99a8c2efdfacd3a27255d87f0b516adfd5e889ad3668e',
 };

@@ -1,6 +1,7 @@
 import type { PokemonExternalBasicResponse } from '../basic';
 
-export type PokemonMovesInformationExternalResponse = Array<PokemonMoveInformationExternalResponse>;
+export type PokemonMovesInformationExternalResponse =
+  Array<PokemonMoveInformationExternalResponse>;
 
 export interface PokemonMoveInformationExternalResponse {
   move: PokemonExternalBasicResponse;
@@ -17,7 +18,7 @@ export interface ExternalResponseOfMoveByUrl {
   effect_entries: Array<{
     effect: string;
     short_effect: string;
-  }>
+  }>;
   damage_class: PokemonExternalBasicResponse;
   effect_chance?: number;
   learned_by_pokemon: Array<PokemonExternalBasicResponse>;

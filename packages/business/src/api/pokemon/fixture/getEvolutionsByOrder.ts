@@ -1,6 +1,7 @@
 import { IResponsePokemonEvolution } from '../interface';
 
-export const RESPONSE_GET_EVOLUTIONS_BY_ORDER_BULBASAUR_FIXTURE: IResponsePokemonEvolution = {
+export const RESPONSE_GET_EVOLUTIONS_BY_ORDER_BULBASAUR_FIXTURE: IResponsePokemonEvolution =
+  {
     chain: {
       evolves_to: [
         {
@@ -24,4 +25,4 @@ export const RESPONSE_GET_EVOLUTIONS_BY_ORDER_BULBASAUR_FIXTURE: IResponsePokemo
         name: 'bulbasaur',
       },
     },
-};
+  };

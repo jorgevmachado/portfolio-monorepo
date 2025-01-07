@@ -18,7 +18,7 @@ export const RESPONSE_GET_MOVE_BY_ORDER_RAZOR_WIND_FIXTURE: IResponsePokemonMove
     effect_entries: [
       {
         effect:
-          "Inflicts regular damage.  User's critical hit rate is one level higher when using this move.  User charges for one turn before attacking.\\n\\nThis move cannot be selected by sleep talk.",
+          'Inflicts regular damage.  Users critical hit rate is one level higher when using this move.  User charges for one turn before attacking. This move cannot be selected by sleep talk.',
         short_effect: 'Requires a turn to charge before attacking.',
       },
     ],
@@ -252,8 +252,8 @@ export const RESPONSE_GET_MOVE_BY_ORDER_SWORDS_DACE_FIXTURE: IResponsePokemonMov
     accuracy: undefined,
     effect_entries: [
       {
-        effect: "Raises the user's Attack by two stages.",
-        short_effect: "Raises the user's Attack by two stages.",
+        effect: 'Raises the users Attack by two stages.',
+        short_effect: 'Raises the users Attack by two stages.',
       },
     ],
     damage_class: {

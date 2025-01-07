@@ -1,6 +1,7 @@
 import type { PokemonExternalBasicResponse } from '../basic';
 
-export type PokemonStatsInformationExternalResponse = Array<PokemonStatInformationExternalResponse>;
+export type PokemonStatsInformationExternalResponse =
+  Array<PokemonStatInformationExternalResponse>;
 
 export interface PokemonStatInformationExternalResponse {
   stat: PokemonExternalBasicResponse;

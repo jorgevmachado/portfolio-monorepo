@@ -13,7 +13,10 @@ export class Ability implements AbilityEntity {
   updated_at: Date;
   deleted_at: Date;
 
-  constructor(response?: PokemonAbilityInformationExternalResponse, order?: number) {
+  constructor(
+    response?: PokemonAbilityInformationExternalResponse,
+    order?: number,
+  ) {
     this.url = response?.ability?.url ?? this.url;
     this.name = response?.ability?.name ?? this.name;
     this.slot = response?.slot ?? this.slot;

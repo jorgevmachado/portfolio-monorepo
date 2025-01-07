@@ -23,7 +23,6 @@ export default function Label({
   className,
   ...props
 }: LabelProps) {
-
   const classNameList = joinClass(['label', className]);
 
   return (

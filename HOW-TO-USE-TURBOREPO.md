@@ -60,7 +60,7 @@ ou
   // if you generated it with npm
   npm run lint
 ```
-#### A partir daqui você pode personalizar seu projeto como achar melhor, no meu caso mudarei o nome dos projetos packages/eslint-config e packages/typescript-config para packages/eslint e packages/typescript e removerei o app/docs projeto
+#### A partir daqui você pode personalizar o seu projeto como achar melhor, no meu caso mudarei o nome do projeto packages/typescript-config para packages/eslint e packages/typescript e removerei o app/docs projeto
 
 ----
 

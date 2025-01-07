@@ -14,7 +14,7 @@
     "./code": "./src/code.tsx"
   },
   "scripts": {
-    "lint": "eslint . --max-warnings 0",
+    "lint": "eslint . --max-warnings 0 --fix",
     "gen": "turbo gen ds",
     "storybook:finance": "set BRAND=finance && storybook dev -p 6006",
     "storybook:geek": "set BRAND=geek && storybook dev -p 6006",
@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.3",
-    "@repo/eslint": "*",
+    "@repo/eslint-config": "*",
     "@repo/typescript": "*",
     "@storybook/addon-essentials": "^8.4.7",
     "@storybook/addon-interactions": "^8.4.7",

@@ -199,89 +199,90 @@ export const WithFloatingButtons: Story = {
     hasFloatingSlots: true,
   },
   render: (args) => (
-      <Input {...args}>
-        <Button
-            size="small"
-            style={{
-              top: '50%',
-              right: '4px',
-              position: 'absolute',
-              transform: 'translateY(-50%)',
-            }}
-            context="primary"
-            data-children="append">
-          append
-        </Button>
-      </Input>
-  )
+    <Input {...args}>
+      <Button
+        size="small"
+        style={{
+          top: '50%',
+          right: '4px',
+          position: 'absolute',
+          transform: 'translateY(-50%)',
+        }}
+        context="primary"
+        data-children="append"
+      >
+        append
+      </Button>
+    </Input>
+  ),
 };
 
 export const WithAddon: Story = {
   args: {
     addon: '0,00',
-  }
+  },
 };
 
 export const WithError: Story = {
   args: {
     isInvalid: true,
     invalidMessage: 'Digite um email válido',
-  }
+  },
 };
 
 export const WithFloatingLabel: Story = {
   args: {
     placeholder: 'Testando',
     floatingLabel: true,
-  }
+  },
 };
 
 export const WithRightIcon: Story = {
   args: {
-    iconContext: 'primary'
+    iconContext: 'primary',
   },
   render: (args) => (
-      <Input {...args}>
-        <Icon icon="react" data-children="icon-right"/>
-      </Input>
-  )
+    <Input {...args}>
+      <Icon icon="react" data-children="icon-right" />
+    </Input>
+  ),
 };
 
 export const WithLeftIcon: Story = {
   args: {
-    iconContext: 'secondary'
+    iconContext: 'secondary',
   },
   render: (args) => (
-      <Input {...args}>
-        <Icon icon="react" data-children="icon-left"/>
-      </Input>
-  )
+    <Input {...args}>
+      <Icon icon="react" data-children="icon-left" />
+    </Input>
+  ),
 };
 
 export const WithBothIcons: Story = {
   args: {
     rows: 10,
-    iconContext: 'info'
+    iconContext: 'info',
   },
   render: (args) => (
-      <Input {...args}>
-        <Icon icon="user" data-children="icon-left"/>
-        <Icon icon="like" data-children="icon-right"/>
-      </Input>
-  )
+    <Input {...args}>
+      <Icon icon="user" data-children="icon-left" />
+      <Icon icon="like" data-children="icon-right" />
+    </Input>
+  ),
 };
 
 export const Multiline: Story = {
   args: {
     rows: 20,
-    multiline: true
-  }
+    multiline: true,
+  },
 };
 
 export const WithCounter: Story = {
   render: (args) => (
-      <Input {...args}>
-        <div data-children="counter">9+</div>
-      </Input>
-  )
+    <Input {...args}>
+      <div data-children="counter">9+</div>
+    </Input>
+  ),
 };

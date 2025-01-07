@@ -48,8 +48,12 @@ function applyFormatting(text: string) {
           {applyTextFormatting(text.substring(1, text.length - 1))}
         </strong>
       );
-      default:
-          return text === '++' ? <br key={useGenerateComponentId(`${text}br`)}/> : text;
+    default:
+      return text === '++' ? (
+        <br key={useGenerateComponentId(`${text}br`)} />
+      ) : (
+        text
+      );
   }
 }
 

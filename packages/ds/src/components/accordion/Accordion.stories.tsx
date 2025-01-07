@@ -79,23 +79,23 @@ export const Default: Story = {
 };
 
 export const WithChildrenTitle: Story = {
-    args: {
-        isOpen: true,
-        childrenTitle: (
-            <div
-                style={{
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    paddingRight: '4px',
-                }}
-            >
-                <div style={{ width: '100%', display: 'flex', gap: '12px' }}>
-                    <Text>client name</Text>
-                    <Tag context="primary">Tag</Tag>
-                </div>
-                <Text>Date</Text>
-            </div>
-        ),
-    }
+  args: {
+    isOpen: true,
+    childrenTitle: (
+      <div
+        style={{
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'space-between',
+          paddingRight: '4px',
+        }}
+      >
+        <div style={{ width: '100%', display: 'flex', gap: '12px' }}>
+          <Text>client name</Text>
+          <Tag context="primary">Tag</Tag>
+        </div>
+        <Text>Date</Text>
+      </div>
+    ),
+  },
 };

@@ -2,7 +2,7 @@
 module.exports = {
   root: true,
   extends: [
-    "@repo/eslint/react-internal.js",
+    "@repo/eslint-config/react-internal.js",
     "plugin:storybook/recommended",
     "plugin:storybook/recommended"
   ],

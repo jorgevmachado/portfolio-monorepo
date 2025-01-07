@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { OContext } from '../../utils/colors';
 
-import Radio, {RadioProps} from './Radio';
+import Radio, { RadioProps } from './Radio';
 
 const meta = {
   args: {
@@ -83,7 +83,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const RadioComponent = (args: Omit<RadioProps, 'children'>) => {
-  const [model, setModel] = useState<number | string | undefined>(args.modelValue);
+  const [model, setModel] = useState<number | string | undefined>(
+    args.modelValue,
+  );
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
       <form>

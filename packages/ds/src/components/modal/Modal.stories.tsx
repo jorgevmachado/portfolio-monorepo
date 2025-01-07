@@ -119,20 +119,19 @@ const TemplateModal = (args: ModalProps) => {
 
 export const Default: Story = {
   args: { children: 'Exemplo' },
-  render: (args) => <TemplateModal {...args} children={args.children}/>
+  render: (args) => <TemplateModal {...args} children={args.children} />,
 };
 
 export const WithScroll: Story = {
-    args: {
-        children: (
-            <>
-                { Array
-                    .from({ length: 32 }, (_, index) => index + 1)
-                    .map((item) => (<div key={item}>CARD {item}</div>))
-                }
-            </>
-        ),
-        removeBackgroundScroll: true,
-    },
-    render: (args) => <TemplateModal {...args} children={args.children}/>
+  args: {
+    children: (
+      <>
+        {Array.from({ length: 32 }, (_, index) => index + 1).map((item) => (
+          <div key={item}>CARD {item}</div>
+        ))}
+      </>
+    ),
+    removeBackgroundScroll: true,
+  },
+  render: (args) => <TemplateModal {...args} children={args.children} />,
 };

@@ -14,7 +14,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "@repo/eslint": "*",
+    "@repo/eslint-config": "*",
     "@repo/typescript": "*",
     "prettier": "^3.2.5",
     "turbo": "^2.3.3"

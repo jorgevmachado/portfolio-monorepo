@@ -6,79 +6,78 @@ import { OContext } from '../../utils/colors';
 
 import Rating from './Rating';
 
-
 const meta = {
-    args: {
-        length: 5,
-        rating: 4.7587,
-        context: 'neutral',
-        halfStar: false,
-        ratingInfo: undefined,
-        ratingCount: undefined,
-        roundRating: false,
-        ratingInfoText: 'Service Satisfaction',
+  args: {
+    length: 5,
+    rating: 4.7587,
+    context: 'neutral',
+    halfStar: false,
+    ratingInfo: undefined,
+    ratingCount: undefined,
+    roundRating: false,
+    ratingInfoText: 'Service Satisfaction',
+  },
+  title: 'Components/Rating',
+  argTypes: {
+    length: {
+      table: {
+        type: { summary: 'number' },
+        defaultValue: { summary: '5' },
+      },
+      control: { type: 'number' },
     },
-    title: 'Components/Rating',
-    argTypes: {
-        length: {
-            table: {
-                type: { summary: 'number' },
-                defaultValue: { summary: '5' },
-            },
-            control: { type: 'number' },
-        },
-        rating: {
-            table: {
-                type: { summary: 'number' },
-                defaultValue: { summary: '0' },
-            },
-            control: { type: 'number' },
-        },
-        context: {
-            table: {
-                type: { summary: 'string' },
-                defaultValue: { summary: 'primary' },
-            },
-            options: OContext,
-            control: { type: 'select' },
-        },
-        halfStar: {
-            table: {
-                type: { summary: 'boolean' },
-                defaultValue: { summary: 'false' },
-            },
-            control: { type: 'boolean' },
-        },
-        ratingInfo: {
-            table: {
-                type: { summary: 'boolean' },
-                defaultValue: { summary: 'false' },
-            },
-            control: { type: 'boolean' },
-        },
-        ratingCount: {
-            table: {
-                type: { summary: 'number' },
-                defaultValue: { summary: '5' },
-            },
-            control: { type: 'number' },
-        },
-        roundRating: {
-            table: {
-                type: { summary: 'boolean' },
-                defaultValue: { summary: 'false' },
-            },
-            control: { type: 'boolean' },
-        },
-        ratingInfoText: {
-            table: {
-                type: { summary: 'string' },
-                defaultValue: { summary: 'Service Satisfaction' },
-            },
-            control: { type: 'text' },
-        },
+    rating: {
+      table: {
+        type: { summary: 'number' },
+        defaultValue: { summary: '0' },
+      },
+      control: { type: 'number' },
     },
-    component: Rating,
+    context: {
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: 'primary' },
+      },
+      options: OContext,
+      control: { type: 'select' },
+    },
+    halfStar: {
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+      control: { type: 'boolean' },
+    },
+    ratingInfo: {
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+      control: { type: 'boolean' },
+    },
+    ratingCount: {
+      table: {
+        type: { summary: 'number' },
+        defaultValue: { summary: '5' },
+      },
+      control: { type: 'number' },
+    },
+    roundRating: {
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+      control: { type: 'boolean' },
+    },
+    ratingInfoText: {
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: 'Service Satisfaction' },
+      },
+      control: { type: 'text' },
+    },
+  },
+  component: Rating,
 } satisfies Meta<typeof Rating>;
 
 export default meta;
@@ -86,38 +85,38 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-    args: { children: 'Exemplo' }
+  args: { children: 'Exemplo' },
 };
 
 export const RatingLength: Story = {
-    args: {
-        length: 5,
-        rating: 4.9,
-        ratingCount: 102,
-    }
+  args: {
+    length: 5,
+    rating: 4.9,
+    ratingCount: 102,
+  },
 };
 
 export const RatingInfo: Story = {
-    args: {
-        length: 5,
-        rating: 4.9,
-        ratingInfo: true,
-        ratingCount: 102,
-    }
+  args: {
+    length: 5,
+    rating: 4.9,
+    ratingInfo: true,
+    ratingCount: 102,
+  },
 };
 
 export const RatingWithHalfStar: Story = {
-    args: {
-        length: 5,
-        rating: 3.5,
-        halfStar: true,
-    }
+  args: {
+    length: 5,
+    rating: 3.5,
+    halfStar: true,
+  },
 };
 
 export const RatingRatingLabelRounded: Story = {
-    args: {
-        length: 5,
-        rating: 2.5,
-        roundRating: true,
-    }
+  args: {
+    length: 5,
+    rating: 2.5,
+    roundRating: true,
+  },
 };

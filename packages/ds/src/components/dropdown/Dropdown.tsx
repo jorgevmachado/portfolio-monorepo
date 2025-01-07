@@ -24,10 +24,7 @@ export default function Dropdown({
   const ref = useRef<HTMLDivElement>(null);
 
   const rootClassName = `dropdown__context--${context}`;
-  const classNameList = joinClass([
-      'dropdown',
-      rootClassName
-  ]);
+  const classNameList = joinClass(['dropdown', rootClassName]);
 
   const handleClick = () => {
     if (disabled) {

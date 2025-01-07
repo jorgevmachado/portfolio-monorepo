@@ -2,7 +2,7 @@ import React from 'react';
 
 import { getIcon, type TIcon } from '../../utils/icons';
 import type { TColors } from '../../utils/colors';
-import  joinClass from '../../utils/join-class';
+import joinClass from '../../utils/join-class';
 
 import './Icon.scss';
 
@@ -19,7 +19,12 @@ export default function Icon({ icon, size, color, ...props }: IconProps) {
     `${props.className ? props.className : ''}`,
   ]);
 
-  const currentIcon = typeof icon === 'string' ? getIcon(icon as TIcon, size, color) : icon;
+  const currentIcon =
+    typeof icon === 'string' ? getIcon(icon as TIcon, size, color) : icon;
 
-  return (<span {...props} className={classNameList}>{currentIcon}</span>);
+  return (
+    <span {...props} className={classNameList}>
+      {currentIcon}
+    </span>
+  );
 }

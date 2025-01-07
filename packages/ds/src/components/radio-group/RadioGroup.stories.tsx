@@ -96,56 +96,56 @@ const RenderTemplate = (args: RadioGroupProps) => {
 };
 
 export const Default: Story = {
-    args: {
-        modelValue: 'natural-person',
-        options: defaultExample,
-    },
-    render: RenderTemplate
+  args: {
+    modelValue: 'natural-person',
+    options: defaultExample,
+  },
+  render: RenderTemplate,
 };
 
 export const WithLabel: Story = {
-    args: {
-        label: 'Choose an option',
-        options: defaultExample,
-    },
-    render: RenderTemplate
+  args: {
+    label: 'Choose an option',
+    options: defaultExample,
+  },
+  render: RenderTemplate,
 };
 
 export const WithRangeAppearance: Story = {
-    args: {
-        appearance: 'range',
-        options: defaultRangeExample,
-        modelValue: 1,
-    },
-    render: RenderTemplate
+  args: {
+    appearance: 'range',
+    options: defaultRangeExample,
+    modelValue: 1,
+  },
+  render: RenderTemplate,
 };
 
 export const WithRequiredMessage: Story = {
-    args: {
-        modelValue: undefined,
-        requiredMessage: 'Choose an option',
-        options: defaultExample,
-    },
-    render: RenderTemplate
+  args: {
+    modelValue: undefined,
+    requiredMessage: 'Choose an option',
+    options: defaultExample,
+  },
+  render: RenderTemplate,
 };
 
 export const WithRangeAndRequiredMessage: Story = {
-    args: {
-        appearance: 'range',
-        context: 'primary',
-        options: defaultRangeExample,
-        modelValue: undefined,
-        requiredMessage: 'Choose an option',
-    },
-    render: RenderTemplate
+  args: {
+    appearance: 'range',
+    context: 'primary',
+    options: defaultRangeExample,
+    modelValue: undefined,
+    requiredMessage: 'Choose an option',
+  },
+  render: RenderTemplate,
 };
 
 export const WithMultiselect: Story = {
-    args: {
-        label: 'Choose several options',
-        options: defaultExampleMultiselect,
-        multiSelect: true,
-        modelValue: ['location'],
-    },
-    render: RenderTemplate
+  args: {
+    label: 'Choose several options',
+    options: defaultExampleMultiselect,
+    multiSelect: true,
+    modelValue: ['location'],
+  },
+  render: RenderTemplate,
 };

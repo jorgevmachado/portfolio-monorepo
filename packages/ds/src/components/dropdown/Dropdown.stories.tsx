@@ -7,47 +7,47 @@ import { OContext } from '../../utils/colors';
 import Dropdown from './Dropdown';
 
 const meta = {
-    args: {
-        type: 'button',
-        label: 'activator',
-        context: 'neutral',
-        disabled: false,
-        children: 'Hello, World!',
+  args: {
+    type: 'button',
+    label: 'activator',
+    context: 'neutral',
+    disabled: false,
+    children: 'Hello, World!',
+  },
+  title: 'Components/Dropdown',
+  argTypes: {
+    type: {
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: 'button' },
+      },
+      options: ['link', 'button'],
+      control: { type: 'select' },
     },
-    title: 'Components/Dropdown',
-    argTypes: {
-        type: {
-            table: {
-                type: { summary: 'string' },
-                defaultValue: { summary: 'button' },
-            },
-            options: ['link', 'button'],
-            control: { type: 'select' },
-        },
-        label: {
-            table: {
-                type: { summary: 'string' },
-                defaultValue: { summary: '' },
-            },
-            control: { type: 'text' },
-        },
-        context: {
-            table: {
-                type: { summary: 'string' },
-                defaultValue: { summary: 'primary' },
-            },
-            options: OContext,
-            control: { type: 'select' },
-        },
-        disabled: {
-            table: {
-                type: { summary: 'boolean' },
-                defaultValue: { summary: 'false' },
-            },
-            control: { type: 'boolean' },
-        },
+    label: {
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: '' },
+      },
+      control: { type: 'text' },
     },
-    component: Dropdown,
+    context: {
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: 'primary' },
+      },
+      options: OContext,
+      control: { type: 'select' },
+    },
+    disabled: {
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+      control: { type: 'boolean' },
+    },
+  },
+  component: Dropdown,
 } satisfies Meta<typeof Dropdown>;
 
 export default meta;
@@ -55,5 +55,5 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-    args: { children: 'Exemplo' }
+  args: { children: 'Exemplo' },
 };

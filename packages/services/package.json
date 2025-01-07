@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
-    "@repo/eslint": "*",
+    "@repo/eslint-config": "*",
     "@repo/jest": "*",
     "@repo/typescript": "*",
     "@types/node": "^20.3.1",

@@ -65,26 +65,26 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: { },
+  args: {},
 };
 
 export const NextLine: Story = {
   args: {
     variant: 'large',
-    children: 'Hello ++next line ++World'
+    children: 'Hello ++next line ++World',
   },
 };
 
 export const StrongPartText: Story = {
   args: {
     variant: 'large',
-    children: 'Hello *strong* World'
+    children: 'Hello *strong* World',
   },
 };
 
 export const ItalicPartText: Story = {
   args: {
     variant: 'large',
-    children: 'Hello _em_ World'
+    children: 'Hello _em_ World',
   },
 };

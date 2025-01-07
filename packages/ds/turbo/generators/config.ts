@@ -1,6 +1,5 @@
 import type { PlopTypes } from '@turbo/gen';
 
-
 export default function generator(plop: PlopTypes.NodePlopAPI): void {
   plop.setGenerator('ds', {
     description: 'Adds a new react component',
@@ -9,7 +8,7 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
         type: 'list',
         name: 'type',
         message: 'What type of file should be created ?',
-        choices: ['elements', 'components']
+        choices: ['elements', 'components'],
       },
       {
         type: 'input',
@@ -19,15 +18,15 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
           if (input.includes('.')) {
             return 'file name cannot include an extension';
           }
-          if(input.match(' ')) {
+          if (input.match(' ')) {
             return 'file name cannot include spaces';
           }
           if (!input) {
             return 'file name is required';
           }
           return true;
-        }
-      }
+        },
+      },
     ],
     actions: [
       {
@@ -53,8 +52,9 @@ export default function generator(plop: PlopTypes.NodePlopAPI): void {
       {
         type: 'append',
         path: 'src/{{ type }}/index.ts',
-        template: 'export { default as {{ pascalCase name }} } from \'./{{kebabCase name}}\';',
+        template:
+          "export { default as {{ pascalCase name }} } from './{{kebabCase name}}';",
       },
-    ]
+    ],
   });
 }

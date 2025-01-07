@@ -11,3 +11,5 @@ export { default as Collapse } from './collapse';
 export { default as Dropdown } from './dropdown';
 export { default as Input } from './input';
 export { default as Modal } from './modal';
+export { default as Radio } from './radio';
+export { default as RadioGroup } from './radio-group';

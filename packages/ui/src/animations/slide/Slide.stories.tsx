@@ -7,7 +7,7 @@ import Button from '@repo/ds/components/button/Button';
 
 import '../../styles/main.scss';
 
-import Slide, { SlideProps } from './Slide';
+import Slide from './Slide';
 
 const meta = {
   args: {
@@ -62,26 +62,19 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-interface RenderProps {
-  args: SlideProps;
-  buttonLabel: string;
-}
-
-const render = ({ args, buttonLabel }: RenderProps) => {
-  const [show, setShow] = useState(false);
-
-  const handleToggle = () => {
-    setShow(!show);
-  };
-  return (
-    <>
-      <Slide {...args} enter={show} children={args.children} />
-      <Button onClick={handleToggle}>{buttonLabel}</Button>
-    </>
-  );
-};
-
 export const Default: Story = {
   args: { children: 'Exemplo' },
-  render: (args) => render({ args, buttonLabel: 'TOGGLE' }),
+  render: (args) => {
+    const [show, setShow] = useState(false);
+
+    const handleToggle = () => {
+      setShow(!show);
+    };
+    return (
+      <>
+        <Slide {...args} enter={show} children={args.children} />
+        <Button onClick={handleToggle}>TOGGLE</Button>
+      </>
+    );
+  },
 };

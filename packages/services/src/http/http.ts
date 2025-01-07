@@ -31,8 +31,8 @@ export abstract class Http {
   }
 
   path<B, T = any>(
-      path: string,
-      config: RequestConfig<B> = { params: {}, override: {}, body: {} as B },
+    path: string,
+    config: RequestConfig<B> = { params: {}, override: {}, body: {} as B },
   ): Promise<T> {
     const { body, params, override } = config;
 
@@ -65,8 +65,8 @@ export abstract class Http {
   }
 
   remove<T>(
-      path: string,
-      config: Omit<RequestConfig, 'body'> = { params: {}, override: {} },
+    path: string,
+    config: Omit<RequestConfig, 'body'> = { params: {}, override: {} },
   ): Promise<T> {
     const { params, override } = config;
 
@@ -119,7 +119,7 @@ export abstract class Http {
     return {
       error: error?.response?.error ?? 'internal Server Error',
       message: error?.response?.message ?? 'Internal Server Error',
-      statusCode: error?.response?.statusCode ?? 500
+      statusCode: error?.response?.statusCode ?? 500,
     };
   };
 }

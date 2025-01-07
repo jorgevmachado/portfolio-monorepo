@@ -1,6 +1,5 @@
 class Validator {
-
-  public isValidCep( value: string, clean: boolean = true ): boolean {
+  public isValidCep(value: string, clean: boolean = true): boolean {
     const cepRegex = /^\d{5}\d{3}$/;
     const currentValue = clean ? this.cleanAll(value) : value;
     return cepRegex.test(currentValue);
@@ -51,7 +50,7 @@ class Validator {
   private cleanAll(value: string) {
     return value
       .replaceAll('.', '')
-      .replace('-','')
+      .replace('-', '')
       .replaceAll('(', '')
       .replaceAll(')', '')
       .replaceAll(' ', '');

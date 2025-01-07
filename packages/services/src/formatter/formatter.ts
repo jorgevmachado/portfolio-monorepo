@@ -1,14 +1,14 @@
 export type TCountry = 'br';
 
 class Formatter {
-
   public sanitize(value: string) {
     const regex = /[\WA-Z]/g;
     return value.replace(regex, '');
   }
 
   public maskPhone(value: string): string {
-    return value.replace(/\D/g, '')
+    return value
+      .replace(/\D/g, '')
       .replace(/(\d{2})(\d)/, '($1) $2')
       .replace(/(\d)(\d{4})$/, '$1-$2')
       .substring(0, 15);
@@ -16,12 +16,15 @@ class Formatter {
 
   public maskCurrency(value: number = 0, country: TCountry = 'br'): string {
     const MAP = {
-      br: { locale: 'pt-BR', currency: 'BRL', },
+      br: { locale: 'pt-BR', currency: 'BRL' },
     };
     const mapped = MAP[country];
 
-    return new Intl
-      .NumberFormat(mapped.locale, { style: 'currency', currency: mapped.currency, maximumSignificantDigits: 7 })
+    return new Intl.NumberFormat(mapped.locale, {
+      style: 'currency',
+      currency: mapped.currency,
+      maximumSignificantDigits: 7,
+    })
       .format(value)
       .replace(/\s/, ' ');
   }
@@ -31,18 +34,19 @@ class Formatter {
   }
 
   public maskCep(value: string): string {
-    return value.replace(/\D/g, '')
+    return value
+      .replace(/\D/g, '')
       .replace(/^(\d{5})(\d{3})+$/, '$1-$2')
       .replace(/(-d{3})(\d+?)/, '$1');
   }
 
   public maskCpf(value: string): string {
-    return value.replace(/\D/g, '')
-      .replace(/(\d{3})(\d)/ , '$1.$2')
-      .replace(/(\d{3})(\d)/ , '$1.$2')
-      .replace(/(\d{3})(\d{1,2})$/ , '$1-$2');
+    return value
+      .replace(/\D/g, '')
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
   }
-
 }
 
 export default new Formatter();

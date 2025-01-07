@@ -5,7 +5,6 @@ describe('Object functions', () => {
   const customObject = { userId: 1, fullName: 'Text' };
 
   describe('serialize', () => {
-
     it('should return serialized string when received only one value', () => {
       expect(serialize({ name: 'your_name' })).toEqual('name=your_name');
     });
@@ -18,8 +17,7 @@ describe('Object functions', () => {
     it('should return undefined when received empty object', () => {
       expect(serialize({})).toEqual(undefined);
     });
-
-  })
+  });
 
   describe('isObject', () => {
     it('should return true when param is a object', () => {
@@ -29,6 +27,5 @@ describe('Object functions', () => {
     it('should return false when param is not a valid object', () => {
       expect(isObject('not-object')).toBeFalsy();
     });
-  })
-
-})
+  });
+});

@@ -58,7 +58,7 @@ export class User implements EntityUser {
   updated_at: Date;
 
   @DeleteDateColumn()
-  deleted_at: Date;
+  deleted_at?: Date;
 
   @Column({ nullable: false })
   date_of_birth: Date;

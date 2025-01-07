@@ -7,7 +7,7 @@ import Button from '@repo/ds/components/button/Button';
 
 import '../../styles/main.scss';
 
-import Fade from './Fade';
+import Zoom from './Zoom';
 
 const meta = {
   args: {
@@ -16,11 +16,11 @@ const meta = {
     timeout: 0.2,
     children: (
       <>
-        <h1>FADE TEST</h1>
+        <h1>ZOOM TEST</h1>
       </>
     ),
   },
-  title: 'Animations/Fade',
+  title: 'Animations/Zoom',
   argTypes: {
     enter: {
       table: {
@@ -44,22 +44,28 @@ const meta = {
       control: { type: 'number' },
     },
   },
-  component: Fade,
-} satisfies Meta<typeof Fade>;
+  component: Zoom,
+} satisfies Meta<typeof Zoom>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {},
+  args: { children: 'Exemplo' },
   render: (args) => {
     const [show, setShow] = useState(false);
 
+    const handleToggle = () => {
+      setShow(!show);
+    };
+
     return (
       <>
-        <Fade {...args} enter={show} children={args.children} />
-        <Button onClick={() => setShow(!show)}>TOGGLE</Button>
+        <Zoom {...args} enter={show}>
+          <Button>TEST</Button>
+        </Zoom>
+        <Button onClick={handleToggle}>TOGGLE</Button>
       </>
     );
   },

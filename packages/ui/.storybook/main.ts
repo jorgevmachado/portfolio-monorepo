@@ -35,28 +35,26 @@ const config: StorybookConfig = {
     options: {},
   },
   webpackFinal: async (config) => {
-    if(config?.resolve?.plugins) {
-      config.resolve.plugins = [ new TsconfigPathsPlugin()];
-    }
-    if(config?.module?.rules) {
-      config.module.rules.push({
-        test: /\.scss$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          {
-            loader: 'sass-loader',
-            options: {
-              additionalData: `
+    // @ts-ignore
+    config.resolve.plugins = [ new TsconfigPathsPlugin()];
+    // @ts-ignore
+    config.module.rules.push({
+      test: /\.scss$/,
+      use: [
+        'style-loader',
+        'css-loader',
+        {
+          loader: 'sass-loader',
+          options: {
+            additionalData: `
               @import "~@repo/tokens/dist/${brand}/css/_variables.css";
               @import "~@repo/tokens/dist/${brand}/scss/_variables.scss";
             `,
-              implementation: require('sass'),
-            }
+            implementation: require('sass'),
           }
-        ]
-      })
-    }
+        }
+      ]
+    });
     return config;
   },
   docs: {

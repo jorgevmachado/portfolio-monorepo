@@ -38,8 +38,8 @@ const createConfig = (brand) => defineConfig({
                     includePaths: [
                         'node_modules',
                         'src/styles',
-                        `@geek/tokens/dist/${brand}/css/_variables.css`,
-                        `@geek/tokens/dist/${brand}/scss/_variables.scss`,
+                        `@repo/tokens/dist/${brand}/css/_variables.css`,
+                        `@repo/tokens/dist/${brand}/scss/_variables.scss`,
                     ]
                 }]
             ],

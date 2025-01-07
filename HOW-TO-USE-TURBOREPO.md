@@ -1,7 +1,7 @@
-# How to use Turbo Repo
+# Como usar o Turbo Repo
 
 ## CLI
-### To use it globally you must install the turbo repo globally. You can use one of the commands below:
+### Para usá-lo globalmente, você deve instalar o repositório turbo globalmente. Você pode usar um dos comandos abaixo:
 ```sh
   npm install turbo --global 
 ```
@@ -11,87 +11,87 @@ ou
 ```
 ----
 
-## Create
-### Getting Started
+## Criação
+### Começando
 
-#### To start using turbo repo, using the default configuration, you must execute the following command
+#### Para começar a usar o turbo repo, usando a configuração padrão, você deve executar o seguinte comando
 ```sh
   npx create-turbo@latest 
 ```
-#### When executing this command it will ask some questions. They are:
+#### Ao executar este comando ele fará algumas perguntas.
 ```sh
   Where would like to create your turborepo? 
-  //You must enter the name of the project
+  //Você deve inserir o nome do projeto
 ```
 ```sh
   Which package manager do you want to use? (Use arrow keys) 
   > npm 
   > yarn
-  //You can choose what suits you best
+  //Você pode escolher o que melhor combina com você
 ```
-#### After executing this command, you can choose the IDE that best suits you and open the project. You will see that it created the following file tree.
+#### Após executar este comando, você pode escolher o IDE que melhor se adapta a você e abrir o projeto. Você verá que ele criou a seguinte árvore de arquivos.
 ```
 ├── apps
-│   ├── docs (A front-end project with react and next to document your project)
-│   ├── web (A front-end project with react and next that will be your front-end)
+│   ├── docs (Um projeto front-end com react e next para documentar seu projeto)
+│   ├── web (Um projeto front-end com react e next será o seu front-end)
 ├── packages
-│   ├── eslint-config (File that does not generate build to perform eslint treatment for each project)
-│   ├── typescript-config (File that does not generate build to perform typescript processing)
-│   ├── ui (File that generates build for User Interface for your front-end project)
+│   ├── eslint-config (Arquivo que não gera build para realizar tratamento de eslint para cada projeto)
+│   ├── typescript-config (Arquivo que não gera build para realizar processamento typescript)
+│   ├── ui (Arquivo que gera build para interface de usuário do seu projeto front-end)
 ```
-#### to build all projects and just run the command
+#### para construir todos os projetos e apenas executar o comando
 ```sh
   // if you generated it with yarn
   yarn run build 
   // if you generated it with npm
   npm run build
 ```
-#### To run all projects in development mode
+#### Para executar todos os projetos em modo de desenvolvimento
 ```sh
   // if you generated it with yarn
   yarn run dev 
   // if you generated it with npm
   npm run dev
 ```
-#### To run lint for all projects
+#### Para executar o lint para todos os projetos
 ```sh
   // if you generated it with yarn
   yarn run lint 
   // if you generated it with npm
   npm run lint
 ```
-#### From here you can customize your project as you see fit, in my case I will change the name of the projects packages/eslint-config and packages/typescript-config to packages/eslint and packages/typescript and I will remove the app/docs project
+#### A partir daqui você pode personalizar seu projeto como achar melhor, no meu caso mudarei o nome dos projetos packages/eslint-config e packages/typescript-config para packages/eslint e packages/typescript e removerei o app/docs projeto
 
 ----
 
 ## Workspace
-### To create a workspace with turbo you first need to install the turbo repo globally, then you can use the command to generate a blank workspace:
+### Para criar um workspace com turbo, primeiro você precisa instalar o repositório turbo globalmente e, em seguida, usar o comando para gerar um workspace em branco:
 ```sh
   turbo gen workspace 
 ```
-### This command will give you a selection of options, where you must choose the location where the workspace will be created, between app or packages.
+### Este comando lhe dará uma seleção de opções, onde você deve escolher o local onde será criado o workspace, entre app ou pacotes.
 ```
 >>> Add an empty workspace to "my-turborepo"
 ? What type of workspace should be added ?
     app
     packages
 ```
-### Then it will ask you to choose the name of the package, where you will have to enter a name.
+### Em seguida, será solicitado que você escolha o nome do pacote, onde deverá inserir um nome.
 ```
 >>> Add an empty workspace to "my-turborepo"
 ? What is the name of the package ?
 ```
-### It will then confirm the location where the workspace should be added, if nothing is filled in it will continue with the settings added above, otherwise it will change the location.
+### Em seguida confirmará o local onde o espaço de trabalho deve ser adicionado, caso nada seja preenchido ele continuará com as configurações adicionadas acima, caso contrário irá alterar o local.
 ```
 >>> Add an empty workspace to "my-turborepo"
 ? Where should "workspace-name" be added ?
 ```
-### Finally, you will be asked if you want to add any dependencies to the workspace.
+### Finalmente, você será perguntado se deseja adicionar alguma dependência ao espaço de trabalho.
 ```
 >>> Add an empty workspace to "my-turborepo"
 ? add workspace dependencies to  "workspace-name" ?
 ```
-#### If you choose option `y`, a new questionnaire will open, asking what type of dependency you want to add based on the existing workspaces.
+#### Se você escolher a opção `y`, um novo questionário será aberto, perguntando que tipo de dependência você deseja adicionar com base nos workspaces existentes.
 ```
 ? Select all dependencies types to modify for "tokens" (Press <space> to select, <a> to toggle all, <i> to invert selection, and <enter> to proceed)
 >( ) dependencies
@@ -99,4 +99,4 @@ ou
  ( ) peerDependencies
  ( ) optionalDependencies
 ```
-#### At the end it will generate a folder in the chosen repository with the chosen name containing the package.json and a README.md file
+#### Ao final irá gerar uma pasta no repositório escolhido com o nome escolhido contendo o package.json e um arquivo README.md

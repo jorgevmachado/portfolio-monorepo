@@ -1,9 +1,9 @@
 {
   "name": "@repo/ui",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
-    "./dist/**"
+    "dist"
   ],
   "version": "0.0.1",
   "private": true,

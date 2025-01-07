@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Button from '@repo/ds/components/button';
+import Button from '@repo/ds/components/button/Button';
 
 import Fade from './Fade';
 

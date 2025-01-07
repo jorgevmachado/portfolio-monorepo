@@ -38,11 +38,6 @@
 
 ## Configuração
 ### Após instalar o rollup é necessário realizar algumas configurações básicas.
-### No `package.json` , vamos adicionar o script de execução
-```
-  "build": "rollup -c", 
-```
-### Depois vamos criar o arquivo de configuração chamado rollup.config.mjs na raiz do projeto.
 ### Vamos primeiramente instalar algumas bibliotecas para nos auxiliar:
 #### `glob`: Vai nos ajudar a buscar e acessar arquivos de forma mais simples.
 ```sh
@@ -59,4 +54,108 @@
 #### `rollup-plugin-sass`: É uma extensão do Rollup que permite compilar arquivos Sass (SCSS) em CSS, integrando-o com o fluxo de build do Rollup.
 ```sh
   npm install rollup-plugin-sass -D 
+```
+### Para que tudo funcione bem, teremos que fazer alguns ajustes no `compilerOptions` que fica no arquivo `.tsconfig.json` adicione os seguintes campos:
+``` json
+"compilerOptions": {
+    "outDir": "dist",
+    "target": "ES2022",
+    "module": "ESNext",
+    "baseUrl": ".",
+    "moduleResolution": "Bundler"
+  },
+````
+### Ja no arquivo `package.json`, adicione os seguintes itens:
+```json
+  {
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    },
+    "./*": {
+      "types": "./dist/*/index.d.ts",
+      "import": "./dist/*.js",
+      "require": "./dist/*.js"
+    }
+  },
+  "scripts": {
+    "build:law": "rollup -c"
+  }
+}
+```
+### Depois vamos criar o arquivo de configuração chamado rollup.config.js na raiz do projeto e vamos adicionar o seguinte código:
+#### obs: Como nesse projeto estamos a utilizar o `@repo/tokens` e temos mais de uma marca, vamos fazer com que receba através do environment `set BRAND=geek` a marca escolhida para realizar o build. 
+```js
+import {glob} from 'glob';
+import path from "path";
+
+import typescript from "@rollup/plugin-typescript";
+import postcss from 'rollup-plugin-postcss';
+import sass from 'rollup-plugin-sass';
+import {defineConfig} from "rollup";
+
+const currentBrand = process.env.BRAND || "geek";
+const brand = currentBrand.replace(/\s/g, '');
+
+const createConfig = (brand) => defineConfig({
+    input: glob.sync('src/**/index.ts'),
+    output: [
+        {
+            dir: path.dirname(`dist/index.js`),
+            format: 'esm',
+            sourcemap: true,
+            preserveModules: true,
+            preserveModulesRoot: 'src',
+            silenceDeprecations: ['legacy-js-api'],
+        },
+        {
+            dir: path.dirname(`dist/index.js`),
+            format: 'cjs',
+            sourcemap: true,
+            preserveModules: true,
+            preserveModulesRoot: 'src',
+            silenceDeprecations: ['legacy-js-api'],
+        },
+    ],
+    external: ["react/jsx-runtime"],
+    plugins: [
+        typescript({ tsconfig: "./tsconfig.json" }),
+        postcss({
+            use: [
+                ['sass', {
+                    includePaths: [
+                        'node_modules',
+                        'src/styles',
+                        `@geek/tokens/dist/${brand}/css/_variables.css`,
+                        `@geek/tokens/dist/${brand}/scss/_variables.scss`,
+                    ]
+                }]
+            ],
+            extract: true,
+            minimize: true,
+            extensions: ['.css', '.scss'],
+        }),
+        sass({
+            insert: true,
+            include: ['**/*.scss', '**/*.css'],
+            options: {
+                includePaths: [
+                    'node_modules',
+                    'src/styles'
+                ],
+            }
+        })
+    ],
+});
+
+export default [
+    createConfig(brand),
+]
 ```

@@ -1,6 +1,7 @@
 import React from 'react';
-import type { TColors } from '../../utils/colors';
+
 import type { TVariant, TWeight } from '../../utils/fonts';
+import type { TColors } from '../../utils/colors';
 
 export interface TextProps extends React.HTMLProps<Element> {
   readonly tag?: string;

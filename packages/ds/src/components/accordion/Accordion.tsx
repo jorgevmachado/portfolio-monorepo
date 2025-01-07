@@ -5,8 +5,8 @@ import { TContext } from '../../utils/colors';
 import joinClass from '../../utils/join-class';
 import useGenerateComponentId from '../../utils/use-generate-component-id';
 
-import Text from '../../elements/text';
 import Icon from '../../elements/icon';
+import Text from '../../elements/text';
 
 import './Accordion.scss';
 

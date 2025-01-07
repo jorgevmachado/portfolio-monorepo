@@ -103,7 +103,6 @@ const TemplateModal = (args: ModalProps) => {
 
   return (
     <>
-      {/*@ts-ignore*/}
       <Button onClick={() => setIsOpen(true)} context={args.context}>
         Abrir modal
       </Button>

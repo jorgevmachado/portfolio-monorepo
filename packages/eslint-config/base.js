@@ -17,5 +17,25 @@ module.exports = {
     'dist/',
     'coverage/',
     'node_modules/',
+    'turbo/generators/config.ts'
   ],
+  rules: {
+    semi: ['error', 'always'],
+    quotes: ['error', 'single'],
+    'object-curly-spacing': ['error', 'always'],
+    'space-before-function-paren': ['error', {
+      'named': 'never',
+      'anonymous': 'always',
+      'asyncArrow': 'always'
+    }],
+    'sort-imports': ['error', {
+      'ignoreCase': false,
+      'ignoreMemberSort': false,
+      'allowSeparatedGroups': true,
+      'memberSyntaxSortOrder': ['none', 'all', 'multiple', 'single'],
+      'ignoreDeclarationSort': false,
+    }],
+    'keyword-spacing': ['error', { 'before': true, 'after': true }],
+    '@typescript-eslint/no-explicit-any': 'off',
+  }
 };

@@ -1,12 +1,11 @@
-import * as React from 'react';
-
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Link from './Link';
+import { OColors, OContext } from '../../utils/colors';
 import { OIcon, OIconPosition } from '../../utils/icons';
 import { OSimplySize } from '../../utils/sizes';
 import { OWeight } from '../../utils/fonts';
-import { OColors, OContext } from '../../utils/colors';
+
+import Link from './Link';
 
 const meta = {
   args: {

@@ -4,6 +4,7 @@ import joinClass from '../../utils/join-class';
 import { useOutsideClick } from '../../utils';
 
 import { DropdownProps } from './interface';
+
 import Activator from './Activator';
 
 import './Dropdown.scss';

@@ -4,8 +4,9 @@ import { isObject } from '@repo/services';
 
 import joinClass from '../../utils/join-class';
 
-import type { TextProps } from './interface';
 import { formattedText, isReactNode } from './config';
+
+import type { TextProps } from './interface';
 
 import './Text.scss';
 

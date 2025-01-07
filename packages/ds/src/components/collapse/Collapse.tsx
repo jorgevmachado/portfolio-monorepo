@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 import type { TContext } from '../../utils/colors';
-import useGenerateComponentId from '../../utils/use-generate-component-id';
 import joinClass from '../../utils/join-class';
+import useGenerateComponentId from '../../utils/use-generate-component-id';
 
-import Link from '../link';
 import Button from '../button';
+import Link from '../link';
 
 import './Collapse.scss';
 

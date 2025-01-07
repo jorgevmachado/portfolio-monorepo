@@ -1,6 +1,7 @@
 import React from 'react';
 
 import joinClass from '../../utils/join-class';
+
 import Icon from '../../elements/icon';
 
 import './Alert.scss';

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { OSimplySize } from '../../utils/sizes';
 import { OContext } from '../../utils/colors';
+import { OSimplySize } from '../../utils/sizes';
 
 import Avatar from './Avatar';
 

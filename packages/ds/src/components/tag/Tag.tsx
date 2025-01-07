@@ -1,7 +1,7 @@
 import React from 'react';
 
-import type { TIcon } from '../../utils/icons';
 import type { TContext } from '../../utils/colors';
+import type { TIcon } from '../../utils/icons';
 
 import joinClass from '../../utils/join-class';
 

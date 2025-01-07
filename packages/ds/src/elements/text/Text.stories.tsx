@@ -1,8 +1,7 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { OColors } from '../../utils/colors';
 import { OVariant, OWeight } from '../../utils/fonts';
+import { OColors } from '../../utils/colors';
 
 import Text from './Text';
 

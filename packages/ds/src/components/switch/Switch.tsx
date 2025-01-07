@@ -1,9 +1,8 @@
 import React from 'react';
 
 import type { TContext } from '../../utils/colors';
-
-import useGenerateComponentId from '../../utils/use-generate-component-id';
 import joinClass from '../../utils/join-class';
+import useGenerateComponentId from '../../utils/use-generate-component-id';
 
 import Text from '../../elements/text';
 

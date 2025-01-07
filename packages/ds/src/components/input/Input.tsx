@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 
-import useGenerateComponentId from '../../utils/use-generate-component-id';
 import joinClass from '../../utils/join-class';
+import useGenerateComponentId from '../../utils/use-generate-component-id';
 
 import Text from '../../elements/text';
 
-import Label from '../label';
 import Feedback from '../feedback';
+import Label from '../label';
 
 import InputItem from './inputItem';
 import type { InputProps } from './interface';
+
 import './Input.scss';
 
 export default function Input({
@@ -108,6 +109,7 @@ export default function Input({
     `${floatingLabel ? 'input__label--floating' : ''}`,
     `${isShrink ? 'input__label--shrink' : ''}`,
     `${isInvalid ? 'input__invalid' : ''}`,
+    `${className ? className : ''}`,
   ]);
 
   const labelClassNameList = joinClass([

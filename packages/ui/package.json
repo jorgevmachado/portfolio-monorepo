@@ -11,7 +11,9 @@
   "scripts": {
     "lint": "eslint . --max-warnings 0 --fix",
     "gen": "turbo gen ui",
-    "build": "tsc -b -v",
+    "build:law": "set BRAND=law && rimraf dist && tsc -b -v",
+    "build:geek": "set BRAND=geek && rimraf dist && tsc -b -v",
+    "build:finance": "set BRAND=finance && rimraf dist && tsc -b -v",
     "storybook:finance": "set BRAND=finance && storybook dev -p 6006",
     "storybook:geek": "set BRAND=geek && storybook dev -p 6006",
     "storybook:law": "BRAND=law storybook dev -p 6006",

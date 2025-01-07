@@ -8,14 +8,15 @@ describe('PokemonsController', () => {
   let controller: PokemonController;
   let service: PokemonService;
 
-
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [PokemonController],
-      providers: [{
-        provide: PokemonService,
-        useValue: {}
-      }],
+      providers: [
+        {
+          provide: PokemonService,
+          useValue: {},
+        },
+      ],
     }).compile();
 
     controller = module.get<PokemonController>(PokemonController);

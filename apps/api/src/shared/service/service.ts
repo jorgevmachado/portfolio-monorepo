@@ -1,15 +1,12 @@
 import { ObjectLiteral, Repository } from 'typeorm';
-import { PaginateParameters } from '@repo/business/paginate/interface';
-import { Paginate } from '@repo/business/paginate/paginate';
-
-import { Query } from '../query';
-import {
-  FindOneParams,
-  FindParams,
-  ListParams,
-} from '../interface';
-import { Base } from '../base';
 import { NotFoundException } from '@nestjs/common';
+
+import { Paginate } from '@repo/business/paginate/paginate';
+import { PaginateParameters } from '@repo/business/paginate/interface';
+
+import { FindOneParams, FindParams, ListParams } from '../interface';
+import { Base } from '../base';
+import { Query } from '../query';
 
 export abstract class Service<T extends ObjectLiteral> extends Base {
   protected constructor(

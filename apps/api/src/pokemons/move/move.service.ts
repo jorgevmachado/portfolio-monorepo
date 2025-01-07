@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 
 import { PokemonExternalBusiness } from '@repo/business/pokemon/external/pokemonExternalBusiness';

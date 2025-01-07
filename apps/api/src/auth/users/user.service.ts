@@ -1,7 +1,11 @@
 import * as bcrypt from 'bcrypt';
 import * as crypto from 'crypto';
 
-import {BadRequestException, Injectable, UnprocessableEntityException} from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -9,12 +13,12 @@ import { ERole, EStatus } from '@repo/business/shared/enum';
 
 import { Service } from '../../shared';
 
-import { CreateAuthDto } from '../dto/create-auth.dto';
-
-import { User } from './user.entity';
 import { TBy } from '../../shared/interface';
 
-import {CredentialsAuthDto} from "../dto/credentials-auth.dto";
+import { CreateAuthDto } from '../dto/create-auth.dto';
+import { CredentialsAuthDto } from '../dto/credentials-auth.dto';
+
+import { User } from './user.entity';
 
 @Injectable()
 export class UserService extends Service<User> {
@@ -67,7 +71,7 @@ export class UserService extends Service<User> {
       searchParams: {
         by: 'email',
         value: email,
-      }
+      },
     });
 
     if (!user || user?.status === EStatus.INACTIVE) {

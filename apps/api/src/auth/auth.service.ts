@@ -5,10 +5,12 @@ import { ERole } from '@repo/business/shared/enum';
 
 import { Base } from '../shared';
 
-import { UserService } from './users/user.service';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { CredentialsAuthDto } from './dto/credentials-auth.dto';
+
 import { User } from './users/user.entity';
+
+import { UserService } from './users/user.service';
 
 @Injectable()
 export class AuthService extends Base {
@@ -52,7 +54,7 @@ export class AuthService extends Base {
   }
 
   private clean(user: User) {
-    return Promise.resolve( {
+    return Promise.resolve({
       id: user.id,
       cpf: user.cpf,
       role: user.role,

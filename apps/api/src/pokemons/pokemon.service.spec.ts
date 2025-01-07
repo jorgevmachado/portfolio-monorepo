@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
-import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { PokemonExternalBusiness } from '@repo/business/pokemon/external/pokemonExternalBusiness';
 
@@ -16,10 +16,11 @@ import { TYPE_ENTITY_LIST_FIXTURE } from '@repo/business/pokemon/modules/type/fi
 
 import { Pokemon } from './entities/pokemon.entity';
 
-import { PokemonService } from './pokemon.service';
-import { TypeService } from './type/type.service';
-import { MoveService } from './move/move.service';
 import { AbilityService } from './ability/ability.service';
+import { MoveService } from './move/move.service';
+import { TypeService } from './type/type.service';
+
+import { PokemonService } from './pokemon.service';
 
 describe('PokemonsService', () => {
   let service: PokemonService;

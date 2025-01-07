@@ -1,14 +1,16 @@
-import {beforeEach, describe, expect, it, jest} from '@jest/globals';
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
+import { beforeEach, describe, expect, it, jest } from '@jest/globals';
 import { Repository } from 'typeorm';
+import { getRepositoryToken } from '@nestjs/typeorm';
 
-import {ENTITY_USER_COMPLETE_FIXTURE, ENTITY_USER_PASSWORD} from '@repo/business/auth/fixture/user'
+import {
+  ENTITY_USER_COMPLETE_FIXTURE,
+  ENTITY_USER_PASSWORD,
+} from '@repo/business/auth/fixture/user';
 
 import { User } from './user.entity';
 
 import { UserService } from './user.service';
-
 
 describe('UsersService', () => {
   let service: UserService;
@@ -54,21 +56,23 @@ describe('UsersService', () => {
         getOne: jest.fn().mockReturnValueOnce(null),
       } as any);
 
-      jest.spyOn(repository, 'save').mockResolvedValueOnce(ENTITY_USER_COMPLETE_FIXTURE);
+      jest
+        .spyOn(repository, 'save')
+        .mockResolvedValueOnce(ENTITY_USER_COMPLETE_FIXTURE);
 
       expect(
-          await service.create({
-            cpf: ENTITY_USER_COMPLETE_FIXTURE.cpf,
-            name: ENTITY_USER_COMPLETE_FIXTURE.name,
-            email: ENTITY_USER_COMPLETE_FIXTURE.email,
-            whatsup: ENTITY_USER_COMPLETE_FIXTURE.whatsup,
-            password: ENTITY_USER_COMPLETE_FIXTURE.password,
-            date_of_birth: ENTITY_USER_COMPLETE_FIXTURE.date_of_birth,
-            password_confirmation: ENTITY_USER_COMPLETE_FIXTURE.password,
-          }),
+        await service.create({
+          cpf: ENTITY_USER_COMPLETE_FIXTURE.cpf,
+          name: ENTITY_USER_COMPLETE_FIXTURE.name,
+          email: ENTITY_USER_COMPLETE_FIXTURE.email,
+          whatsup: ENTITY_USER_COMPLETE_FIXTURE.whatsup,
+          password: ENTITY_USER_COMPLETE_FIXTURE.password,
+          date_of_birth: ENTITY_USER_COMPLETE_FIXTURE.date_of_birth,
+          password_confirmation: ENTITY_USER_COMPLETE_FIXTURE.password,
+        }),
       ).toEqual(ENTITY_USER_COMPLETE_FIXTURE);
     });
-  })
+  });
 
   describe('checkCredentials', () => {
     it('should return true', async () => {
@@ -79,12 +83,14 @@ describe('UsersService', () => {
         getOne: jest.fn().mockReturnValueOnce(ENTITY_USER_COMPLETE_FIXTURE),
       } as any);
 
-      expect(await service.checkCredentials({
-        email: ENTITY_USER_COMPLETE_FIXTURE.email,
-        password: ENTITY_USER_PASSWORD
-      })).toEqual(ENTITY_USER_COMPLETE_FIXTURE);
-    })
-  })
+      expect(
+        await service.checkCredentials({
+          email: ENTITY_USER_COMPLETE_FIXTURE.email,
+          password: ENTITY_USER_PASSWORD,
+        }),
+      ).toEqual(ENTITY_USER_COMPLETE_FIXTURE);
+    });
+  });
 
   describe('findOne', () => {
     it('should return user', async () => {
@@ -95,7 +101,9 @@ describe('UsersService', () => {
         getOne: jest.fn().mockReturnValueOnce(ENTITY_USER_COMPLETE_FIXTURE),
       } as any);
 
-      expect(await service.findOne(ENTITY_USER_COMPLETE_FIXTURE.id)).toEqual(ENTITY_USER_COMPLETE_FIXTURE);
-    })
-  })
+      expect(await service.findOne(ENTITY_USER_COMPLETE_FIXTURE.id)).toEqual(
+        ENTITY_USER_COMPLETE_FIXTURE,
+      );
+    });
+  });
 });

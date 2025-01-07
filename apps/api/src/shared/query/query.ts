@@ -1,7 +1,9 @@
-import { QueryParameters } from "@repo/business/shared/interface";
-import { ObjectLiteral, Repository, SelectQueryBuilder } from "typeorm";
-import { FilterParams, SearchParams } from "../interface";
-import { ConflictException } from "@nestjs/common";
+import { ObjectLiteral, Repository, SelectQueryBuilder } from 'typeorm';
+import { ConflictException } from '@nestjs/common';
+
+import { QueryParameters } from '@repo/business/shared/interface';
+
+import { FilterParams, SearchParams } from '../interface';
 
 export interface QueryParams<T> {
   readonly alias: string;
@@ -36,7 +38,7 @@ export class Query<T extends ObjectLiteral> {
     repository,
     withDeleted,
     searchParams,
-    withRelations
+    withRelations,
   }: QueryParams<T>) {
     this.alias = alias;
     this.filters = filters;
@@ -51,7 +53,7 @@ export class Query<T extends ObjectLiteral> {
 
   initialize() {
     this.query = this.repository.createQueryBuilder(this.alias);
-    this.insertOrderByParameterIntoQuery()
+    this.insertOrderByParameterIntoQuery();
     this.insertWithDeletedParameterIntoQuery();
     this.insertRelationshipsParameterIntoQuery();
     this.insertFilterParametersAndParametersIntoQuery();
@@ -60,8 +62,8 @@ export class Query<T extends ObjectLiteral> {
   }
 
   private insertOrderByParameterIntoQuery(): void {
-    const asc = this.parameters?.asc
-    const desc = this.parameters?.desc
+    const asc = this.parameters?.asc;
+    const desc = this.parameters?.desc;
 
     if (asc && desc) {
       throw new ConflictException('Cannot use asc and desc at the same time');
@@ -77,13 +79,13 @@ export class Query<T extends ObjectLiteral> {
       return;
     }
 
-    if(this.defaultAsc) {
+    if (this.defaultAsc) {
       this.query.orderBy(`${this.alias}.${this.defaultAsc}`, 'ASC');
     }
   }
 
   private insertWithDeletedParameterIntoQuery(): void {
-    if(this.withDeleted) {
+    if (this.withDeleted) {
       this.query.withDeleted();
     }
   }
@@ -114,29 +116,29 @@ export class Query<T extends ObjectLiteral> {
   }
 
   private unifiesFiltersWithParameters() {
-    if(!this.parameters) {
+    if (!this.parameters) {
       return this.filters;
     }
 
     const filters: Array<FilterParams> = [];
 
-    if(this.parameters?.role) {
+    if (this.parameters?.role) {
       filters.push({
         param: 'role',
         value: this.parameters.role.toUpperCase(),
         condition: '=',
-      })
+      });
     }
 
-    if(this.parameters?.name) {
+    if (this.parameters?.name) {
       filters.push({
         param: 'name',
         value: `%${this.parameters.name}%`,
         condition: 'LIKE',
-      })
+      });
     }
 
-    if(this.parameters?.status) {
+    if (this.parameters?.status) {
       filters.push({
         param: 'status',
         value: this.parameters.status.toUpperCase(),
@@ -145,17 +147,15 @@ export class Query<T extends ObjectLiteral> {
     }
 
     return filters.concat(
-      this.filters.filter((filter) => !filters.includes(filter))
+      this.filters.filter((filter) => !filters.includes(filter)),
     );
-
   }
 
   private insertSearchParametersIntoQuery(): void {
-    if(this.searchParams) {
+    if (this.searchParams) {
       const by = this.searchParams.by;
       const value = this.searchParams.value;
       this.query.andWhere(`${this.alias}.${by} = :${by}`, { [by]: value });
     }
   }
-
 }

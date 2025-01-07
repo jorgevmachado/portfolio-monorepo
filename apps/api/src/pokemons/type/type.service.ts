@@ -1,8 +1,9 @@
+import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
 
 import { Service } from '../../shared';
+
 import { Type } from '../entities/type.entity';
 
 @Injectable()
@@ -21,20 +22,21 @@ export class TypeService extends Service<Type> {
           order: response.order,
           response,
           withThrow: false,
-          completingData: (result, response) =>  this.completingData(result, response),
+          completingData: (result, response) =>
+            this.completingData(result, response),
         }),
       ),
     );
   }
 
-  async completingData(
-    entity: Type,
-    responseType: Type,
-  ): Promise<Type> {
+  async completingData(entity: Type, responseType: Type): Promise<Type> {
     if (!entity) {
       await this.save(responseType);
 
-      return await this.findOneByOrder({ order: responseType.order, complete: false });
+      return await this.findOneByOrder({
+        order: responseType.order,
+        complete: false,
+      });
     }
 
     return entity;

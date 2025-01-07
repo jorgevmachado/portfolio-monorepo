@@ -1,6 +1,3 @@
-import { EGender } from '@repo/business/api/nest/enum';
-import { User as EntityUser } from '@repo/business/auth/interface';
-import { ERole, EStatus } from '@repo/business/shared/enum';
 import {
   Column,
   CreateDateColumn,
@@ -9,6 +6,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
+import { ERole, EStatus } from '@repo/business/shared/enum';
+import { EGender } from '@repo/business/api/nest/enum';
+import { User as EntityUser } from '@repo/business/auth/interface';
 
 @Entity({ name: 'users' })
 export class User implements EntityUser {
@@ -90,4 +91,4 @@ export class User implements EntityUser {
         user.confirmation_token ?? this.confirmation_token;
     }
   }
-} 
+}

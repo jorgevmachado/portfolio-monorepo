@@ -1,8 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import {JwtService} from "@nestjs/jwt";
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
+import { JwtService } from '@nestjs/jwt';
 
-import {ENTITY_USER_COMPLETE_FIXTURE, ENTITY_USER_PASSWORD} from "@repo/business/auth/fixture/user";
+import {
+  ENTITY_USER_COMPLETE_FIXTURE,
+  ENTITY_USER_PASSWORD,
+} from '@repo/business/auth/fixture/user';
 
 import { UserService } from './users/user.service';
 
@@ -48,40 +51,46 @@ describe('AuthService', () => {
 
   describe('signUp', () => {
     it('should be registered user', async () => {
-
-      expect(await service.signUp({
-        cpf: ENTITY_USER_COMPLETE_FIXTURE.cpf,
-        name: ENTITY_USER_COMPLETE_FIXTURE.name,
-        email: ENTITY_USER_COMPLETE_FIXTURE.email,
-        whatsup: ENTITY_USER_COMPLETE_FIXTURE.whatsup,
-        password: ENTITY_USER_COMPLETE_FIXTURE.password,
-        date_of_birth: ENTITY_USER_COMPLETE_FIXTURE.date_of_birth,
-        password_confirmation: ENTITY_USER_COMPLETE_FIXTURE.password
-      })).toEqual({ message: 'Registration Completed Successfully!' });
-    })
+      expect(
+        await service.signUp({
+          cpf: ENTITY_USER_COMPLETE_FIXTURE.cpf,
+          name: ENTITY_USER_COMPLETE_FIXTURE.name,
+          email: ENTITY_USER_COMPLETE_FIXTURE.email,
+          whatsup: ENTITY_USER_COMPLETE_FIXTURE.whatsup,
+          password: ENTITY_USER_COMPLETE_FIXTURE.password,
+          date_of_birth: ENTITY_USER_COMPLETE_FIXTURE.date_of_birth,
+          password_confirmation: ENTITY_USER_COMPLETE_FIXTURE.password,
+        }),
+      ).toEqual({ message: 'Registration Completed Successfully!' });
+    });
   });
 
   describe('signIn', () => {
     it('should be authenticate user', async () => {
       jest
-          .spyOn(userService, 'checkCredentials')
-          .mockResolvedValueOnce(ENTITY_USER_COMPLETE_FIXTURE);
+        .spyOn(userService, 'checkCredentials')
+        .mockResolvedValueOnce(ENTITY_USER_COMPLETE_FIXTURE);
 
       expect(
-          await service.signIn({
-            email: ENTITY_USER_COMPLETE_FIXTURE.email,
-            password: ENTITY_USER_PASSWORD,
-          }),
+        await service.signIn({
+          email: ENTITY_USER_COMPLETE_FIXTURE.email,
+          password: ENTITY_USER_PASSWORD,
+        }),
       ).toEqual({ token: 'token', message: 'Authentication Successfully!' });
-    })
-  })
+    });
+  });
 
   describe('findOne', () => {
     it('should be found a complete user', async () => {
-      jest.spyOn(userService, 'findOne').mockResolvedValueOnce(ENTITY_USER_COMPLETE_FIXTURE);
+      jest
+        .spyOn(userService, 'findOne')
+        .mockResolvedValueOnce(ENTITY_USER_COMPLETE_FIXTURE);
 
       expect(
-          await service.findOne(ENTITY_USER_COMPLETE_FIXTURE.id, ENTITY_USER_COMPLETE_FIXTURE),
+        await service.findOne(
+          ENTITY_USER_COMPLETE_FIXTURE.id,
+          ENTITY_USER_COMPLETE_FIXTURE,
+        ),
       ).toEqual({
         id: ENTITY_USER_COMPLETE_FIXTURE.id,
         cpf: ENTITY_USER_COMPLETE_FIXTURE.cpf,
@@ -95,6 +104,6 @@ describe('AuthService', () => {
         created_at: ENTITY_USER_COMPLETE_FIXTURE.created_at,
         updated_at: ENTITY_USER_COMPLETE_FIXTURE.updated_at,
       });
-    })
-  })
+    });
+  });
 });

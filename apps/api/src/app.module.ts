@@ -1,10 +1,12 @@
-import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { AppService } from './app.service';
 import { AppController } from './app.controller';
+import { AppService } from './app.service';
+
 import { PokemonModule } from './pokemons/pokemon.module';
-import { TypeOrmModule } from "@nestjs/typeorm";
+
 import { AuthModule } from './auth/auth.module';
 
 @Module({
@@ -17,13 +19,11 @@ import { AuthModule } from './auth/auth.module';
       username: 'localhost',
       password: 'localhost',
       database: 'portfolio',
-      entities: [
-        __dirname + '/../**/*.entity{.ts,.js}',
-      ],
+      entities: [__dirname + '/../**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
     PokemonModule,
-    AuthModule
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

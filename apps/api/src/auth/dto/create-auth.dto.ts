@@ -11,8 +11,8 @@ import { Transform } from 'class-transformer';
 
 import { EGender } from '@repo/business/api/nest/enum';
 
-import { Match } from '../../decorators/match.decorator';
 import { CPF } from '../../decorators/cpf.decorator';
+import { Match } from '../../decorators/match.decorator';
 
 export class CreateAuthDto {
   @IsNotEmpty()

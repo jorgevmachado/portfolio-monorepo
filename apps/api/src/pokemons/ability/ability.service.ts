@@ -1,8 +1,9 @@
+import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
 
 import { Service } from '../../shared';
+
 import { Ability } from '../entities/ability.entity';
 
 @Injectable()

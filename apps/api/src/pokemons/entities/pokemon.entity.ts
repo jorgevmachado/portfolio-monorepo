@@ -11,14 +11,14 @@ import {
 
 import { EStatus } from '@repo/business/shared/enum';
 
+import type { AbilityEntity } from '@repo/business/pokemon/modules/ability/interface';
+import type { MoveEntity } from '@repo/business/pokemon/modules/move/interface';
 import type { PokemonEntity } from '@repo/business/pokemon/modules/entity/interface';
-import type { AbilityEntity } from "@repo/business/pokemon/modules/ability/interface";
-import type { MoveEntity } from "@repo/business/pokemon/modules/move/interface";
-import type { TypeEntity } from "@repo/business/pokemon/modules/type/interface";
+import type { TypeEntity } from '@repo/business/pokemon/modules/type/interface';
 
+import { Ability } from './ability.entity';
 import { Move } from './move.entity';
 import { Type } from './type.entity';
-import { Ability } from './ability.entity';
 
 @Entity({ name: 'pokemons' })
 export class Pokemon implements PokemonEntity {

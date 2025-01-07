@@ -1,23 +1,21 @@
-import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 
 import { isUUID } from '@repo/services/string/string';
 
-import { QueryParameters } from '@repo/business/shared/interface';
 import { EStatus } from '@repo/business/shared/enum';
-
 import { PaginateParameters } from '@repo/business/paginate/interface';
-
 import { PokemonExternalBusiness } from '@repo/business/pokemon/external/pokemonExternalBusiness';
+import { QueryParameters } from '@repo/business/shared/interface';
 
 import { Pokemon } from './entities/pokemon.entity';
 
 import { Service } from '../shared';
 
-import { TypeService } from './type/type.service';
-import { MoveService } from './move/move.service';
 import { AbilityService } from './ability/ability.service';
+import { MoveService } from './move/move.service';
+import { TypeService } from './type/type.service';
 
 @Injectable()
 export class PokemonService extends Service<Pokemon> {
@@ -97,8 +95,12 @@ export class PokemonService extends Service<Pokemon> {
     const pokemonEntity = await this.businessExternal.getOne(pokemon);
     pokemonEntity.moves = await this.moveService.findList(pokemonEntity.moves);
     pokemonEntity.types = await this.typeService.findList(pokemonEntity.types);
-    pokemonEntity.abilities = await this.abilityService.findList(pokemonEntity.abilities);
-    pokemonEntity.evolutions = await this.getEvolutions(pokemonEntity.evolution_chain_url);
+    pokemonEntity.abilities = await this.abilityService.findList(
+      pokemonEntity.abilities,
+    );
+    pokemonEntity.evolutions = await this.getEvolutions(
+      pokemonEntity.evolution_chain_url,
+    );
     pokemonEntity.status = EStatus.COMPLETE;
 
     await this.save(pokemonEntity);

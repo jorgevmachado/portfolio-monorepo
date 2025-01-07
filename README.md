@@ -40,5 +40,7 @@ See [How to install and use docker](HOW-USING-DOCKER-WITH-THIS-PROJECT.md)
 ## How to use Storybook with react
 See [How to use Storybook](HOW-TO-USE-STORYBOOK-WITH-REACT.md)
 
+## How to use rollup to build react library
+See [How to use rollup](HOW-TO-USE-ROLLUP-TO-BUILD-REACT-LIBRARY.md)
 ## How to run
 See [Running the aplication](HOW-TO-RUN.md)

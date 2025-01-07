@@ -2,7 +2,7 @@ import type { PlopTypes } from '@turbo/gen';
 
 export default function generator(plop: PlopTypes.NodePlopAPI): void {
   plop.setGenerator('ds', {
-    description: 'Adds a new react component',
+    description: 'add a new design system element or component',
     prompts: [
       {
         type: 'list',

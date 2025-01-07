@@ -14,3 +14,5 @@ export { default as Modal } from './modal';
 export { default as Radio } from './radio';
 export { default as RadioGroup } from './radio-group';
 export { default as Rating } from './rating';
+export { default as StepBar } from './step-bar';
+export { default as Switch } from './switch';

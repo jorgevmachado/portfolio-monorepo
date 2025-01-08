@@ -20,6 +20,7 @@ export default function Button({
   disabled,
   iconSize = '1em',
   appearance = 'standard',
+  noIconBorder,
   iconPosition = 'left',
   iconClassName,
   notificationColor,
@@ -49,7 +50,7 @@ export default function Button({
     `${rounded ? 'button__rounded' : ''}`,
     `button__context--${context}`,
     `${!hasLabel ? 'button__no-label' : ''}`,
-    `button__appearance--${appearance}`,
+    `${isAppearanceIconButton && noIconBorder ? 'button__appearance--no-icon-border' : `button__appearance--${appearance}`}`,
     `${props.className ?? ''}`,
   ]);
 

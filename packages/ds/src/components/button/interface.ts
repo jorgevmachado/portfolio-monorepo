@@ -27,6 +27,7 @@ export interface ButtonProps
   disabled?: boolean;
   iconSize?: string | number;
   appearance?: TAppearance;
+  noIconBorder?: boolean;
   iconPosition?: TIconPosition;
   iconClassName?: string;
   notificationColor?: TColors;

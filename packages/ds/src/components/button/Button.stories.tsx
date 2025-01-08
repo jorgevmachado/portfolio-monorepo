@@ -21,6 +21,7 @@ const meta = {
     children: 'Hello, World!',
     disabled: false,
     appearance: 'standard',
+    noIconBorder: false,
     iconPosition: 'left',
     iconClassName: undefined,
     notificationColor: undefined,
@@ -97,6 +98,13 @@ const meta = {
       },
       options: OAppearance,
       control: { type: 'select' },
+    },
+    noIconBorder: {
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+      },
+      control: { type: 'boolean' },
     },
     iconPosition: {
       table: {

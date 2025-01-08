@@ -13,6 +13,7 @@ const meta = {
     logo: LOGO,
     navbar: NAVBAR.items,
     context: 'primary',
+    handleToggleMenu: () => alert('handle toggle menu'),
   },
   title: 'Components/Header',
   argTypes: {

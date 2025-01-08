@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { OContext } from '@repo/ds/utils/colors/options';
 
-import {LOGO, NAVBAR } from '../../utils';
+import { LOGO, NAVBAR } from '../../utils';
 
 import Header from './Header';
 
@@ -46,7 +46,7 @@ const meta = {
   component: Header,
   decorators: [
     (Story) => (
-      <div style={{ height: '50vh' }}>
+      <div style={{ height: '50vh', width: '100%' }}>
         <Story />
       </div>
     ),

@@ -9,7 +9,6 @@ import Image from '@repo/ds/elements/image/Image';
 import Button from '@repo/ds/components/button/Button';
 import Dropdown from '@repo/ds/components/dropdown/Dropdown';
 import Link from '@repo/ds/components/link/Link';
-import joinClass from '@repo/ds/utils/join-class/joinClass';
 
 import './Header.scss';
 
@@ -26,7 +25,6 @@ export default function Header({
   context = 'neutral',
   handleToggleMenu,
 }: NavbarProps) {
-
   const classNameLink = `header__context--${context}-link`;
 
   return (

@@ -72,3 +72,16 @@ export const SIDEBAR: Menu = {
 };
 
 export const MENU: Array<Menu> = [NAVBAR, SIDEBAR];
+
+export const PROFILE_MENU: Menu['items'][number] = {
+  key: 'profile',
+  label: 'Profile',
+  items: [
+    {
+      key: 'profile',
+      icon: 'user',
+      label: 'My data',
+      onRedirect: () => alert('Open Page Profile'),
+    },
+  ],
+};

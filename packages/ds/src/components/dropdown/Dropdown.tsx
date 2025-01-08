@@ -24,10 +24,9 @@ export default function Dropdown({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  const rootClassName = `dropdown__context--${context}`;
   const classNameList = joinClass([
     'dropdown',
-    rootClassName,
+    `dropdown__context--${context}`,
     `${props.className ?? ''}`,
   ]);
 
@@ -68,7 +67,7 @@ export default function Dropdown({
 
   return (
     <div {...props} ref={ref} className={classNameList}>
-      <div className={`${rootClassName}-trigger`} onClick={handleClick}>
+      <div onClick={handleClick}>
         {!activator ? (
           <Activator
             type={type}
@@ -76,17 +75,13 @@ export default function Dropdown({
             isOpen={handleIsOpen()}
             onClick={handleOpenDropdown}
             context={context}
-            className={`${rootClassName}-trigger__activator--type-${type}`}
           />
         ) : (
           activator
         )}
       </div>
       {handleIsOpen() && (
-        <div
-          className={`${rootClassName}-content__type--${type}`}
-          tabIndex={-1}
-        >
+        <div className={`dropdown__action--${type}`} tabIndex={-1}>
           {children}
         </div>
       )}

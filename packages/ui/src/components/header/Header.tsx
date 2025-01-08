@@ -25,10 +25,8 @@ export default function Header({
   context = 'neutral',
   handleToggleMenu,
 }: NavbarProps) {
-  const classNameLink = `header__context--${context}-link`;
-
   return (
-    <header className="header">
+    <header className={`header header__context--${context}`}>
       <div className="header__brand">
         <Button
           icon="hamburger"
@@ -60,10 +58,9 @@ export default function Header({
             >
               {!item.items?.length ? (
                 <Link
-                  type="link"
                   context={context}
                   onClick={item?.onRedirect}
-                  className={classNameLink}
+                  className="header__nav--list-link"
                 >
                   {item.label}
                 </Link>
@@ -72,16 +69,14 @@ export default function Header({
                   label={item.label}
                   type="link"
                   context={context}
-                  className={`header__context--${context}-dropdown`}
                 >
                   {item?.items?.map((subItem) => (
                     <Link
                       key={subItem.key}
-                      type="link"
                       context={context}
                       iconColor={`${context}-100`}
                       onClick={subItem?.onRedirect}
-                      className={classNameLink}
+                      className="header__nav--list-link"
                     >
                       {subItem.label}
                     </Link>
@@ -95,3 +90,17 @@ export default function Header({
     </header>
   );
 }
+
+// HEADER
+// HEADER__CONTEXT
+
+// HEADER__BRAND
+// HEADER__BRAND--BUTTON
+// HEADER__BRAND--LOGO
+
+// HEADER__NAV
+// HEADER__NAV--LIST
+// HEADER__NAV--LIST-ITEM
+// HEADER__NAV--LIST-LINK
+// HEADER__NAV--LIST-DROPDOWN
+// HEADER__NAV--LIST-DROPDOWN__LINK

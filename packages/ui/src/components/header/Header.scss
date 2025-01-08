@@ -1,10 +1,32 @@
 @mixin context($WeakColor, $StrongColor) {
-  &-link {
-    &:hover::after {
-      background-color: $WeakColor;
-    }
-    &:hover {
-      color: $StrongColor;
+  .header {
+    &__nav {
+      &--list {
+        &-dropdown {
+          .dropdown {
+            padding-top: 0.5rem;
+            &__action {
+              &--link {
+                width: 7rem;
+                .link {
+                  &:hover {
+                    color: var(--color-white);
+                    background-color: $WeakColor;
+                  }
+                }
+              }
+            }
+          }
+        }
+        &-link {
+          &:hover::after {
+            background-color: $WeakColor;
+          }
+          &:hover {
+            color: $StrongColor;
+          }
+        }
+      }
     }
   }
 }
@@ -45,49 +67,38 @@
       &-item {
         display: inherit;
       }
-      &-dropdown {
-        a {
-          padding-top: 0.5rem;
-        }
-      }
+      &-link {}
+      &-dropdown {}
     }
   }
   &__context {
     &--info {
       @include context(var(--color-info-80), var(--color-info-90));
     }
+
     &--error {
       @include context(var(--color-error-80), var(--color-error-90));
     }
+
     &--neutral {
       @include context(var(--color-neutral-90), var(--color-neutral-100));
     }
+
     &--success {
       @include context(var(--color-success-80), var(--color-success-90));
     }
+
     &--primary {
-      @include context(var(--color-primary-80),var(--color-primary-90));
-      &-dropdown {
-        .dropdown__context--primary-content__type--link {
-          top: 100%;
-          border-radius: var(--border-radius-regular);
-          background-color: var(--color-white);
-          .link {
-            &:hover {
-              color: var(--color-neutral-100);
-              background-color: var(--color-primary-90);
-            }
-          }
-        }
-      }
+      @include context(var(--color-primary-80), var(--color-primary-90));
     }
+
     &--secondary {
       @include context(var(--color-secondary-80), var(--color-secondary-90));
     }
+
     &--attention {
       @include context(var(--color-attention-80), var(--color-attention-90));
     }
-
   }
 
   @media screen and (min-width: 720px) {

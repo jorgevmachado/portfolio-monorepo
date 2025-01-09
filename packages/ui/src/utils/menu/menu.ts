@@ -9,6 +9,26 @@ export const LOGO: Logo = {
   onClick: () => alert('Open Home'),
 };
 
+export const PROFILE_MENU: Menu['items'][number] = {
+  key: 'profile',
+  label: 'Profile',
+  items: [
+    {
+      key: 'profile',
+      icon: 'user',
+      label: 'My data',
+      onRedirect: () => alert('Open Page Profile'),
+    },
+  ],
+};
+
+export const LOGOUT_MENU: Menu['items'][number] = {
+  key: 'logout',
+  icon: 'exit',
+  label: 'logout',
+  onRedirect: () => alert('Logout'),
+};
+
 export const NAVBAR: Menu = {
   key: 'navbar',
   items: [
@@ -44,18 +64,7 @@ export const NAVBAR: Menu = {
 export const SIDEBAR: Menu = {
   key: 'sidebar',
   items: [
-    {
-      key: 'dashboard',
-      label: 'Dashboard',
-      items: [
-        {
-          key: 'dashboard',
-          icon: 'react',
-          label: 'My Dashboard',
-          onRedirect: () => alert('Open Page Dashboard'),
-        },
-      ],
-    },
+    PROFILE_MENU,
     {
       key: 'favorite',
       label: 'Favorite',
@@ -72,23 +81,3 @@ export const SIDEBAR: Menu = {
 };
 
 export const MENU: Array<Menu> = [NAVBAR, SIDEBAR];
-
-export const PROFILE_MENU: Menu['items'][number] = {
-  key: 'profile',
-  label: 'Profile',
-  items: [
-    {
-      key: 'profile',
-      icon: 'user',
-      label: 'My data',
-      onRedirect: () => alert('Open Page Profile'),
-    },
-  ],
-};
-
-export const LOGOUT_MENU: Menu['items'][number] = {
-  key: 'logout',
-  icon: 'exit',
-  label: 'logout',
-  onRedirect: () => alert('Logout'),
-};

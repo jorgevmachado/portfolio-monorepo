@@ -20,7 +20,6 @@ interface SidebarProps extends React.HTMLProps<HTMLMenuElement> {
   user?: User;
   menu?: Array<Menu>;
   logout?: Menu['items'][number];
-  profile?: Menu['items'][number];
   context?: TContext;
   showMobileMenu?: boolean;
   handleToggleMenu?: () => void;
@@ -30,7 +29,6 @@ export default function Sidebar({
   user,
   menu,
   logout,
-  profile,
   context = 'neutral',
   showMobileMenu,
   handleToggleMenu,
@@ -39,12 +37,19 @@ export default function Sidebar({
 
   const sidebar = menu?.find((item) => item.key === 'sidebar')?.items;
 
+  const groupProfile = sidebar?.find((item) => item.key === 'profile');
+
+  const profileSidebar = groupProfile?.items?.find(
+    (item) => item.key === 'profile',
+  );
+
   const filteredSidebar = sidebar?.filter(
     (item) => item.key !== 'profile' && item.key !== 'logout',
   );
 
   const classNameList = joinClass([
     'sidebar',
+    `sidebar__context--${context}`,
     `${showMobileMenu ? 'sidebar__show' : ''}`,
   ]);
 
@@ -58,7 +63,7 @@ export default function Sidebar({
               email={user?.email}
               picture={user?.picture}
               context={context}
-              profileMenu={profile}
+              profileMenu={profileSidebar}
             >
               <header className="sidebar__container--profile-header">
                 <div className="sidebar__container--profile-header__close">
@@ -115,6 +120,7 @@ export default function Sidebar({
                   label={item.label}
                   counter={item.counter}
                   onRedirect={item.onRedirect}
+                  context={context}
                 />
               ))}
             </div>
@@ -127,6 +133,7 @@ export default function Sidebar({
               context={context}
               onClick={logout.onRedirect}
               iconPosition="left"
+              className="sidebar__button"
             >
               {logout.label}
             </Button>
@@ -140,6 +147,7 @@ export default function Sidebar({
               key={item.key}
               label={item.label}
               items={item.items}
+              context={context}
               onRedirect={item?.onRedirect}
             />
           ))}

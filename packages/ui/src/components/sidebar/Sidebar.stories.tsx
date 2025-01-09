@@ -8,7 +8,7 @@ import { ENTITY_USER_COMPLETE_FIXTURE } from '@repo/business/auth/fixture/user';
 import Button from '@repo/ds/components/button/Button';
 import { OContext } from '@repo/ds/utils/colors/options';
 
-import { LOGOUT_MENU, MENU, PROFILE_MENU } from '../../utils/menu/menu';
+import { LOGOUT_MENU, MENU } from '../../utils/menu/menu';
 
 import Sidebar from './Sidebar';
 
@@ -17,7 +17,6 @@ const meta = {
     user: ENTITY_USER_COMPLETE_FIXTURE,
     menu: MENU,
     logout: LOGOUT_MENU,
-    profile: PROFILE_MENU,
     context: 'primary',
     showMobileMenu: false,
     handleToggleMenu: () => alert('Toggle Menu'),
@@ -68,7 +67,7 @@ const meta = {
   component: Sidebar,
   decorators: [
     (Story) => (
-      <div style={{ height: '50vh' }}>
+      <div style={{ height: '100vh' }}>
         <Story />
       </div>
     ),
@@ -79,28 +78,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+
 export const Default: Story = {
   args: {},
-  render: (args) => {
-    const [showMobileMenu, setShowMobileMenu] = useState(false);
-
-    const handleToggleMenu = () => setShowMobileMenu(!showMobileMenu);
-    return (
-      <>
-        <Button
-          style={{ display: showMobileMenu ? 'none' : 'block' }}
-          onClick={handleToggleMenu}
-        >
-          SHOW SIDEBAR
-        </Button>
-        {showMobileMenu && (
-          <Sidebar
-            {...args}
-            handleToggleMenu={handleToggleMenu}
-            showMobileMenu={showMobileMenu}
-          ></Sidebar>
-        )}
-      </>
-    );
-  },
-};
+}

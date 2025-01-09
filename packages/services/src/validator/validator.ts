@@ -33,6 +33,10 @@ class Validator {
     return numberRegex.test(value);
   }
 
+  public isValidPassword(value: string): boolean {
+    return value.length >= 6;
+  }
+
   public isEmpty(value: unknown): boolean {
     const type = typeof value;
 

@@ -79,6 +79,16 @@ describe('Validator methods', () => {
     });
   });
 
+  describe('isValidPassword', () => {
+    it('should return true when received valid password', () => {
+      expect(validator.isValidPassword('123456')).toEqual(true);
+    });
+
+    it('should return true when received invalid password', () => {
+      expect(validator.isValidPassword('123')).toEqual(false);
+    });
+  });
+
   describe('isEmpty', () => {
     it('should return true when received empty string value', () => {
       expect(validator.isEmpty('')).toEqual(true);

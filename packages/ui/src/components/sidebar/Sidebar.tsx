@@ -16,10 +16,11 @@ import SidebarAction from './SidebarAction';
 
 import './Sidebar.scss';
 
-interface SidebarProps {
+interface SidebarProps extends React.HTMLProps<HTMLMenuElement> {
   user?: User;
   menu?: Array<Menu>;
   logout?: Menu['items'][number];
+  profile?: Menu['items'][number];
   context?: TContext;
   showMobileMenu?: boolean;
   handleToggleMenu?: () => void;
@@ -29,6 +30,7 @@ export default function Sidebar({
   user,
   menu,
   logout,
+  profile,
   context = 'neutral',
   showMobileMenu,
   handleToggleMenu,
@@ -36,12 +38,6 @@ export default function Sidebar({
   const navbar = menu?.find((group) => group.key === 'navbar')?.items;
 
   const sidebar = menu?.find((item) => item.key === 'sidebar')?.items;
-
-  const groupProfile = sidebar?.find((item) => item.key === 'profile');
-
-  const profileSidebar = groupProfile?.items?.find(
-    (item) => item.key === 'profile',
-  );
 
   const filteredSidebar = sidebar?.filter(
     (item) => item.key !== 'profile' && item.key !== 'logout',
@@ -62,7 +58,7 @@ export default function Sidebar({
               email={user?.email}
               picture={user?.picture}
               context={context}
-              profileMenu={profileSidebar}
+              profileMenu={profile}
             >
               <header className="sidebar__container--profile-header">
                 <div className="sidebar__container--profile-header__close">

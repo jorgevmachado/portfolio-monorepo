@@ -1,3 +1,51 @@
 .sidebar {
-  /* Add your styles here */
+  top: 100%;
+  gap: var(--size-tiny);
+  color: var(--colors-neutral-28);
+  left: auto;
+  right: 0;
+  width: 392px;
+  z-index: 90;
+  padding: var(--size-regular) 0;
+  overflow: hidden;
+  box-shadow: 0 var(--size-fixed-tiny) var(--size-fixed-large) rgba(24, 39, 75, 0.16);
+  list-style: none;
+  border-radius: var(--size-tiny);
+  background-color: var(--color-white);
+  overscroll-behavior-y: contain;
+  &__show {}
+  &__container {
+    height: 100%;
+    overflow-y: auto;
+    &--profile {
+      &-header {
+        &[data-active="true"] {
+          display: block;
+        }
+        &__close {
+          color: var(--color-white);
+          width: fit-content;
+          cursor: pointer;
+        }
+      }
+    }
+    //&--list {
+    //  .button {
+    //    border: none;
+    //  }
+    //  display: none;
+    //}
+    &--logout {
+      .button {
+        border: none;
+      }
+    }
+    &--divider {
+      border: 0;
+      margin: 0;
+      height: var(--dimensions-tiny);
+      background-color: var(--color-neutral-50);
+    }
+
+  }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { TIcon } from '@repo/ds/utils/icons';
 
-interface MenuItem {
+export interface MenuItem {
   key: string;
   icon?: TIcon;
   label: string;

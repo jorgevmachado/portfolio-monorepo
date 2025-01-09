@@ -45,14 +45,14 @@ export const SIDEBAR: Menu = {
   key: 'sidebar',
   items: [
     {
-      key: 'profile',
-      label: 'Profile',
+      key: 'dashboard',
+      label: 'Dashboard',
       items: [
         {
-          key: 'profile',
-          icon: 'user',
-          label: 'My data',
-          onRedirect: () => alert('Open Page Profile'),
+          key: 'dashboard',
+          icon: 'react',
+          label: 'My Dashboard',
+          onRedirect: () => alert('Open Page Dashboard'),
         },
       ],
     },
@@ -84,4 +84,11 @@ export const PROFILE_MENU: Menu['items'][number] = {
       onRedirect: () => alert('Open Page Profile'),
     },
   ],
+};
+
+export const LOGOUT_MENU: Menu['items'][number] = {
+  key: 'logout',
+  icon: 'exit',
+  label: 'logout',
+  onRedirect: () => alert('Logout'),
 };

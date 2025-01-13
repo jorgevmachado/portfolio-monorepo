@@ -34,8 +34,8 @@ export const NAVBAR: Menu = {
   items: [
     {
       key: 'about',
-      label: 'About',
-      onRedirect: () => alert('Open Page About'),
+      label: 'Page',
+      onRedirect: () => alert('Open Page Page'),
     },
     {
       key: 'options',
